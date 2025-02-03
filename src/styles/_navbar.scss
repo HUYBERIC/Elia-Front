@@ -1,7 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@use "variables";
+
 .navbar {
   padding: 0.5rem;
-  background-color: #f48329;
+  background-color: variables.$orange-light;
   opacity: 95%;
   position: fixed;
   bottom: 0;
@@ -24,26 +25,28 @@
   transition: width 0.2s ease-in;
   text-decoration: none;
   color: inherit;
-}
-.link:before {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  transform: translateX(100%);
-  transition: transform 0.2s ease-in;
-}
-.link:focus {
-  outline: 0;
-  width: 130px;
-}
-.link:focus:before,
-.link:focus .link-title {
-  transform: translateX(0);
-  opacity: 1;
+  &:before {
+    position: absolute;
+    z-index: -1;
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    transform: translateX(100%);
+    transition: transform 0.2s ease-in;
+  }
+
+  &:focus {
+    outline: 0;
+    width: 130px;
+
+    &:before,
+    .link-title {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
 }
 
 .link-icon {
@@ -53,10 +56,10 @@
   flex-shrink: 0;
   left: 18px;
   position: absolute;
-}
-.link-icon svg {
-  width: 1.75rem;
-  height: 1.75rem;
+  svg {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
 }
 
 .link-title {
@@ -72,14 +75,3 @@
 .agenda {
   margin-left: 1.25rem;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #fffefe;
-  font-family: Montserrat, sans-serif;
-}/*# sourceMappingURL=main.css.map */

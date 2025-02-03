@@ -1,6 +1,13 @@
 @use "variables";
+@use "navbar";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  background-color: variables.$orange-dark;
-  font-family: "Montserrat";
+  background-color: variables.$white;
+  font-family: Montserrat, sans-serif;
 }

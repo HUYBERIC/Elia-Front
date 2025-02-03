@@ -1,7 +1,19 @@
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Dashboard from "./pages/Dashboard";
+import Calendar from "./pages/Calendar";
+import Messages from "./pages/Messages";
+// import Login from "./pages/Login";
+
 function App() {
   return (
     <>
-      <h1>APP</h1>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/messages" element={<Messages />} />
+      </Routes>
     </>
   );
 }
