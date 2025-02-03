@@ -1,77 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
-.navbar {
-  padding: 0.5rem;
-  background-color: #f48329;
-  opacity: 95%;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
-.link {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 50px;
-  border-radius: 8px;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  transform-origin: center left;
-  transition: width 0.2s ease-in;
-  text-decoration: none;
-  color: inherit;
-}
-.link:before {
-  position: absolute;
-  z-index: -1;
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  transform: translateX(100%);
-  transition: transform 0.2s ease-in;
-}
-.link:focus {
-  outline: 0;
-  width: 130px;
-}
-.link:focus:before,
-.link:focus .link-title {
-  transform: translateX(0);
-  opacity: 1;
-}
-
-.link-icon {
-  width: 28px;
-  height: 28px;
-  display: block;
-  flex-shrink: 0;
-  left: 18px;
-  position: absolute;
-}
-.link-icon svg {
-  width: 1.75rem;
-  height: 1.75rem;
-}
-
-.link-title {
-  transform: translateX(100%);
-  transition: transform 0.2s ease-in;
-  transform-origin: center right;
-  display: block;
-  text-align: center;
-  text-indent: 18px;
-  width: 100%;
-}
-
-.agenda {
-  margin-left: 1.25rem;
-}
+@use "variables";
 
 .container {
   display: flex;
@@ -81,11 +8,15 @@
 }
 
 .screen {
-  background: linear-gradient(90deg, #f48329, #e75420);
+  background: linear-gradient(
+    90deg,
+    variables.$orange-light,
+    variables.$orange-dark
+  );
   position: relative;
   height: 600px;
   width: 360px;
-  border: 2px solid #e75420;
+  border: 2px solid variables.$orange-dark;
 }
 
 .screen-content {
@@ -113,7 +44,7 @@
 .screen-background-shape1 {
   height: 520px;
   width: 520px;
-  background: #fffefe;
+  background: variables.$white;
   top: -50px;
   right: 120px;
   border-radius: 0 72px 0 0;
@@ -122,7 +53,7 @@
 .screen-background-shape2 {
   height: 220px;
   width: 220px;
-  background: #f48329;
+  background: variables.$orange-light;
   top: -172px;
   right: 0;
   border-radius: 32px;
@@ -131,7 +62,11 @@
 .screen-background-shape3 {
   height: 540px;
   width: 190px;
-  background: linear-gradient(270deg, #f48329, #e75420);
+  background: linear-gradient(
+    270deg,
+    variables.$orange-light,
+    variables.$orange-dark
+  );
   top: -24px;
   right: 0;
   border-radius: 32px;
@@ -140,7 +75,7 @@
 .screen-background-shape4 {
   height: 400px;
   width: 200px;
-  background: #f1801b;
+  background: variables.$orange-hover;
   top: 420px;
   right: 50px;
   border-radius: 60px;
@@ -160,7 +95,7 @@
 .login-icon {
   position: absolute;
   top: 30px;
-  color: #1f2528;
+  color: variables.$text-black;
 }
 
 .login-input {
@@ -182,7 +117,7 @@
 }
 
 .login-submit {
-  background: #fffefe;
+  background: variables.$white;
   font-size: 14px;
   margin-top: 30px;
   padding: 16px 20px;
@@ -193,8 +128,8 @@
   display: flex;
   align-items: center;
   width: 100%;
-  color: #1f2528;
-  box-shadow: 0px 2px 2px #f1801b;
+  color: variables.$text-black;
+  box-shadow: 0px 2px 2px variables.$orange-hover;
   cursor: pointer;
   transition: 0.2s;
 }
@@ -209,7 +144,7 @@
 .button-icon {
   font-size: 24px;
   margin-left: auto;
-  color: #1f2528;
+  color: variables.$text-black;
 }
 
 .social-login {
@@ -219,7 +154,7 @@
   text-align: center;
   bottom: 0px;
   right: 0px;
-  color: #fffefe;
+  color: variables.$white;
 }
 
 .social-icons {
@@ -231,7 +166,7 @@
 .social-login-icon {
   font-size: 2rem;
   margin-top: 0.625rem;
-  color: #e75420;
+  color: variables.$orange-dark;
   text-decoration: none;
   text-shadow: 0px 0px 8px #7875b5;
 }
@@ -240,14 +175,3 @@
   transform: scale(1.2);
   cursor: pointer;
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background-color: #fffefe;
-  font-family: Montserrat, sans-serif;
-}/*# sourceMappingURL=main.css.map */
