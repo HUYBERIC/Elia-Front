@@ -11,15 +11,18 @@ const Calendar = () => {
 
   // Récupérer les shifts depuis le backend
   useEffect(() => {
-    fetch("http://localhost:5000/api/dutyshifts")
+    fetch("http://localhost:5000/api/duties")
       .then((res) => res.json())
-      .then((data) => setEvents(data.map(event => ({
-        id: event._id,
-        title: event.title,
-        start: event.start,
-        end: event.end,
-        allDay: event.allDay
-      }))))
+      .then((data) => {
+        console.log("Événements récupérés :", data); // 🔍 Debug console
+        setEvents(data.map(event => ({
+          id: event._id,
+          title: event.title || "Sans titre", // ✅ Correction pour éviter "undefined"
+          start: event.start, // ✅ Garder tel quel
+          end: event.end, // ✅ Garder tel quel
+          allDay: event.allDay ?? true, // ✅ Sécurise la valeur de allDay
+        })));
+      })
       .catch(err => console.error("Erreur lors du chargement", err));
   }, []);
 
@@ -27,30 +30,35 @@ const Calendar = () => {
   const handleDateClick = async (info) => {
     const title = prompt("Nom de l'événement ?");
     if (!title) return;
-
+  
     const newEvent = {
       title,
-      start: info.dateStr,
-      end: info.dateStr,
-      allDay: true
+      startTime: info.dateStr, // 
+      endTime: info.dateStr,   // 
     };
-
-    // Sauvegarde dans la base de données
-    const response = await fetch("http://localhost:5000/api/dutyshifts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newEvent),
-    });
-
-    if (response.ok) {
-      const addedEvent = await response.json();
-      setEvents([...events, { ...addedEvent, id: addedEvent._id }]);
+  
+    try {
+      const response = await fetch("http://localhost:5000/api/duties", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newEvent),
+      });
+  
+      if (response.ok) {
+        const addedEvent = await response.json();
+        setEvents([...events, { ...addedEvent, id: addedEvent._id }]); // ✅ Mise à jour immédiate
+      } else {
+        console.error("Erreur lors de l'ajout");
+      }
+    } catch (error) {
+      console.error("Erreur réseau", error);
     }
   };
+  
 
   const handleEventClick = async (clickInfo) => {
     if (window.confirm(`Supprimer "${clickInfo.event.title}" ?`)) {
-      await fetch(`http://localhost:5000/api/dutyshifts/${clickInfo.event.id}`, {
+      await fetch(`http://localhost:5000/api/duties/${clickInfo.event.id}`, {
         method: "DELETE",
       });
   
