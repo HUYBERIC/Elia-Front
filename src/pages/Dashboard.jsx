@@ -1,9 +1,10 @@
-import Login from "./Login";
+import Navbar from "../components/Navbar";
 
 const Dashboard = () => {
   return (
     <div>
-      <Login />
+      Dashboard
+      <Navbar />
     </div>
   );
 };

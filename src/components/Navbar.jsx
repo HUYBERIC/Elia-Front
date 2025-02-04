@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const Navbar = () => {
   return (
     <nav className="navbar">
-      <Link to="/" className="link">
+      <Link to="/dashboard" className="link">
         <span className="link-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
