@@ -6,7 +6,7 @@ import "./styles/main.scss";
 import App from "./App.jsx";
 
 const clientId =
-  "75767399198-g2f2n0vdvbcfbeo23mnovmsqgiuaimom.apps.googleusercontent.com"; // Your actual Client ID
+  "522967352271-54aub3k94o9kg41e45icivraj3oiqv7n.apps.googleusercontent.com"; // Your actual Client ID
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
