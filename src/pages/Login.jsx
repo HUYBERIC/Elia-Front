@@ -1,12 +1,20 @@
 import { FaUser, FaLock, FaChevronRight, FaGoogle } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
+import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
+  const navigate = useNavigate(); // Hook pour rediriger l'utilisateur
+
   const handleGoogleSuccess = (credentialResponse) => {
     const decoded = jwtDecode(credentialResponse.credential);
-    console.log("User Info:", decoded); // Logs user details
-    // TODO: Store user info in state or context if needed
+    console.log("User Info:", decoded);
+
+    // Stocker l'utilisateur dans le localStorage ou un contexte global
+    localStorage.setItem("user", JSON.stringify(decoded));
+
+    // Rediriger vers le tableau de bord
+    navigate("/dashboard");
   };
 
   const handleGoogleFailure = () => {
@@ -43,7 +51,7 @@ const Login = () => {
             <h3>log in via</h3>
             <div className="social-icons">
               {/* Original Google Icon */}
-              <FaGoogle className="social-login-icon" />
+              {/* <FaGoogle className="social-login-icon" /> */}
 
               {/* Google Login Button (Hidden Default UI) */}
               <GoogleLogin

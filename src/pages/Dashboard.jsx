@@ -1,11 +1,5 @@
-import Login from "./Login";
-
 const Dashboard = () => {
-  return (
-    <div>
-      <Login />
-    </div>
-  );
+  return <div></div>;
 };
 
 export default Dashboard;
