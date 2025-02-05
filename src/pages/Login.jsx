@@ -100,15 +100,15 @@ const Login = () => {
               <span className="button-text">Log In Now</span>
               <FaChevronRight className="button-icon" />
             </button>
-          </form>
 
-          <button
-            onClick={handleRegister}
-            className="button login-submit register-submit"
-          >
-            <span className="button-text">Register</span>
-            <FaChevronRight className="button-icon" />
-          </button>
+            <button
+              onClick={handleRegister}
+              className="button login-submit register-submit"
+            >
+              <span className="button-text">Register</span>
+              <FaChevronRight className="button-icon" />
+            </button>
+          </form>
 
           <div className="social-login">
             <h3>log in via</h3>
