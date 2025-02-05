@@ -96,6 +96,7 @@ const Calendar = () => {
         selectable={true}
         eventClick={handleEventClick}
         firstDay={4}
+        eventColor="#e75420"
       />
     </div>
   );
