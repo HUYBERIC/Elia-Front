@@ -17,7 +17,6 @@
   position: relative;
   height: 100vh;
   width: 100vw;
-  border: 5px solid variables.$orange-dark;
 }
 
 .screen-content {
@@ -89,11 +88,16 @@
 .login {
   width: 320px;
   padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .login-field {
   padding: 20px 0px;
   position: relative;
+  text-align: center;
+  width: 100%;
 }
 
 .login-icon {
@@ -111,13 +115,16 @@
   font-weight: 700;
   width: 75%;
   transition: 0.2s;
+  &::placeholder{
+    color: variables.$text-black;
+  }
 }
 
 .login-input:active,
 .login-input:focus,
 .login-input:hover {
   outline: none;
-  border-bottom-color: #6a679e;
+  border-bottom-color: variables.$orange-dark;
 }
 
 .error-message{
@@ -133,15 +140,15 @@
 
 .login-submit {
   all: unset;
-  background: #bac1c5;
+  background: #d7dbde;
   font-size: 14px;
   margin-top: 30px;
   padding: 16px 20px;
   border-radius: 26px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  width: 100%;
-
+  width: 85%;
   box-shadow: 0px 2px 2px variables.$text-black;
   cursor: pointer;
   transition: 0.2s;
@@ -165,7 +172,6 @@
 
 .button-icon {
   font-size: 24px;
-  margin-left: auto;
   color: variables.$orange-dark;
 }
 
@@ -196,4 +202,9 @@
 .social-login-icon:hover {
   transform: scale(1.2);
   cursor: pointer;
+}
+
+.logo-elia{
+  width: 200px;
+  margin-top: 30px;
 }
