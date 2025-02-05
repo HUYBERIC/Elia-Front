@@ -1,0 +1,27 @@
+@use "variables";
+
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  place-items: center;
+  p {
+    margin-bottom: 1.875rem;
+    span {
+      color: variables.$orange-dark;
+    }
+  }
+  .input-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.625rem;
+    span {
+      color: variables.$orange-dark;
+    }
+  }
+  button {
+    padding: 10px;
+    font-family: MontSerrat, sans-serif;
+    background-color: variables.$orange-light;
+    border-radius: 12px;
+  }
+}

@@ -22,12 +22,12 @@ const Profile = () => {
   };
 
   return (
-    <div>
+    <div className="profile-container">
       <h2>Profil</h2>
-      <p>Les champs suivis d'un * sont obligatoires.</p>
+      <p>Les champs suivis d'un <span>*</span> sont obligatoires.</p>
       <form onSubmit={handleSubmit}>
-        <label>
-          Nom*:
+        <label className="input-label">
+          <div>Nom<span>*</span>:</div>
           <input
             type="text"
             name="nom"
@@ -36,9 +36,9 @@ const Profile = () => {
             required
           />
         </label>
-        <br />
-        <label>
-          Prénom*:
+
+        <label className="input-label">
+        <div>Prénom<span>*</span>:</div>
           <input
             type="text"
             name="prenom"
@@ -47,9 +47,9 @@ const Profile = () => {
             required
           />
         </label>
-        <br />
-        <label>
-          Service Center*:
+
+        <label className="input-label">
+        <div>Service Center<span>*</span>:</div>
           <select
             name="serviceCenter"
             value={formData.serviceCenter}
@@ -78,9 +78,8 @@ const Profile = () => {
           </select>
         </label>
 
-        <br />
-        <label>
-          Email*:
+        <label className="input-label">
+        <div>Email<span>*</span>:</div>
           <input
             type="email"
             name="email"
@@ -89,9 +88,9 @@ const Profile = () => {
             required
           />
         </label>
-        <br />
-        <label>
-          GSM pro*:
+
+        <label className="input-label">
+        <div>GSM Pro<span>*</span>:</div>
           <input
             type="tel"
             name="gsmPro"
@@ -100,9 +99,9 @@ const Profile = () => {
             required
           />
         </label>
-        <br />
-        <label>
-          GSM perso:
+
+        <label className="input-label">
+        <div>GSM Perso<span>*</span>:</div>
           <input
             type="tel"
             name="gsmPerso"
@@ -110,9 +109,9 @@ const Profile = () => {
             onChange={handleChange}
           />
         </label>
-        <br />
-        <label>
-          Personne de contact:
+
+        <label className="input-label">
+        <div>Personne de contact<span>*</span>:</div>
           <input
             type="text"
             name="personneContact"
@@ -120,7 +119,7 @@ const Profile = () => {
             onChange={handleChange}
           />
         </label>
-        <br />
+
         <button type="submit">Envoyer</button>
       </form>
       <Navbar />
