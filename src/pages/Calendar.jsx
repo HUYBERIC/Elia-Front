@@ -31,6 +31,8 @@ const Calendar = () => {
     const title = prompt("Nom de l'événement ?");
     if (!title) return;
 
+    console.log(info);
+
     const newEvent = {
       title,
       startTime: info.dateStr, //
@@ -44,10 +46,13 @@ const Calendar = () => {
         body: JSON.stringify(newEvent),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
         setEvents([
           ...events,
           {
+            id: data._id,
             title,
             start: info.dateStr,
             end: info.dateStr,
@@ -63,6 +68,8 @@ const Calendar = () => {
   };
 
   const handleEventClick = async (clickInfo) => {
+    console.log(clickInfo);
+
     if (window.confirm(`Supprimer "${clickInfo.event.title}" ?`)) {
       await fetch(`http://localhost:5000/api/duties/${clickInfo.event.id}`, {
         method: "DELETE",
