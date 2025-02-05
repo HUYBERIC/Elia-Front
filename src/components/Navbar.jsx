@@ -1,9 +1,25 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const [activeLink, setActiveLink] = useState(null);
+  const location = useLocation(); // Tracks the current page
+
+  const handleClick = (link) => {
+    setActiveLink(link); // Set the clicked link as active
+  };
+
   return (
     <nav className="navbar">
-      <Link to="/calendar" className="link">
+      <Link
+        to="/calendar"
+        className={`link ${
+          activeLink === "calendar" || location.pathname === "/calendar"
+            ? "expanded"
+            : ""
+        }`}
+        onClick={() => handleClick("calendar")}
+      >
         <span className="link-icon">
           <svg
             viewBox="0 0 24 24"
@@ -54,27 +70,35 @@ const Navbar = () => {
         <span className="link-title agenda">Agenda</span>
       </Link>
 
-      <Link to="/dashboard" className="link">
+      <Link
+        to="/dashboard"
+        className={`link ${
+          activeLink === "dashboard" || location.pathname === "/dashboard"
+            ? "expanded"
+            : ""
+        }`}
+        onClick={() => handleClick("dashboard")}
+      >
         <span className="link-icon">
           <svg
             viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
               {" "}
               <path
                 d="M12 20.5H16M12 20.5H8M12 20.5V16.5M12 16.5C16 16.5 19.5 16.1667 20 15.8333C20.5 15.5 21 12.6667 21 10C21 7.33333 20.5 4.5 20 4.16667C19.5 3.83333 16 3.5 12 3.5C8 3.5 4.5 3.83333 4 4.16667C3.5 4.5 3 7.33333 3 10C3 12.6667 3.5 15.5 4 15.8333C4.5 16.1667 8 16.5 12 16.5Z"
                 stroke="#000000"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               ></path>{" "}
             </g>
           </svg>
@@ -82,7 +106,15 @@ const Navbar = () => {
         <span className="link-title">Feed</span>
       </Link>
 
-      <Link to="/alerts" className="link">
+      <Link
+        to="/alerts"
+        className={`link ${
+          activeLink === "alerts" || location.pathname === "/alerts"
+            ? "expanded"
+            : ""
+        }`}
+        onClick={() => handleClick("alerts")}
+      >
         <span className="link-icon">
           <svg
             width="800px"
@@ -107,7 +139,15 @@ const Navbar = () => {
         <span className="link-title">Alerts</span>
       </Link>
 
-      <Link to="/profile" className="link">
+      <Link
+        to="/profile"
+        className={`link ${
+          activeLink === "profile" || location.pathname === "/profile"
+            ? "expanded"
+            : ""
+        }`}
+        onClick={() => handleClick("profile")}
+      >
         <span className="link-icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
