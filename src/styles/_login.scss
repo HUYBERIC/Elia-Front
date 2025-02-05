@@ -129,7 +129,7 @@
 
 .error-message{
   color: variables.$orange-dark;
-  font-weight: 800;
+  font-weight: 700;
   background-color: rgba(31, 37, 40,.2);
   text-align: center;
   border-radius: 12px;
@@ -162,7 +162,7 @@
 .login-submit:active,
 .login-submit:focus,
 .login-submit:hover {
-  border-color: #6a679e;
+  border-color: variables.$text-black;
   outline: none;
 }
 
