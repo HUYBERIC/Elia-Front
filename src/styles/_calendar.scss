@@ -1,7 +1,9 @@
 @use "variables";
 
 .fc {
-  min-height: 85vh;  
+  min-height: 85vh;
+  max-width: 53rem;
+  justify-self: center;
 }
 
 .fc-toolbar h2.fc-toolbar-title {
