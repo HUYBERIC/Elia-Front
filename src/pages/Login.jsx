@@ -14,7 +14,7 @@ const Login = () => {
     localStorage.setItem("user", JSON.stringify(decoded));
 
     // Rediriger vers le tableau de bord
-    navigate("/dashboard");
+    navigate("/calendar");
   };
 
   const handleGoogleFailure = () => {
