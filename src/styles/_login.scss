@@ -11,19 +11,23 @@
 .screen {
   background: linear-gradient(
     90deg,
-    variables.$orange-light,
-    variables.$orange-dark
+  variables.$white,
+    variables.$text-black
   );
   position: relative;
-  height: 90vh;
-  width: 90vw;
-  border: 2px solid variables.$orange-dark;
+  height: 100vh;
+  width: 100vw;
+  border: 5px solid variables.$orange-dark;
 }
 
 .screen-content {
   z-index: 1;
   position: relative;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .screen-background {
@@ -45,7 +49,11 @@
 .screen-background-shape1 {
   height: 520px;
   width: 520px;
-  background: variables.$white;
+  background: linear-gradient(
+    -45deg,
+  variables.$white,
+    variables.$text-black
+  );
   top: -50px;
   right: 120px;
   border-radius: 0 72px 0 0;
@@ -54,7 +62,7 @@
 .screen-background-shape2 {
   height: 220px;
   width: 220px;
-  background: variables.$orange-light;
+  background: variables.$text-black;
   top: -172px;
   right: 0;
   border-radius: 32px;
@@ -63,11 +71,7 @@
 .screen-background-shape3 {
   height: 540px;
   width: 190px;
-  background: linear-gradient(
-    270deg,
-    variables.$orange-light,
-    variables.$orange-dark
-  );
+  background-color: variables.$text-black;
   top: -24px;
   right: 0;
   border-radius: 32px;
@@ -76,7 +80,7 @@
 .screen-background-shape4 {
   height: 400px;
   width: 200px;
-  background: variables.$orange-hover;
+  background: variables.$text-black;
   top: 420px;
   right: 50px;
   border-radius: 60px;
@@ -85,7 +89,6 @@
 .login {
   width: 320px;
   padding: 30px;
-  padding-top: 156px;
 }
 
 .login-field {
@@ -96,7 +99,7 @@
 .login-icon {
   position: absolute;
   top: 30px;
-  color: variables.$text-black;
+  color: variables.$orange-dark;
 }
 
 .login-input {
@@ -117,22 +120,36 @@
   border-bottom-color: #6a679e;
 }
 
+.error-message{
+  color: variables.$orange-dark;
+  font-weight: 800;
+  background-color: rgba(31, 37, 40,.2);
+  text-align: center;
+  border-radius: 12px;
+  max-width: fit-content;
+  padding:0 1.25rem;
+  justify-self: center;
+}
+
 .login-submit {
-  background: variables.$white;
+  all: unset;
+  background: #bac1c5;
   font-size: 14px;
   margin-top: 30px;
   padding: 16px 20px;
   border-radius: 26px;
-  border: 1px solid #d4d3e8;
-  text-transform: uppercase;
-  font-weight: 700;
   display: flex;
   align-items: center;
   width: 100%;
-  color: variables.$text-black;
-  box-shadow: 0px 2px 2px variables.$orange-hover;
+
+  box-shadow: 0px 2px 2px variables.$text-black;
   cursor: pointer;
   transition: 0.2s;
+  .button-text{
+  text-transform: uppercase;
+  font-weight: 700;
+  color: variables.$orange-dark;
+  }
 }
 
 .login-submit:active,
@@ -149,17 +166,17 @@
 .button-icon {
   font-size: 24px;
   margin-left: auto;
-  color: variables.$text-black;
+  color: variables.$orange-dark;
 }
 
 .social-login {
-  position: absolute;
-  height: 140px;
-  width: 160px;
   text-align: center;
-  bottom: 0px;
-  right: 0px;
   color: variables.$white;
+
+  h3{
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
 }
 
 .social-icons {
@@ -171,7 +188,7 @@
 .social-login-icon {
   font-size: 2rem;
   margin-top: 0.625rem;
-  color: variables.$orange-dark;
+  color: variables.$text-black;
   text-decoration: none;
   text-shadow: 0px 0px 8px #7875b5;
 }

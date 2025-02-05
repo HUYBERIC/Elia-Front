@@ -72,6 +72,21 @@ const Login = () => {
     <div className="container">
       <div className="screen">
         <div className="screen-content">
+
+        <div className="social-login">
+            <h3>log in via</h3>
+            <div className="social-icons">
+              <GoogleLogin
+                clientId="522967352271-54aub3k94o9kg41e45icivraj3oiqv7n.apps.googleusercontent.com"
+                onSuccess={handleGoogleSuccess}
+                onError={handleGoogleFailure}
+                text="signin"
+                size="large"
+                shape="circle"
+              />
+            </div>
+          </div>
+
           <form className="login" onSubmit={handleLogin}>
             <div className="login-field">
               <FaUser className="login-icon" />
@@ -110,19 +125,6 @@ const Login = () => {
             </button>
           </form>
 
-          <div className="social-login">
-            <h3>log in via</h3>
-            <div className="social-icons">
-              <GoogleLogin
-                clientId="522967352271-54aub3k94o9kg41e45icivraj3oiqv7n.apps.googleusercontent.com"
-                onSuccess={handleGoogleSuccess}
-                onError={handleGoogleFailure}
-                text="signin"
-                size="large"
-                shape="circle"
-              />
-            </div>
-          </div>
         </div>
         <div className="screen-background">
           <span className="screen-background-shape screen-background-shape4"></span>
