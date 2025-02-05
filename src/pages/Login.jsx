@@ -51,13 +51,13 @@ const Login = () => {
     try {
       const decoded = jwtDecode(credentialResponse.credential);
 
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/google-login",
-        { email: decoded.email, firstName: decoded.given_name, lastName: decoded.family_name },
-        { withCredentials: true }
-      );
+      // const response = await axios.post(
+      //   "http://localhost:5000/api/auth/google-login",
+      //   { email: decoded.email, firstName: decoded.given_name, lastName: decoded.family_name },
+      //   { withCredentials: true }
+      // );
 
-      localStorage.setItem("user", JSON.stringify(response.data));
+      localStorage.setItem("user", JSON.stringify(decoded));
       navigate("/calendar");
     } catch (error) {
       setError("Google login failed");
