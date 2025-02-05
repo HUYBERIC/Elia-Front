@@ -114,6 +114,7 @@ const Login = () => {
             <h3>log in via</h3>
             <div className="social-icons">
               <GoogleLogin
+                clientId="522967352271-54aub3k94o9kg41e45icivraj3oiqv7n.apps.googleusercontent.com"
                 onSuccess={handleGoogleSuccess}
                 onError={handleGoogleFailure}
                 text="signin"
