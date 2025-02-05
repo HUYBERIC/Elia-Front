@@ -1,0 +1,34 @@
+@use "variables";
+
+.fc-toolbar h2.fc-toolbar-title {
+  font-size: 0.8em;
+}
+
+button.fc-timeGridDay-button.fc-button.fc-button-primary,
+button.fc-timeGridWeek-button.fc-button.fc-button-primary,
+button.fc-dayGridMonth-button.fc-button.fc-button-primary {
+  background-color: variables.$orange-light;
+}
+
+button.fc-timeGridDay-button.fc-button.fc-button-primary.fc-button-active,
+button.fc-timeGridWeek-button.fc-button.fc-button-primary.fc-button-active,
+button.fc-dayGridMonth-button.fc-button.fc-button-primary.fc-button-active {
+  background-color: variables.$orange-dark;
+}
+
+.fc-toolbar-chunk {
+  padding: 10px;
+}
+
+button.fc-next-button.fc-button.fc-button-primary, button.fc-prev-button.fc-button.fc-button-primary {
+  background-color: variables.$orange-dark;
+}
+
+button.fc-today-button.fc-button.fc-button-primary {
+  background-color: variables.$text-black;
+}
+
+a.fc-col-header-cell-cushion {
+  color: variables.$text-gray;
+  font-size: .75em;
+}
