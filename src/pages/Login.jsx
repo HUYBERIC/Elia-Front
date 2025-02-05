@@ -1,37 +1,87 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { FaUser, FaLock, FaChevronRight, FaGoogle } from "react-icons/fa";
 import { GoogleLogin } from "@react-oauth/google";
-import { useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 
 const Login = () => {
-  const navigate = useNavigate(); // Hook pour rediriger l'utilisateur
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
-  const handleGoogleSuccess = (credentialResponse) => {
-    const decoded = jwtDecode(credentialResponse.credential);
-    console.log("User Info:", decoded);
+  // Gestion de la connexion
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/users/login",
+        { email, password },
+        { withCredentials: true } // Permet d'envoyer et recevoir les cookies HTTP-only
+      );
 
-    // Stocker l'utilisateur dans le localStorage ou un contexte global
-    localStorage.setItem("user", JSON.stringify(decoded));
+      // Sauvegarde du token en localStorage si nécessaire
+      localStorage.setItem("user", JSON.stringify(response.data));
 
-    // Rediriger vers le tableau de bord
-    navigate("/calendar");
+      navigate("/calendar"); // Redirection après connexion
+    } catch (error) {
+      setError(error.response?.data?.message || "Login failed");
+    }
+  };
+
+  // Gestion de l'inscription
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/api/users/register",
+        { email, password },
+        { withCredentials: true }
+      );
+
+      alert("Inscription réussie ! Connecte-toi maintenant.");
+    } catch (error) {
+      setError(error.response?.data?.message || "Registration failed");
+    }
+  };
+
+  // Gestion du login avec Google
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const decoded = jwtDecode(credentialResponse.credential);
+
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/google-login",
+        { email: decoded.email, firstName: decoded.given_name, lastName: decoded.family_name },
+        { withCredentials: true }
+      );
+
+      localStorage.setItem("user", JSON.stringify(response.data));
+      navigate("/calendar");
+    } catch (error) {
+      setError("Google login failed");
+    }
   };
 
   const handleGoogleFailure = () => {
-    console.log("Google login failed");
+    setError("Google login failed");
   };
 
   return (
     <div className="container">
       <div className="screen">
         <div className="screen-content">
-          <form className="login">
+          <form className="login" onSubmit={handleLogin}>
             <div className="login-field">
               <FaUser className="login-icon" />
               <input
-                type="text"
+                type="email"
                 className="login-input"
-                placeholder="User name / Email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="login-field">
@@ -40,24 +90,26 @@ const Login = () => {
                 type="password"
                 className="login-input"
                 placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
-            <button className="button login-submit">
+            {error && <p className="error-message">{error}</p>}
+            <button type="submit" className="button login-submit">
               <span className="button-text">Log In Now</span>
               <FaChevronRight className="button-icon" />
             </button>
-            <button className="button login-submit register-submit">
-              <span className="button-text">Register</span>
-              <FaChevronRight className="button-icon" />
-            </button>
           </form>
+
+          <button onClick={handleRegister} className="button login-submit register-submit">
+            <span className="button-text">Register</span>
+            <FaChevronRight className="button-icon" />
+          </button>
+
           <div className="social-login">
             <h3>log in via</h3>
             <div className="social-icons">
-              {/* Original Google Icon */}
-              {/* <FaGoogle className="social-login-icon" /> */}
-
-              {/* Google Login Button (Hidden Default UI) */}
               <GoogleLogin
                 onSuccess={handleGoogleSuccess}
                 onError={handleGoogleFailure}
@@ -67,12 +119,6 @@ const Login = () => {
               />
             </div>
           </div>
-        </div>
-        <div className="screen-background">
-          <span className="screen-background-shape screen-background-shape4"></span>
-          <span className="screen-background-shape screen-background-shape3"></span>
-          <span className="screen-background-shape screen-background-shape2"></span>
-          <span className="screen-background-shape screen-background-shape1"></span>
         </div>
       </div>
     </div>
