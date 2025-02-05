@@ -185,25 +185,6 @@
   }
 }
 
-.social-icons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.social-login-icon {
-  font-size: 2rem;
-  margin-top: 0.625rem;
-  color: variables.$text-black;
-  text-decoration: none;
-  text-shadow: 0px 0px 8px #7875b5;
-}
-
-.social-login-icon:hover {
-  transform: scale(1.2);
-  cursor: pointer;
-}
-
 .logo-elia{
   width: 200px;
   margin-top: 30px;
