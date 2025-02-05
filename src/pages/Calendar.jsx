@@ -45,13 +45,15 @@ const Calendar = () => {
       });
 
       if (response.ok) {
-        setEvents([...events, {
-          title,
-          start: info.dateStr,
-          end: info.dateStr,
-        }]); // ✅ Mise à jour immédiate
+        setEvents([
+          ...events,
+          {
+            title,
+            start: info.dateStr,
+            end: info.dateStr,
+          },
+        ]); // ✅ Mise à jour immédiate
         console.log(info.dateStr);
-        
       } else {
         console.error("Erreur lors de l'ajout");
       }
@@ -72,10 +74,10 @@ const Calendar = () => {
 
   return (
     <div>
-      <h1>eDuty - Planning</h1>
+      <Navbar />
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
+        initialView="timeGridWeek"
         headerToolbar={{
           left: "prev,next today",
           center: "title",
@@ -86,6 +88,7 @@ const Calendar = () => {
         editable={true}
         selectable={true}
         eventClick={handleEventClick}
+        firstDay={4}
       />
     </div>
   );

@@ -1,12 +1,12 @@
 import Navbar from "../components/Navbar";
 
-const Messages = () => {
+const Alerts = () => {
   return (
     <div>
-      Messages
       <Navbar />
+      Alerts
     </div>
   );
 };
 
-export default Messages;
+export default Alerts;
