@@ -102,7 +102,10 @@ const Login = () => {
             </button>
           </form>
 
-          <button onClick={handleRegister} className="button login-submit register-submit">
+          <button
+            onClick={handleRegister}
+            className="button login-submit register-submit"
+          >
             <span className="button-text">Register</span>
             <FaChevronRight className="button-icon" />
           </button>
@@ -119,6 +122,12 @@ const Login = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="screen-background">
+          <span className="screen-background-shape screen-background-shape4"></span>
+          <span className="screen-background-shape screen-background-shape3"></span>
+          <span className="screen-background-shape screen-background-shape2"></span>
+          <span className="screen-background-shape screen-background-shape1"></span>
         </div>
       </div>
     </div>
