@@ -1,5 +1,9 @@
 @use "variables";
 
+.fc {
+  min-height: 85vh;
+}
+
 .fc-toolbar h2.fc-toolbar-title {
   font-size: 0.8em;
 }
@@ -17,7 +21,7 @@ button.fc-dayGridMonth-button.fc-button.fc-button-primary.fc-button-active {
 }
 
 .fc-toolbar-chunk {
-  padding: 10px;
+  padding: .1875rem;  
 }
 
 button.fc-next-button.fc-button.fc-button-primary, button.fc-prev-button.fc-button.fc-button-primary {
