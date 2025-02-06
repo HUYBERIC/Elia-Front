@@ -6,7 +6,11 @@
   opacity: 95%;
   position: fixed;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  min-width: 375px;
+  max-width: 1024px;
   display: flex;
   justify-content: center;
   border-radius: 12px 12px 0px 0px;
