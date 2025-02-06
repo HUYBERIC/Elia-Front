@@ -1,16 +1,42 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useWindowScroll } from "react-use";
+import gsap from "gsap";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [isNavVisible, setIsNavVisible] = useState(true);
+  const navContainerRef = useRef(null);
+  const { y: currentScrollY } = useWindowScroll();
+
+  useEffect(() => {
+    if (currentScrollY > lastScrollY) {
+      // Scrolling down → Hide navbar
+      setIsNavVisible(false);
+    } else if (currentScrollY < lastScrollY) {
+      // Scrolling up → Show navbar
+      setIsNavVisible(true);
+    }
+
+    setLastScrollY(currentScrollY);
+  }, [currentScrollY]);
+
+  useEffect(() => {
+    gsap.to(navContainerRef.current, {
+      y: isNavVisible ? 0 : 100,
+      opacity: isNavVisible ? 1 : 0,
+      duration: 0.3,
+    });
+  }, [isNavVisible]);
   const [activeLink, setActiveLink] = useState(null);
   const location = useLocation(); // Tracks the current page
 
   const handleClick = (link) => {
-    setActiveLink(link); // Set the clicked link as active
+    setActiveLink(link);
   };
 
   return (
-    <nav className="navbar">
+    <nav ref={navContainerRef} className="navbar">
       <Link
         to="/calendar"
         className={`link ${
