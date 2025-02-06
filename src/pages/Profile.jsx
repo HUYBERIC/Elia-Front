@@ -12,10 +12,10 @@ const Profile = () => {
     phone: "",
   });
 
-  const [decodedToken, setDecodedToken] = useState(null); // ✅ État pour stocker le token décodé
+  const [decodedToken, setDecodedToken] = useState(null); // ✅ State to store the decoded token
 
   useEffect(() => {
-    // Lire le token seulement une fois au premier rendu
+    // Read the token from cookies
     const token = Cookies.get("token");
     if (token) {
       try {
@@ -31,7 +31,7 @@ const Profile = () => {
   }, []); // ✅ Exécuter une seule fois
 
   useEffect(() => {
-    if (!decodedToken) return; // ✅ Ne pas fetch si le token n'est pas encore prêt
+    if (!decodedToken) return; // ✅ Don't execute if the decoded token is not ready
 
     const fetchUserData = async () => {
       try {
@@ -65,7 +65,7 @@ const Profile = () => {
     };
 
     fetchUserData();
-  }, [decodedToken]); // ✅ Exécuter seulement lorsque le token est décodé
+  }, [decodedToken]); // ✅ Execute when the decoded token is ready
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
