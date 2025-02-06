@@ -3,32 +3,126 @@
 .profile-container {
   display: flex;
   flex-direction: column;
-  place-items: center;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding-bottom:3rem;
+  background: linear-gradient(45deg, variables.$white, variables.$text-black);
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 0rem;
+    text-align: center;
+    color: variables.$text-black;
+  }
+
   p {
-    margin-bottom: 1.875rem;
+    font-size: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: variables.$text-black;
+
     span {
       color: variables.$orange-dark;
+      font-weight: bold;
     }
   }
+
   form {
     display: flex;
     flex-direction: column;
+    gap: 1rem;
+    width: 90vw;
+    max-width: 400px;
+    padding: 2rem;
+    background: variables.$white;
+    border-radius: 16px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+
     .input-label {
       display: flex;
-      justify-content: space-between;
-      width: 90vw;
-      max-width: 350px;
-      margin-bottom: 0.625rem;
+      flex-direction: column;
+      font-weight: bold;
+      color: variables.$text-black;
+
+      div {
+        margin-bottom: 0.3rem;
+      }
+
       span {
         color: variables.$orange-dark;
       }
     }
+
+    input,
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border: 2px solid variables.$text-black;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: all 0.2s ease-in-out;
+      background: transparent;
+
+      &:focus {
+        border-color: variables.$orange-dark;
+        outline: none;
+        box-shadow: 0 0 8px rgba(variables.$orange-dark, 0.6);
+      }
+    }
+
+    select {
+      cursor: pointer;
+    }
+
     button {
-      padding: 10px;
-      font-family: MontSerrat, sans-serif;
-      background-color: variables.$orange-light;
-      border-radius: 12px;
-      justify-self: center;
+      width: 100%;
+      padding: 0.8rem;
+      margin-top: 1rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background: variables.$orange-light;
+      color: variables.$white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        background: darken(variables.$orange-light, 10%);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+}
+
+/* Adaptation pour tablette */
+@media (min-width: 768px) {
+  .profile-container {
+    padding: 4rem;
+
+    form {
+      max-width: 500px;
+    }
+  }
+}
+
+/* Adaptation pour desktop */
+@media (min-width: 1024px) {
+  .profile-container {
+    flex-direction: column;
+    gap: 3rem;
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    form {
+      max-width: 500px;
+      padding: 3rem;
     }
   }
 }
