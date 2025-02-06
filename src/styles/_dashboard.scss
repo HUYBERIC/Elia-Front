@@ -1,0 +1,18 @@
+@use "variables";
+
+.feed-container {
+  display: flex;
+  flex-direction: column;
+  h2 {
+    align-self: center;
+  }
+  .feed {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    & > * {
+      border-top: 1px solid variables.$text-gray;
+      border-bottom: 1px solid variables.$text-gray;      
+    }
+  }
+}
