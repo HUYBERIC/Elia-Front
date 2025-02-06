@@ -8,15 +8,16 @@ const Alerts = () => {
   return (
     <div>
       <Navbar />
-      {/* Opening modal button */}
-      <button onClick={() => setIsModalOpen(true)}>Ask for switch</button>
-
-      {/* Modal */}
-      <SwitchRequestModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
-      Alerts
+      <div className="alerts-container">
+        {/* Opening modal button */}
+        <button onClick={() => setIsModalOpen(true)}>Request a switch</button>
+        
+        {/* Modal */}
+        <SwitchRequestModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      </div>
     </div>
   );
 };
