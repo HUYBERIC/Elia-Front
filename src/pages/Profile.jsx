@@ -133,22 +133,22 @@ const Profile = () => {
           >
             <option value="">Select a center</option>
             <optgroup label="North-West">
-              <option value="nw1">Lendelede</option>
-              <option value="nw2">Lochristi</option>
+              <option value="Lendelede">Lendelede</option>
+              <option value="Lochristi">Lochristi</option>
             </optgroup>
             <optgroup label="North-East">
-              <option value="ne1">Merksem</option>
-              <option value="ne2">Stalen</option>
-              <option value="ne3">Schaarbeek Noord</option>
+              <option value="Merksem">Merksem</option>
+              <option value="Stalen">Stalen</option>
+              <option value="Schaarbeek-Noord">Schaarbeek Noord</option>
             </optgroup>
             <optgroup label="South-West">
-              <option value="s1">Gouy</option>
-              <option value="s2">Schaerbeek Sud</option>
+              <option value="Gouy">Gouy</option>
+              <option value="Schaerbeek-Sud">Schaerbeek Sud</option>
             </optgroup>
             <optgroup label="South-East">
-              <option value="s3">Bressoux</option>
-              <option value="s4">Villeroux</option>
-              <option value="s5">Gembloux</option>
+              <option value="Bressoux">Bressoux</option>
+              <option value="Villeroux">Villeroux</option>
+              <option value="Gembloux">Gembloux</option>
             </optgroup>
           </select>
         </label>
