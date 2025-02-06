@@ -99,7 +99,7 @@
   }
 }
 
-/* Adaptation pour tablette */
+/* Tablet adaptation */
 @media (min-width: 768px) {
   .profile-container {
     padding: 4rem;
@@ -110,7 +110,7 @@
   }
 }
 
-/* Adaptation pour desktop */
+/* Desktop adaptation */
 @media (min-width: 1024px) {
   .profile-container {
     flex-direction: column;
