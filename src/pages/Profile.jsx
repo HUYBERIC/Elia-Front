@@ -90,33 +90,13 @@ const Profile = () => {
         </label>
 
         <label className="input-label">
-        <div>GSM Pro<span>*</span>:</div>
+        <div>N° GSM<span>*</span>:</div>
           <input
             type="tel"
             name="gsmPro"
             value={formData.gsmPro}
             onChange={handleChange}
             required
-          />
-        </label>
-
-        <label className="input-label">
-        <div>GSM Perso<span>*</span>:</div>
-          <input
-            type="tel"
-            name="gsmPerso"
-            value={formData.gsmPerso}
-            onChange={handleChange}
-          />
-        </label>
-
-        <label className="input-label">
-        <div>Personne de contact<span>*</span>:</div>
-          <input
-            type="text"
-            name="personneContact"
-            value={formData.personneContact}
-            onChange={handleChange}
           />
         </label>
 

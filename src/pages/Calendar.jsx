@@ -1,4 +1,5 @@
 import Navbar from "../components/Navbar";
+import SwitchRequestModal from "../components/SwitchRequestModal";
 
 import React, { useState, useEffect } from "react";
 import FullCalendar from "@fullcalendar/react";
@@ -82,6 +83,7 @@ const Calendar = () => {
   return (
     <div>
       <Navbar />
+
       <FullCalendar
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="timeGridWeek"
