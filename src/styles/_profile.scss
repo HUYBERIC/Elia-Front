@@ -89,7 +89,7 @@
       transition: all 0.3s ease-in-out;
 
       &:hover {
-        background: darken(variables.$orange-light, 10%);
+        background: variables.$orange-light;
       }
 
       &:active {
