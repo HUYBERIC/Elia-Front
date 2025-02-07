@@ -48,7 +48,6 @@
 
 .notification-user {
   font-weight: bold;
-  color: variables.$orange-dark;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
 
@@ -60,7 +59,6 @@
 
 .notification-date {
   font-weight: bold;
-  color: variables.$orange-light;
   text-decoration: none;
   transition: color 0.3s ease-in-out;
 
@@ -81,6 +79,7 @@
 /* Buttons container */
 .notification-actions {
   display: flex;
+  justify-content: flex-end;
   gap: 8px;
   width: 100%;
 }
@@ -93,15 +92,12 @@
   cursor: pointer;
   border: none;
   transition: all 0.3s ease-in-out;
-  width: 100%;
+  text-align: center;
+  width: 40%;
 
   &.primary {
-    background-color: variables.$orange-dark;
+    background-color: variables.$orange-light;
     color: variables.$white;
-
-    &:hover {
-      background-color: variables.$orange-light;
-    }
   }
 }
 

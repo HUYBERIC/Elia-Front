@@ -7,11 +7,18 @@ const Alerts = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div>
+    <div className="alertsContainer">
       <Navbar />
-      <div className="alerts-container">
         {/* Opening modal button */}
-        <button onClick={() => setIsModalOpen(true)}>Request a switch</button>
+        <div className="headAlert">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="requestButton"
+          >
+            Request a switch
+          </button>
+        </div>
+      <div className="alerts-container">
         <Notification />
         {/* Modal */}
         <SwitchRequestModal
