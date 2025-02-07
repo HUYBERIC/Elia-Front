@@ -24,13 +24,13 @@ const Notification = () => {
         <div className="notification-text">
           <div className="notification-message">
             <p>
-              <a href="#" className="notification-link">
+              <span className="notification-user">
                 Mary Palmer
-              </a>
+              </span>
               requests a replacement at
-              <a href="#" className="notification-link">
+              <span className="notification-date">
                 project-campaign-02
-              </a>
+              </span>
               .
             </p>
             <p className="time">2 min ago</p>
@@ -64,13 +64,13 @@ const Notification = () => {
         <div className="notification-text">
           <div className="notification-message">
             <p>
-              <a href="#" className="notification-link">
+              <span className="notification-user">
                 Mary Palmer
-              </a>
+              </span>
               requests a replacement at
-              <a href="#" className="notification-link">
+              <span className="notification-date">
                 project-campaign-02
-              </a>
+              </span>
               .
             </p>
             <p className="time">2 min ago</p>
@@ -104,13 +104,13 @@ const Notification = () => {
         <div className="notification-text">
           <div className="notification-message">
             <p>
-              <a href="#" className="notification-link">
+              <span className="notification-user">
                 Mary Palmer
-              </a>
+              </span>
               requests a replacement at
-              <a href="#" className="notification-link">
+              <span className="notification-date">
                 project-campaign-02
-              </a>
+              </span>
               .
             </p>
             <p className="time">2 min ago</p>

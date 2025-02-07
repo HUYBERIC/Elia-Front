@@ -28,7 +28,7 @@ const Profile = () => {
     } else {
       console.warn("No token found in cookies.");
     }
-  }, []); // ✅ Exécuter une seule fois
+  }, []); // ✅ Execute only once
 
   useEffect(() => {
     if (!decodedToken) return; // ✅ Don't execute if the decoded token is not ready
@@ -52,7 +52,7 @@ const Profile = () => {
             ...prevState,
             lastName: data.lastName || "",
             firstName: data.firstName || "",
-            serviceCenter: data.serviceCenter?.serviceCenter || "",
+            serviceCenter: data.serviceCenter || "",
             email: data.email || "",
             phone: data.phone || "",
           }));
