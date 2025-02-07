@@ -2,8 +2,11 @@ import { useState, useEffect } from "react";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
+
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     lastName: "",
     firstName: "",
@@ -36,13 +39,16 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         console.log("Fetching user data for ID:", decodedToken.id);
-        const response = await fetch(`http://localhost:5000/api/users/${decodedToken.id}`, {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const response = await fetch(
+          `http://localhost:5000/api/users/${decodedToken.id}`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
 
         if (response.ok) {
           const data = await response.json();
@@ -77,14 +83,17 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:5000/api/users/${decodedToken.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `http://localhost:5000/api/users/${decodedToken.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(formData),
+        }
+      );
 
       if (response.ok) {
         alert("Profile successfully updated!");
@@ -96,13 +105,36 @@ const Profile = () => {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/users/logout", {
+        method: "POST",
+        credentials: "include", // Nécessaire pour inclure les cookies
+      });
+
+      if (response.ok) {
+        Cookies.remove("token"); // Supprime le token du navigateur
+        navigate("/"); // Redirige vers la page de connexion
+      } else {
+        console.error("Erreur lors de la déconnexion");
+      }
+    } catch (error) {
+      console.error("Erreur lors de la requête de déconnexion", error);
+    }
+  };
+
   return (
     <div className="profile-container">
       <h2>Profile</h2>
-      <p> <span>*</span> All fields are required.</p>
+      <p>
+        {" "}
+        <span>*</span> All fields are required.
+      </p>
       <form onSubmit={handleSubmit}>
         <label className="input-label">
-          <div>Last Name<span>*</span>:</div>
+          <div>
+            Last Name<span>*</span>:
+          </div>
           <input
             type="text"
             name="lastName"
@@ -113,7 +145,9 @@ const Profile = () => {
         </label>
 
         <label className="input-label">
-          <div>First Name<span>*</span>:</div>
+          <div>
+            First Name<span>*</span>:
+          </div>
           <input
             type="text"
             name="firstName"
@@ -124,7 +158,9 @@ const Profile = () => {
         </label>
 
         <label className="input-label">
-          <div>Service Center<span>*</span>:</div>
+          <div>
+            Service Center<span>*</span>:
+          </div>
           <select
             name="serviceCenter"
             value={formData.serviceCenter}
@@ -154,7 +190,9 @@ const Profile = () => {
         </label>
 
         <label className="input-label">
-          <div>Email<span>*</span>:</div>
+          <div>
+            Email<span>*</span>:
+          </div>
           <input
             type="email"
             name="email"
@@ -165,7 +203,9 @@ const Profile = () => {
         </label>
 
         <label className="input-label">
-          <div>Phone Number<span>*</span>:</div>
+          <div>
+            Phone Number<span>*</span>:
+          </div>
           <input
             type="tel"
             name="phone"
@@ -174,8 +214,12 @@ const Profile = () => {
             required
           />
         </label>
-
-        <button type="submit">Submit</button>
+        <div className="buttons">
+          <button type="submit">Submit</button>
+          <button type="button" className="logout" onClick={handleLogout}>
+            Log out
+          </button>
+        </div>
       </form>
       <Navbar />
     </div>
