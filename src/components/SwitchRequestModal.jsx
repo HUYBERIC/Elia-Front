@@ -52,9 +52,10 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
     const requestData = { urgency, startDate, endDate };
 
     try {
-      const response = await fetch("/api/switch-request", {
+      const response = await fetch("http://localhost:5000/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify(requestData),
       });
       if (response.ok) {
