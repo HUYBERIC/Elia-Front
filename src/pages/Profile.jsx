@@ -99,7 +99,7 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <h2>Profile</h2>
-      <p>Fields marked with <span>*</span> are required.</p>
+      <p> <span>*</span> All fields are required.</p>
       <form onSubmit={handleSubmit}>
         <label className="input-label">
           <div>Last Name<span>*</span>:</div>

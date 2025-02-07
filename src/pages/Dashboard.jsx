@@ -3,7 +3,6 @@ import Navbar from "../components/Navbar";
 const Dashboard = () => {
   return (
     <div className="feed-container">
-      <h2>Events feed</h2>
       <div className="feed">
         <p>User1 requested duty switch @day-month-year (status: accepted)</p>
         <p>User5 accepted request from User1</p>
