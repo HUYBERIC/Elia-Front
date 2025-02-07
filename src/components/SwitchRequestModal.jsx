@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const SwitchRequestModal = ({ isOpen, onClose }) => {
-  const [emergencyLevel, setEmergencyLevel] = useState(0);
+  const [emergencyLevel, setEmergencyLevel] = useState(1);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isClosing, setIsClosing] = useState(false); // Handle fadeOut animation
