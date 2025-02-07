@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -15,7 +15,8 @@ const Profile = () => {
     phone: "",
   });
 
-  const [decodedToken, setDecodedToken] = useState(null); // ✅ State to store the decoded token
+  const [decodedToken, setDecodedToken] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     // Read the token from cookies
@@ -34,7 +35,7 @@ const Profile = () => {
   }, []); // ✅ Execute only once
 
   useEffect(() => {
-    if (!decodedToken) return; // ✅ Don't execute if the decoded token is not ready
+    if (!decodedToken) return;
 
     const fetchUserData = async () => {
       try {
@@ -216,12 +217,22 @@ const Profile = () => {
         </label>
         <div className="buttons">
           <button type="submit">Submit</button>
-          <button type="button" className="logout" onClick={handleLogout}>
+          <button
+            type="button"
+            className="logout"
+            onClick={() => setIsModalOpen(true)}
+          >
             Log out
           </button>
         </div>
       </form>
       <Navbar />
+      <ConfirmationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleLogout}
+        message="Are you sure you want to log out?"
+      />
     </div>
   );
 };
