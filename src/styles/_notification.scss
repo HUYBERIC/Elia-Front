@@ -93,7 +93,7 @@
   cursor: pointer;
   border: none;
   transition: all 0.3s ease-in-out;
-  width: 50%;
+  width: 100%;
 
   &.primary {
     background-color: variables.$orange-dark;
@@ -101,17 +101,6 @@
 
     &:hover {
       background-color: variables.$orange-light;
-    }
-  }
-
-  &.outline {
-    background-color: transparent;
-    border: 1px solid variables.$orange-light;
-    color: variables.$text-black;
-
-    &:hover {
-      background-color: variables.$orange-light;
-      color: variables.$white;
     }
   }
 }
@@ -130,40 +119,3 @@
   color: red;
   font-weight: bold;
 }
-
-/* RESPONSIVE DESIGN */
-
-/* Tablet */
-/* @media (min-width: 601px) {
-  .notification-container {
-    padding: 1rem;
-  }
-
-  .notification-content {
-    flex-direction: row;
-    align-items: center;
-    padding: 14px;
-  }
-
-  .notification-actions {
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-
-  .btn {
-    width: auto;
-  }
-} */
-
-/* Desktop */
-/* @media (min-width: 1024px) {
-  .notification-container {
-    max-width: 1024px;
-    margin: 0 auto;
-  }
-
-  .notification-content {
-    padding: 16px;
-    gap: 12px;
-  }
-} */

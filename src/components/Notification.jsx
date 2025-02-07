@@ -162,12 +162,6 @@ const Notification = () => {
                 >
                   Accept
                 </button>
-                <button
-                  className="btn outline"
-                  onClick={() => handleDecline(request._id)}
-                >
-                  Decline
-                </button>
               </div>
             </div>
           </div>
