@@ -86,10 +86,6 @@
     transition: all 0.3s ease-in-out;
     margin-top: 2rem;
 
-    &:hover {
-      background: variables.$orange-light;
-    }
-
     &:active {
       transform: scale(0.98);
     }
@@ -106,10 +102,6 @@
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-
-    &:hover {
-      background: variables.$text-black;
-    }
 
     &:active {
       transform: scale(0.98);
