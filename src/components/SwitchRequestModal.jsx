@@ -89,13 +89,26 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
           Emergency level :
           <select
             id="emergency-select"
-            className="field emergency-select"
+            className={`field emergency-select ${
+              emergencyLevel === 3
+                ? "red"
+                : emergencyLevel === 2
+                ? "orange"
+                : "green"
+            }`}
             value={emergencyLevel}
             onChange={(e) => setEmergencyLevel(Number(e.target.value))}
+            required
           >
-            <option className="green" value={1}>Low</option>
-            <option className="orange" value={2}>Medium</option>
-            <option className="red" value={3}>High</option>
+            <option className="green" value={1}>
+              Low
+            </option>
+            <option className="orange" value={2}>
+              Medium
+            </option>
+            <option className="red" value={3}>
+              High
+            </option>
           </select>
         </label>
         <label>
