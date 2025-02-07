@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from "react";
 
 const SwitchRequestModal = ({ isOpen, onClose }) => {
-  const [urgency, setUrgency] = useState(1);
+  const [emergencyLevel, setEmergencyLevel] = useState(0);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [isClosing, setIsClosing] = useState(false); // Handle fadeOut animation
 
-  // Updating the text color of the selector based on the selected urgency
+  // Updating the text color of the selector based on the selected emergency
   useEffect(() => {
-    const selectElement = document.getElementById("urgency-select");
+    const selectElement = document.getElementById("emergency-select");
     if (selectElement) {
-      switch (urgency) {
+      switch (emergencyLevel) {
         case 1:
           selectElement.style.setProperty("--select-color", "green");
           break;
@@ -24,7 +24,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
           selectElement.style.setProperty("--select-color", "black");
       }
     }
-  }, [urgency]);
+  }, [emergencyLevel]);
 
   // Triggers the closing animation before removing the modal from the DOM
   const handleClose = () => {
@@ -49,7 +49,15 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       return;
     }
 
-    const requestData = { urgency, startDate, endDate };
+    const emergencyMapping = {
+      1: "low",
+      2: "medium",
+      3: "high",
+    }
+;
+    const requestData = { emergencyLevel: emergencyMapping[emergencyLevel], startDate, endDate };
+
+    console.log("Sending request data:", requestData); // Debugging
 
     try {
       const response = await fetch("http://localhost:5000/api/requests", {
@@ -80,10 +88,10 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
         <label>
           Emergency level :
           <select
-            id="urgency-select"
-            className="field urgency-select"
-            value={urgency}
-            onChange={(e) => setUrgency(Number(e.target.value))}
+            id="emergency-select"
+            className="field emergency-select"
+            value={emergencyLevel}
+            onChange={(e) => setEmergencyLevel(Number(e.target.value))}
           >
             <option className="green" value={1}>Low</option>
             <option className="orange" value={2}>Medium</option>
