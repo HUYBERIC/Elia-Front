@@ -1,41 +1,93 @@
 @use "variables";
 
-.fc {
-  min-height: 85vh;
-  max-width: 53rem;
-  justify-self: center;
+/* Conteneur principal */
+.calendar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1024px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
 }
 
-.fc-toolbar h2.fc-toolbar-title {
-  font-size: 0.8em;
+/* Bouton Today */
+.today-button {
+  width: 100%;
+  max-width: 1024px;
+  margin-bottom: 20px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  font-weight: bold;
+  background: variables.$orange-dark;
+  color: variables.$white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+
+  &:active {
+    transform: scale(0.98);
+  }
 }
 
-button.fc-timeGridDay-button.fc-button.fc-button-primary,
-button.fc-timeGridWeek-button.fc-button.fc-button-primary,
-button.fc-dayGridMonth-button.fc-button.fc-button-primary {
-  background-color: variables.$orange-light;
+/* En-tête dynamique */
+.calendar-header {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 0.5rem; /* ✅ Réduit l'espace */
 }
 
-button.fc-timeGridDay-button.fc-button.fc-button-primary.fc-button-active,
-button.fc-timeGridWeek-button.fc-button.fc-button-primary.fc-button-active,
-button.fc-dayGridMonth-button.fc-button.fc-button-primary.fc-button-active {
-  background-color: variables.$orange-dark;
+/* Conteneur du calendrier */
+.fullcalendar-wrapper {
+  width: 100%;
+  max-width: 1024px;
+  height: 60vh;
 }
 
-.fc-toolbar-chunk {
-  padding: .1875rem;  
+.fc-scrollgrid {
+  min-height: 60vh;
+  max-height: 61vh;
 }
 
-button.fc-next-button.fc-button.fc-button-primary, button.fc-prev-button.fc-button.fc-button-primary {
-  background-color: variables.$orange-dark;
-}
+/* Pied de page avec boutons */
+.calendar-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 90vw;
+  max-width: 1024px;
+  position: absolute;
+  bottom: 80px;
+  margin-top: 0.5rem;
+  gap: 4px; /* ✅ Augmente légèrement l'espacement */
 
-button.fc-today-button.fc-button.fc-button-primary {
-  background-color: variables.$text-black;
-  width: 4.5rem;
-}
+  button {
+    background-color: variables.$text-black;
+    color: variables.$white;
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
+    flex-grow: 1; /* ✅ Assure que tous les boutons prennent une largeur équivalente */
 
-a.fc-col-header-cell-cushion {
-  color: variables.$text-gray;
-  font-size: .75em;
+    &:hover {
+      background-color: variables.$orange-dark;
+    }
+
+    &.active {
+      background-color: variables.$orange-light;
+    }
+  }
+
+/* Responsive Fix */
+@media (max-width: 1024px) {
+  .calendar-footer {
+    flex-wrap: nowrap; /* ✅ Empêche le retour à la ligne */
+    width: 100%;
+  }
+}
 }
