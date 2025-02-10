@@ -44,6 +44,11 @@
   width: 100%;
   max-width: 1024px;
   height: 60vh;
+  z-index: -1;
+  .fc-dayGridMonth-view,
+  .fc-view-harness {
+    max-height: 80vh;
+  }
 }
 
 .fc-scrollgrid {
@@ -62,7 +67,7 @@
   bottom: 80px;
   margin-top: 0.5rem;
   gap: 4px; /* ✅ Augmente légèrement l'espacement */
-
+  z-index: 100;
   button {
     background-color: variables.$text-black;
     color: variables.$white;
