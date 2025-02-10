@@ -41,7 +41,7 @@ const Profile = () => {
       try {
         console.log("Fetching user data for ID:", decodedToken.id);
         const response = await fetch(
-          `http://localhost:5000/api/users/${decodedToken.id}`,
+          `https://elia-back.onrender.com/api/users/${decodedToken.id}`,
           {
             method: "GET",
             headers: {
@@ -85,7 +85,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `http://localhost:5000/api/users/${decodedToken.id}`,
+        `https://elia-back.onrender.com/api/users/${decodedToken.id}`,
         {
           method: "PUT",
           headers: {
@@ -108,7 +108,7 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/users/logout", {
+      const response = await fetch("https://elia-back.onrender.com/api/users/logout", {
         method: "POST",
         credentials: "include", // Nécessaire pour inclure les cookies
       });
