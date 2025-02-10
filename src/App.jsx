@@ -5,6 +5,7 @@ import Calendar from "./pages/Calendar";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Alerts from "./pages/Alerts";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/alerts" element={<Alerts />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </>
   );
