@@ -31,13 +31,14 @@ const Notification = () => {
   const handleAccept = async (requestId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/requests/${requestId}/accept`,
+        `http://localhost:5000/api/requests/accept/${requestId}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
+          body:JSON.stringify({requestId})
         }
       );
 
