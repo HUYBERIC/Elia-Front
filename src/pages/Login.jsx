@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "http://elia-back.onrender.com/api/users/login",
         { email, password },
         { withCredentials: true } // Permet d'envoyer et recevoir les cookies HTTP-only
       );
@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "http://elia-back.onrender.com/api/users/register",
         { email, password },
         { withCredentials: true }
       );
@@ -52,7 +52,7 @@ const Login = () => {
       const decoded = jwtDecode(credentialResponse.credential);
 
       // const response = await axios.post(
-      //   "http://localhost:5000/api/auth/google-login",
+      //   "http://elia-back.onrender.com/api/auth/google-login",
       //   { email: decoded.email, firstName: decoded.given_name, lastName: decoded.family_name },
       //   { withCredentials: true }
       // );

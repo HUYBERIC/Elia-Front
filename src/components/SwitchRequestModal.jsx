@@ -60,7 +60,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
     console.log("Sending request data:", requestData); // Debugging
 
     try {
-      const response = await fetch("http://localhost:5000/api/requests", {
+      const response = await fetch("http://elia-back.onrender.com/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

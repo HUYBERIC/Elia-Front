@@ -6,7 +6,7 @@ const Notification = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests", {
+        const response = await fetch("http://elia-back.onrender.com/api/requests", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const Notification = () => {
   const handleAccept = async (requestId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/requests/accept/${requestId}`,
+        `http://elia-back.onrender.com/api/requests/accept/${requestId}`,
         {
           method: "PUT",
           headers: {
@@ -55,7 +55,7 @@ const Notification = () => {
   const handleDecline = async (requestId) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/requests/${requestId}/decline`,
+        `http://elia-back.onrender.com/api/requests/${requestId}/decline`,
         {
           method: "PUT",
           headers: {
