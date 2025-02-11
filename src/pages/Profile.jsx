@@ -41,7 +41,7 @@ const Profile = () => {
       try {
         console.log("Fetching user data for ID:", decodedToken.id);
         const response = await fetch(
-          `https://elia-back.vercel.app/api/users/${decodedToken.id}`,
+          `https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/users/${decodedToken.id}`,
           {
             method: "GET",
             headers: {
@@ -85,7 +85,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://elia-back.vercel.app/api/users/${decodedToken.id}`,
+        `https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/users/${decodedToken.id}`,
         {
           method: "PUT",
           headers: {
@@ -109,7 +109,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       const response = await fetch(
-        "https://elia-back.vercel.app/api/users/logout",
+        "https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/users/logout",
         {
           method: "POST",
           credentials: "include", // Nécessaire pour inclure les cookies

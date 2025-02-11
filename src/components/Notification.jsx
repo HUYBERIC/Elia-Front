@@ -6,7 +6,7 @@ const Notification = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("https://elia-back.vercel.app/api/requests", {
+        const response = await fetch("https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/requests", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -31,7 +31,7 @@ const Notification = () => {
   const handleAccept = async (requestId) => {
     try {
       const response = await fetch(
-        `https://elia-back.vercel.app/api/requests/accept/${requestId}`,
+        `https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/requests/accept/${requestId}`,
         {
           method: "PUT",
           headers: {
@@ -55,7 +55,7 @@ const Notification = () => {
   const handleDecline = async (requestId) => {
     try {
       const response = await fetch(
-        `https://elia-back.vercel.app/api/requests/${requestId}/decline`,
+        `https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/requests/${requestId}/decline`,
         {
           method: "PUT",
           headers: {
