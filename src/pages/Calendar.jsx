@@ -13,7 +13,7 @@ const Calendar = () => {
 
   // Fetch events
   useEffect(() => {
-    fetch("https://elia-back.onrender.com/api/duties")
+    fetch("https://elia-back.vercel.app/api/duties")
       .then((res) => res.json())
       .then((data) => {
         setEvents(
@@ -36,7 +36,7 @@ const Calendar = () => {
     const newEvent = { title, startTime: info.dateStr, endTime: info.dateStr };
 
     try {
-      const response = await fetch("https://elia-back.onrender.com/api/duties", {
+      const response = await fetch("https://elia-back.vercel.app/api/duties", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newEvent),
@@ -57,7 +57,7 @@ const Calendar = () => {
   // Supprimer un événement
   const handleEventClick = async (clickInfo) => {
     if (window.confirm(`Supprimer "${clickInfo.event.title}" ?`)) {
-      await fetch(`https://elia-back.onrender.com/api/duties/${clickInfo.event.id}`, { method: "DELETE" });
+      await fetch(`https://elia-back.vercel.app/api/duties/${clickInfo.event.id}`, { method: "DELETE" });
       setEvents(events.filter((event) => event.id !== clickInfo.event.id));
     }
   };

@@ -16,7 +16,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://elia-back.onrender.com/api/users/login",
+        "https://elia-back.vercel.app/api/users/login",
         { email, password },
         { withCredentials: true } // Permet d'envoyer et recevoir les cookies HTTP-only
       );
@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "https://elia-back.onrender.com/api/users/register",
+        "https://elia-back.vercel.app/api/users/register",
         { email, password },
         { withCredentials: true }
       );
