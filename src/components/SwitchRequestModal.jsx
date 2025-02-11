@@ -60,7 +60,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
     console.log("Sending request data:", requestData); // Debugging
 
     try {
-      const response = await fetch("https://elia-back-et5at9thc-huyberics-projects.vercel.app/api/requests", {
+      const response = await fetch("http://localhost:5000/api/requests", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
