@@ -36,7 +36,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!decodedToken) return;
-
+    //fourchette pour antoine
     const fetchUserData = async () => {
       try {
         console.log("Fetching user data for ID:", decodedToken.id);
@@ -108,10 +108,13 @@ const Profile = () => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch("https://elia-back.onrender.com/api/users/logout", {
-        method: "POST",
-        credentials: "include", // Nécessaire pour inclure les cookies
-      });
+      const response = await fetch(
+        "https://elia-back.onrender.com/api/users/logout",
+        {
+          method: "POST",
+          credentials: "include", // Nécessaire pour inclure les cookies
+        }
+      );
 
       if (response.ok) {
         Cookies.remove("token"); // Supprime le token du navigateur
