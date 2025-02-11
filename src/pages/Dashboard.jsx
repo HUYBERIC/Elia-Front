@@ -9,7 +9,7 @@ const Dashboard = () => {
     // Fonction pour récupérer les demandes
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests", {
+        const response = await fetch("https://elia-back.onrender.com/api/requests", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -27,7 +27,7 @@ const Dashboard = () => {
     // Fonction pour récupérer les remplacements
     const fetchReplacements = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/replacements", {
+        const response = await fetch("https://elia-back.onrender.com/api/replacements", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
