@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 @use "navbar";
 @use "login";
 @use "calendar";
@@ -17,7 +17,7 @@
 }
 
 body {
-  background-color: variables.$white;
+  background-color: v.$white;
   font-family: Montserrat, sans-serif;
   display: flex;
   flex-direction: column;

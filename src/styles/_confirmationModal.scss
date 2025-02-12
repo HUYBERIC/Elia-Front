@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 
 .confirm-modal-overlay {
   position: fixed;
@@ -12,45 +12,45 @@
   align-items: center;
   backdrop-filter: blur(3px);
   z-index: 1000;
-}
 
-.confirm-modal-content {
-  background: variables.$white;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-}
+  .confirm-modal-content {
+    background: v.$white;
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+  }
 
-.confirm-modal-buttons {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+  .confirm-modal-buttons {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
 
-.confirm-btn {
-  width: 100%;
-  padding: 0.8rem;
-  font-size: 1rem;
-  font-weight: bold;
-  background: variables.$orange-light;
-  color: variables.$white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-  margin-top: 2rem;
-}
+  .confirm-btn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background: v.$orange-light;
+    color: v.$white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin-top: 2rem;
+  }
 
-.cancel-btn {
-  width: 100%;
-  padding: 0.75rem;
-  font-size: 1rem;
-  font-weight: bold;
-  background: variables.$text-black;
-  color: variables.$white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
+  .cancel-btn {
+    width: 100%;
+    padding: 0.75rem;
+    font-size: 1rem;
+    font-weight: bold;
+    background: v.$text-black;
+    color: v.$white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
 }

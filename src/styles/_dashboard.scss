@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 
 .feed-container {
   display: flex;
@@ -14,12 +14,12 @@
     flex-direction: column;
     gap: 1rem;
     & p {
-      border: 1px solid variables.$orange-dark;
+      border: 1px solid v.$orange-dark;
       border-radius: 8px;
       padding: 0.4rem;
       margin: 0 10px;
       max-width: 37.5rem;
-      background-color: variables.$white;
+      background-color: v.$white;
     }
   }
 }

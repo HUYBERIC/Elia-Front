@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 
 .modal-overlay {
   position: fixed;
@@ -12,104 +12,109 @@
   align-items: center;
   backdrop-filter: blur(3px);
   z-index: 1000;
-}
 
-.modal-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90vw;
-  max-width: 420px;
-  min-height: 50%;
-  gap: 1rem;
-  background: variables.$white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
-  border: 2px solid variables.$orange-dark;
-  animation: fadeIn 0.3s ease-in-out;
-
-  h2 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    color: variables.$text-black;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  label {
+  .modal-content {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    font-weight: bold;
-    color: variables.$text-black;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    max-width: 420px;
+    min-height: 50%;
+    gap: 1rem;
+    background: v.$white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    border: 2px solid v.$orange-dark;
+    animation: fadeIn 0.3s ease-in-out;
 
-    select,
-    input {
+    h2 {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: v.$text-black;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    label {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      font-weight: bold;
+      color: v.$text-black;
+
+      select,
+      input {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid v.$text-black;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.2s ease-in-out;
+        background: transparent;
+
+        &:focus {
+          border-color: v.$orange-dark;
+          outline: none;
+          box-shadow: 0 0 8px rgba(v.$orange-dark, 0.6);
+        }
+      }
+    }
+
+    .urgency-select {
+      appearance: none;
+      cursor: pointer;
+      color: var(--select-color, black);
+    }
+
+    .green {
+      color: green;
+    }
+    .orange {
+      color: orange;
+    }
+    .red {
+      color: red;
+    }
+
+    .submit-button {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background: v.$orange-light;
+      color: v.$white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      margin-top: 2rem;
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+
+    button {
       width: 100%;
       padding: 0.75rem;
-      border: 2px solid variables.$text-black;
-      border-radius: 8px;
       font-size: 1rem;
-      transition: all 0.2s ease-in-out;
-      background: transparent;
+      font-weight: bold;
+      background: v.$text-black;
+      color: v.$white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
 
-      &:focus {
-        border-color: variables.$orange-dark;
-        outline: none;
-        box-shadow: 0 0 8px rgba(variables.$orange-dark, 0.6);
+      &:active {
+        transform: scale(0.98);
       }
     }
   }
-
-  .urgency-select {
-    appearance: none;
-    cursor: pointer;
-    color: var(--select-color, black);
-  }
-
-  .green { color: green; }
-  .orange { color: orange; }
-  .red { color: red; }
-
-  .submit-button {
-    width: 100%;
-    padding: 0.8rem;
-    font-size: 1rem;
-    font-weight: bold;
-    background: variables.$orange-light;
-    color: variables.$white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    margin-top: 2rem;
-
-    &:active {
-      transform: scale(0.98);
-    }
-  }
-
-  button {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    font-weight: bold;
-    background: variables.$text-black;
-    color: variables.$white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-
-    &:active {
-      transform: scale(0.98);
-    }
-  }
 }
 
-/* Animations */
 .fade-in {
   animation: fadeIn 0.3s ease-in-out;
 }
@@ -118,18 +123,28 @@
   animation: fadeOut 0.3s ease-in-out;
 }
 
-/* Keyframes */
 @keyframes fadeIn {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes fadeOut {
-  from { opacity: 1; transform: scale(1); }
-  to { opacity: 0; transform: scale(0.95); }
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
 }
 
-/* Responsive */
 @media (min-width: 768px) {
   .modal-content {
     width: 70vw;
