@@ -199,6 +199,11 @@ const Calendar = () => {
             minute: "2-digit",            
             hour12: false,
           }}
+          dayHeaderFormat={{
+            weekday: "short",
+            day: "2-digit",
+            month: "2-digit",
+          }}
         />
       </div>
 
