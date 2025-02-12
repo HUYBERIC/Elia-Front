@@ -56,15 +56,16 @@ const Dashboard = () => {
           <p>No replacements</p>
         ) : (
           replacements.slice().reverse().map((replacement) => (
-            <p key={replacement._id}>
-              <strong>{replacement.replacingUserId?.firstName}</strong> remplace
-              le shift de{" "}  
-              <strong>{replacement.replacedUserId?.firstName}</strong> le{" "}
-              {new Date(replacement.startTime).toLocaleDateString()} de{" "}
-              {new Date(replacement.startTime).toLocaleTimeString()} jusqu'au{" "}
-              {new Date(replacement.endTime).toLocaleDateString()} à{" "}
-              {new Date(replacement.endTime).toLocaleTimeString()}.
-            </p>
+            (new Date() - new Date(replacement.startTime) < 24 * 60 * 60 * 1000) && (
+              <p key={replacement._id}>
+                <strong>{replacement.replacingUserId?.firstName}</strong> remplace le shift de{" "}
+                <strong>{replacement.replacedUserId?.firstName}</strong> le{" "}
+                {new Date(replacement.startTime).toLocaleDateString()} de{" "}
+                {new Date(replacement.startTime).toLocaleTimeString()} jusqu'au{" "}
+                {new Date(replacement.endTime).toLocaleDateString()} à{" "}
+                {new Date(replacement.endTime).toLocaleTimeString()}.
+              </p>
+            )
           ))
         )}
       </div>
