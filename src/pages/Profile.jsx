@@ -126,11 +126,16 @@ const Profile = () => {
 
   return (
     <div className="profile-container">
+      <div className="title">
       <h2>Profile</h2>
+      </div>
+      <div className="subtitle">
       <p>
         {" "}
         <span>*</span> All fields are required.
       </p>
+      </div>
+      <div className="form">
       <form onSubmit={handleSubmit}>
         <label className="input-label">
           <div>
@@ -226,6 +231,7 @@ const Profile = () => {
           </button>
         </div>
       </form>
+      </div>
       <Navbar />
       <ConfirmationModal
         isOpen={isModalOpen}

@@ -3,15 +3,15 @@
 /* 🏠 Conteneur principal */
 .feed-container {
   display: flex;
-    flex-direction: column;
-    justify-self: center;
-    margin-top: 3.125rem;
-    width: 100%;
-    max-width: 1024px;
-    padding: 10px;
-    background-color: transparent;
+  flex-direction: column;
+  justify-self: center;
+  margin-top: 3.125rem;
+  width: 100%;
+  max-width: 1024px;
+  padding: 10px;
+  background-color: transparent;
 
-  .title{
+  .title {
     width: 100%;
     max-width: 1024px;
     height: 60px;
@@ -40,44 +40,44 @@
       text-align: center;
     }
   }
-  .notifs{
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-  width: 100%;
-  max-width: 1024px;
-  background-color: v.$white;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  padding: 0.75rem;
-  border-radius: 12px;
-  text-align: center;
+  .notifs {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 100%;
+    max-width: 1024px;
+    background-color: v.$white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem;
+    border-radius: 12px;
+    text-align: center;
     .notif {
       display: flex;
-    align-items: center;
-    justify-content: center;
-    max-width: 1024px;
-    gap: 8px;
-    padding: 12px;
-    margin-bottom: 0.75rem;
-    border: 1px solid v.$orange-light;
-    border-radius: 8px;
-    background-color: rgba(v.$orange-light, 0.2);
-    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-    .notif-content{
-      text-align: center;
-      .user {
-        color: v.$orange-dark;
-        font-weight: 700;
-        text-transform: uppercase;
+      align-items: center;
+      justify-content: center;
+      max-width: 1024px;
+      gap: 8px;
+      padding: 12px;
+      margin-bottom: 0.75rem;
+      border: 1px solid v.$orange-light;
+      border-radius: 8px;
+      background-color: rgba(v.$orange-light, 0.2);
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      .notif-content {
+        text-align: center;
+        .user {
+          color: v.$orange-dark;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        .from-to {
+          font-style: italic;
+        }
+        .bold {
+          font-weight: 700;
+        }
       }
-      .from-to{
-        font-style: italic;
-      }
-      .bold{
-        font-weight: 700;
-      }
-    }
     }
 
     p.no-data {
@@ -86,26 +86,24 @@
       text-align: center;
       font-style: italic;
     }
-
-
   }
-/* 📱 Responsive (Tablettes & Desktop) */
-@media (min-width: 600px) {
-  .feed-container {
-    padding: 1rem;
-  }
+  /* 📱 Responsive (Tablettes & Desktop) */
+  @media (min-width: 600px) {
+    .feed-container {
+      padding: 1rem;
+    }
 
-  .feed {
-    gap: 1rem;
-  }
+    .feed {
+      gap: 1rem;
+    }
 
-  .feed h3 {
-    font-size: 1.2rem;
-  }
+    .feed h3 {
+      font-size: 1.2rem;
+    }
 
-  .feed p {
-    padding: 1rem;
-    font-size: 1rem;
+    .feed p {
+      padding: 1rem;
+      font-size: 1rem;
+    }
   }
-}
 }
