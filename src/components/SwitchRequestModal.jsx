@@ -74,6 +74,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       if (response.ok) {
         alert("Submission successful");
         handleClose();
+        window.location.reload();
       } else {
         alert("Submission failed");
       }
