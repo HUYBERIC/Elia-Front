@@ -81,6 +81,12 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
   // Do not display the modal until it is open or closing
   if (!isOpen && !isClosing) return null;
 
+  const getCurrentDateTime = () => {
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust for timezone
+    return now.toISOString().slice(0, 16);
+  };
+
   return (
     <div className="modal-overlay" onClick={handleOverlayClick}>
       <div className={`modal-content ${isClosing ? "fade-out" : "fade-in"}`}>
@@ -118,7 +124,8 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
             type="datetime-local"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-          />
+            min={getCurrentDateTime()}
+            />
         </label>
         <label>
           End :
@@ -127,6 +134,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
             type="datetime-local"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
+            min={getCurrentDateTime()}
           />
         </label>
         <button className="submit-button" onClick={handleSubmit}>Submit</button>
