@@ -189,6 +189,7 @@ const Calendar = () => {
           firstDay={1}
           eventColor="#f48329"
           datesSet={handleDatesSet}
+          locale="en-GB"
           slotLabelFormat={{
             hour: "2-digit",
             minute: "2-digit",
@@ -196,13 +197,29 @@ const Calendar = () => {
           }}
           eventTimeFormat={{
             hour: "2-digit",
-            minute: "2-digit",            
+            minute: "2-digit",
             hour12: false,
           }}
-          dayHeaderFormat={{
-            weekday: "short",
-            day: "2-digit",
-            month: "2-digit",
+          views={{
+            dayGridMonth: {
+              dayHeaderFormat: {
+                weekday: "short", // Only show "Mon", "Tue", etc. in Month View
+              },
+            },
+            timeGridWeek: {
+              dayHeaderFormat: {
+                weekday: "short",
+                day: "2-digit",
+                month: "2-digit", // Show full "10/02" format in Week View
+              },
+            },
+            timeGridDay: {
+              dayHeaderFormat: {
+                weekday: "short",
+                day: "2-digit",
+                month: "2-digit", // Show full "10/02" format in Day View
+              },
+            },
           }}
         />
       </div>
