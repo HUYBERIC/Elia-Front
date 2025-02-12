@@ -59,6 +59,7 @@ const Calendar = () => {
               start: new Date(latestRep.startTime).toISOString(),
               end: new Date(latestRep.endTime).toISOString(),
               createdAt: new Date(latestRep.createdAt).toISOString(), // Ajout de createdAt
+              color: "#1f2528",
             });
           });
         });
@@ -186,7 +187,7 @@ const Calendar = () => {
           selectable
           eventClick={handleEventClick}
           firstDay={1}
-          eventColor="#e75420"
+          eventColor="#f48329"
           datesSet={handleDatesSet}
         />
       </div>
