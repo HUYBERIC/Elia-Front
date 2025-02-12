@@ -88,6 +88,19 @@ const Notification = () => {
     }
   };
 
+  const getBorderClass = (border) => {
+    switch (border) {
+      case "low":
+        return "border-low";
+      case "medium":
+        return "border-medium";
+      case "high":
+        return "border-high";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="notification-container">
       {requests.length === 0 ? (
@@ -97,7 +110,7 @@ const Notification = () => {
           .slice()
           .reverse()
           .map((request) => (
-            <div key={request._id} className="notification-content">
+            <div key={request._id} className={`notification-content ${getBorderClass(request.emergencyLevel)}`}>
               <svg
                 width="40px"
                 height="40px"
