@@ -45,7 +45,10 @@ const Calendar = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setEvents([...events, { id: data._id, title, start: info.dateStr, end: info.dateStr }]);
+        setEvents([
+          ...events,
+          { id: data._id, title, start: info.dateStr, end: info.dateStr },
+        ]);
       } else {
         console.error("Erreur lors de l'ajout");
       }
@@ -57,7 +60,9 @@ const Calendar = () => {
   // Supprimer un événement
   const handleEventClick = async (clickInfo) => {
     if (window.confirm(`Supprimer "${clickInfo.event.title}" ?`)) {
-      await fetch(`http://localhost:5000/api/duties/${clickInfo.event.id}`, { method: "DELETE" });
+      await fetch(`http://localhost:5000/api/duties/${clickInfo.event.id}`, {
+        method: "DELETE",
+      });
       setEvents(events.filter((event) => event.id !== clickInfo.event.id));
     }
   };
@@ -80,7 +85,9 @@ const Calendar = () => {
 
   // Calcul de la semaine selon ISO 8601
   const getISOWeek = (date) => {
-    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const d = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    );
     d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
     const startOfYear = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
     const weekNumber = Math.ceil(((d - startOfYear) / 86400000 + 1) / 7);
@@ -90,31 +97,34 @@ const Calendar = () => {
   // Titre dynamique
   const getDisplayTitle = () => {
     if (currentView === "dayGridMonth") {
-      return currentDate.toLocaleString("fr-FR", { month: "long", year: "numeric" });
+      return currentDate.toLocaleString("fr-FR", {
+        month: "long",
+        year: "numeric",
+      });
     }
     if (currentView === "timeGridWeek") {
-      return `Semaine ${getISOWeek(currentDate)} - ${currentDate.getFullYear()}`;
+      return `Semaine ${getISOWeek(
+        currentDate
+      )} - ${currentDate.getFullYear()}`;
     }
     if (currentView === "timeGridDay") {
-      return currentDate.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      return currentDate.toLocaleDateString("fr-FR", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
     }
   };
-
-  useEffect(() => {
-    fetch()
-  
-    return () => {
-      second
-    }
-  }, [third])
-  
 
   return (
     <div className="calendar-container">
       <Navbar />
-      
+
       {/* Bouton Today */}
-      <button className="today-button" onClick={goToToday}>Today</button>
+      <button className="today-button" onClick={goToToday}>
+        Today
+      </button>
 
       {/* Titre dynamique */}
       <div className="calendar-header">{getDisplayTitle()}</div>
@@ -140,9 +150,24 @@ const Calendar = () => {
       {/* Navigation */}
       <div className="calendar-footer">
         <button onClick={goToPrev}>{"<"}</button>
-        <button className={currentView === "dayGridMonth" ? "active" : ""} onClick={() => changeView("dayGridMonth")}>Month</button>
-        <button className={currentView === "timeGridWeek" ? "active" : ""} onClick={() => changeView("timeGridWeek")}>Week</button>
-        <button className={currentView === "timeGridDay" ? "active" : ""} onClick={() => changeView("timeGridDay")}>Day</button>
+        <button
+          className={currentView === "dayGridMonth" ? "active" : ""}
+          onClick={() => changeView("dayGridMonth")}
+        >
+          Month
+        </button>
+        <button
+          className={currentView === "timeGridWeek" ? "active" : ""}
+          onClick={() => changeView("timeGridWeek")}
+        >
+          Week
+        </button>
+        <button
+          className={currentView === "timeGridDay" ? "active" : ""}
+          onClick={() => changeView("timeGridDay")}
+        >
+          Day
+        </button>
         <button onClick={goToNext}>{">"}</button>
       </div>
     </div>
