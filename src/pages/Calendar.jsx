@@ -209,7 +209,7 @@ const Calendar = () => {
             timeGridWeek: {
               allDaySlot: false,
               dayHeaderFormat: {
-                weekday: "short",
+                weekday: "narrow", // Show "M", "T", etc. in Week View
                 day: "2-digit",
                 month: "2-digit", // Show full "10/02" format in Week View
               },
