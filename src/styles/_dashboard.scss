@@ -41,23 +41,43 @@
     }
   }
   .notifs{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  width: 100%;
+  max-width: 1024px;
+  background-color: v.$white;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  padding: 0.75rem;
+  border-radius: 12px;
+  text-align: center;
     .notif {
       display: flex;
-      flex-direction: column;
-      gap: 0.4rem;
-      padding: 0.8rem;
-      border: 1px solid v.$orange-light;
-      border-radius: 8px;
-      background-color: v.$white;
-      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease-in-out;
-      font-size: 0.85rem;
-    
+    align-items: center;
+    justify-content: center;
+    max-width: 1024px;
+    gap: 8px;
+    padding: 12px;
+    margin-bottom: 0.75rem;
+    border: 1px solid v.$orange-light;
+    border-radius: 8px;
+    background-color: v.$white;
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    .notif-content{
+      text-align: center;
       .user {
         color: v.$orange-dark;
         font-weight: 700;
         text-transform: uppercase;
       }
+      .from-to{
+        font-style: italic;
+      }
+      .bold{
+        font-weight: 700;
+      }
+    }
     }
 
     p.no-data {
