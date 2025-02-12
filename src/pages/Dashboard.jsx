@@ -48,29 +48,38 @@ const Dashboard = () => {
 
   return (
     <div className="feed-container">
-      <div className="feed">
-        <h3>Replacements</h3>
-        {replacements.length === 0 ? (
-          <p>No replacements</p>
-        ) : (
-          replacements.slice().reverse().map((replacement) => (
-            (new Date() - new Date(replacement.startTime) < 24 * 60 * 60 * 1000) && (
-              <p key={replacement._id}>
-                <strong>{replacement.replacingUserId?.firstName}</strong> is replacing the shift of{" "}
-                <strong>{replacement.replacedUserId?.firstName}</strong> on{" "}
-                {new Date(replacement.startTime).toLocaleDateString()} from{" "}
-                {new Date(replacement.startTime).toLocaleTimeString()} to{" "}
-                {new Date(replacement.endTime).toLocaleDateString()} at{" "}
-                {new Date(replacement.endTime).toLocaleTimeString()}.
-              </p>
-            )
-          ))
-        )}
-      </div>
+        <div className="title">
+          <h3>Replacements</h3>
+        </div>
+        <div className="notifs">
+          {replacements.length === 0 ? (
+            <p>No replacements</p>
+          ) : (
+            replacements
+              .slice()
+              .reverse()
+              .map(
+                (replacement) =>
+                  new Date() - new Date(replacement.startTime) <
+                    24 * 60 * 60 * 1000 && (
+                    <div key={replacement._id} className="notif">
+                      <p className="notif-content"><span className="user">{replacement.replacingUserId?.firstName}{" "}</span>
+                      is replacing the shift of{" "}
+                      <span className="user">{replacement.replacedUserId?.firstName}{" "}</span>
+                      on {new Date(replacement.startTime).toLocaleDateString()}{" "}
+                      from{" "}
+                      {new Date(replacement.startTime).toLocaleTimeString()} to{" "}
+                      {new Date(replacement.endTime).toLocaleDateString()} at{" "}
+                      {new Date(replacement.endTime).toLocaleTimeString()}.
+                      </p>
+                    </div>
+                  )
+              )
+          )}
+        </div>
       <Navbar />
     </div>
   );
 };
 
 export default Dashboard;
-
