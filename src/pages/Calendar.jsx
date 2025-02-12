@@ -148,15 +148,15 @@ const Calendar = () => {
       });
     }
     if (currentView === "timeGridWeek") {
-      return `Semaine ${getISOWeek(
+      return `Week ${getISOWeek(
         currentDate
       )} - ${currentDate.getFullYear()}`;
     }
     if (currentView === "timeGridDay") {
-      return currentDate.toLocaleDateString("fr-FR", {
-        weekday: "long",
+      return currentDate.toLocaleDateString("en-GB", {
+        weekday: "short",
         day: "numeric",
-        month: "long",
+        month: "numeric",
         year: "numeric",
       });
     }
@@ -207,6 +207,7 @@ const Calendar = () => {
               },
             },
             timeGridWeek: {
+              allDaySlot: false,
               dayHeaderFormat: {
                 weekday: "short",
                 day: "2-digit",
@@ -214,11 +215,8 @@ const Calendar = () => {
               },
             },
             timeGridDay: {
-              dayHeaderFormat: {
-                weekday: "short",
-                day: "2-digit",
-                month: "2-digit", // Show full "10/02" format in Day View
-              },
+              allDaySlot: false,
+              dayHeaders: false, // ✅ Hides header in day view
             },
           }}
         />
