@@ -51,9 +51,11 @@ const Calendar = () => {
 
           // Ajout des remplacements filtrés au tableau final
           Object.values(latestReplacements).forEach((latestRep) => {
+            console.log(latestRep);
+
             filteredReplacements.push({
               id: latestRep._id,
-              title: latestRep.title || "Sans titre",
+              title: latestRep.replacingUserId.firstName || "Sans titre",
               start: new Date(latestRep.startTime).toISOString(),
               end: new Date(latestRep.endTime).toISOString(),
               createdAt: new Date(latestRep.createdAt).toISOString(), // Ajout de createdAt
