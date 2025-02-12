@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 
 .profile-container {
   display: flex;
@@ -12,7 +12,7 @@
     font-size: 2rem;
     margin-bottom: 0rem;
     text-align: center;
-    color: variables.$text-black;
+    color: v.$text-black;
   }
 
   p {
@@ -20,10 +20,10 @@
     text-align: center;
     justify-self: center;
     margin-bottom: 10px;
-    color: variables.$text-black;
+    color: v.$text-black;
 
     span {
-      color: variables.$orange-dark;
+      color: v.$orange-dark;
       font-weight: bold;
     }
   }
@@ -35,23 +35,23 @@
     width: 90vw;
     max-width: 400px;
     padding: 1rem;
-    background: variables.$white;
+    background: v.$white;
     border-radius: 16px;
-    border: 1px solid variables.$orange-light;
+    border: 1px solid v.$orange-light;
   
 
     .input-label {
       display: flex;
       flex-direction: column;
       font-weight: bold;
-      color: variables.$text-black;
+      color: v.$text-black;
 
       div {
         margin-bottom: 0.3rem;
       }
 
       span {
-        color: variables.$orange-dark;
+        color: v.$orange-dark;
       }
     }
 
@@ -59,16 +59,16 @@
     select {
       width: 100%;
       padding: 0.75rem;
-      border: 2px solid variables.$text-black;
+      border: 2px solid v.$text-black;
       border-radius: 8px;
       font-size: 1rem;
       transition: all 0.2s ease-in-out;
       background: transparent;
 
       &:focus {
-        border-color: variables.$orange-dark;
+        border-color: v.$orange-dark;
         outline: none;
-        box-shadow: 0 0 8px rgba(variables.$orange-dark, 0.6);
+        box-shadow: 0 0 8px rgba(v.$orange-dark, 0.6);
       }
     }
 
@@ -87,8 +87,8 @@
       margin-top: 10px;
       font-size: 1rem;
       font-weight: bold;
-      background: variables.$orange-light;
-      color: variables.$white;
+      background: v.$orange-light;
+      color: v.$white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
@@ -100,12 +100,12 @@
     }
 
     .logout {
-      background-color: variables.$text-black;
+      background-color: v.$text-black;
     }
   }
 }
 
-/* Tablet adaptation */
+/* Tablet */
 @media (min-width: 768px) {
   .profile-container {
     padding: 4rem;
@@ -116,7 +116,7 @@
   }
 }
 
-/* Desktop adaptation */
+/* Desktop */
 @media (min-width: 1024px) {
   .profile-container {
     flex-direction: column;
