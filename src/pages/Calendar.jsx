@@ -16,6 +16,8 @@ const Calendar = () => {
     fetch("http://localhost:5000/api/duties")
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
+
         setEvents(
           data.map((event) => ({
             id: event.id,
@@ -24,6 +26,46 @@ const Calendar = () => {
             end: new Date(event.end).toISOString(),
           }))
         );
+
+        const filteredReplacements = [];
+
+        data.forEach((subArray) => {
+          const latestReplacements = {}; // Stocke le remplacement le plus récent pour chaque startTime et endTime
+
+          subArray.replacements.forEach((rep) => {
+            if (!rep.createdAt) return;
+
+            const dateTimeKey = `${new Date(
+              rep.startTime
+            ).toISOString()}_${new Date(rep.endTime).toISOString()}`; // Clé combinée pour startTime et endTime
+
+            // Si pas encore ajouté ou si le nouveau remplacement a un createdAt plus récent, on met à jour
+            if (
+              !latestReplacements[dateTimeKey] ||
+              new Date(rep.createdAt) >
+                new Date(latestReplacements[dateTimeKey].createdAt)
+            ) {
+              latestReplacements[dateTimeKey] = rep;
+            }
+          });
+
+          // Ajout des remplacements filtrés au tableau final
+          Object.values(latestReplacements).forEach((latestRep) => {
+            filteredReplacements.push({
+              id: latestRep._id,
+              title: latestRep.title || "Sans titre",
+              start: new Date(latestRep.startTime).toISOString(),
+              end: new Date(latestRep.endTime).toISOString(),
+              createdAt: new Date(latestRep.createdAt).toISOString(), // Ajout de createdAt
+            });
+          });
+        });
+
+        console.log(filteredReplacements);
+
+        setEvents((prev) => [...prev, ...filteredReplacements]);
+
+        console.log([...events, ...filteredReplacements]);
       })
       .catch((err) => console.error("Erreur lors du chargement", err));
   }, []);
@@ -138,7 +180,7 @@ const Calendar = () => {
           headerToolbar={false}
           events={events}
           dateClick={handleDateClick}
-          editable
+          editable={false}
           selectable
           eventClick={handleEventClick}
           firstDay={1}
