@@ -49,8 +49,6 @@ const Dashboard = () => {
   return (
     <div className="feed-container">
       <div className="feed">
-        
-
         <h3>Replacements</h3>
         {replacements.length === 0 ? (
           <p>No replacements</p>
@@ -58,11 +56,11 @@ const Dashboard = () => {
           replacements.slice().reverse().map((replacement) => (
             (new Date() - new Date(replacement.startTime) < 24 * 60 * 60 * 1000) && (
               <p key={replacement._id}>
-                <strong>{replacement.replacingUserId?.firstName}</strong> remplace le shift de{" "}
-                <strong>{replacement.replacedUserId?.firstName}</strong> le{" "}
-                {new Date(replacement.startTime).toLocaleDateString()} de{" "}
-                {new Date(replacement.startTime).toLocaleTimeString()} jusqu'au{" "}
-                {new Date(replacement.endTime).toLocaleDateString()} à{" "}
+                <strong>{replacement.replacingUserId?.firstName}</strong> is replacing the shift of{" "}
+                <strong>{replacement.replacedUserId?.firstName}</strong> on{" "}
+                {new Date(replacement.startTime).toLocaleDateString()} from{" "}
+                {new Date(replacement.startTime).toLocaleTimeString()} to{" "}
+                {new Date(replacement.endTime).toLocaleDateString()} at{" "}
                 {new Date(replacement.endTime).toLocaleTimeString()}.
               </p>
             )
