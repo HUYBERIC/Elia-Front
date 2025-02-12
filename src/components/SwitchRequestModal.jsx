@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const SwitchRequestModal = ({ isOpen, onClose }) => {
   const [emergencyLevel, setEmergencyLevel] = useState(1);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [isClosing, setIsClosing] = useState(false); // Handle fadeOut animation
+  const [isClosing, setIsClosing] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
   // Updating the text color of the selector based on the selected emergency
   useEffect(() => {
@@ -32,7 +34,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
     setTimeout(() => {
       setIsClosing(false);
       onClose();
-    }, 300); // Corresponds to the duration of the CSS animation
+    }, 300);
   };
 
   // Closes the modal if the overlay is clicked
@@ -43,7 +45,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
   };
 
   // Handles form submission
-  const handleSubmit = async () => {
+  const handleConfirmSubmit = async () => {
     if (!startDate || !endDate) {
       alert("Please provide a start and end date");
       return;
@@ -53,9 +55,12 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       1: "low",
       2: "medium",
       3: "high",
-    }
-;
-    const requestData = { emergencyLevel: emergencyMapping[emergencyLevel], startDate, endDate };
+    };
+    const requestData = {
+      emergencyLevel: emergencyMapping[emergencyLevel],
+      startDate,
+      endDate,
+    };
 
     console.log("Sending request data:", requestData); // Debugging
 
@@ -83,7 +88,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
 
   const getCurrentDateTime = () => {
     const now = new Date();
-    now.setMinutes(now.getMinutes() - now.getTimezoneOffset()); // Adjust for timezone
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
     return now.toISOString().slice(0, 16);
   };
 
@@ -125,7 +130,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
             min={getCurrentDateTime()}
-            />
+          />
         </label>
         <label>
           End :
@@ -137,9 +142,20 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
             min={getCurrentDateTime()}
           />
         </label>
-        <button className="submit-button" onClick={handleSubmit}>Submit</button>
+        <button
+          className="submit-button"
+          onClick={() => setIsConfirmModalOpen(true)}
+        >
+          Submit
+        </button>
         <button onClick={handleClose}>Cancel</button>
       </div>
+      <ConfirmationModal
+        isOpen={isConfirmModalOpen}
+        onClose={() => setIsConfirmModalOpen(false)}
+        onConfirm={handleConfirmSubmit}
+        message="Are you sure you want to submit this switch request?"
+      />
     </div>
   );
 };
