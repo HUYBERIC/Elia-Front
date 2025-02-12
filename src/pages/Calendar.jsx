@@ -100,6 +100,15 @@ const Calendar = () => {
     }
   };
 
+  useEffect(() => {
+    fetch()
+  
+    return () => {
+      second
+    }
+  }, [third])
+  
+
   return (
     <div className="calendar-container">
       <Navbar />
