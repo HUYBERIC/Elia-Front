@@ -104,8 +104,23 @@
   }
 
   .emergency-high {
-    color: red;
+    color: crimson;
     font-weight: bold;
     text-transform: uppercase;
+  }
+
+  .border-low {
+    border: 2px solid green;
+    background-color: rgba(green, 0.2);
+  }
+
+  .border-medium {
+    border: 2px solid v.$orange-light;
+    background-color: rgba(v.$orange-light, 0.2);
+  }
+
+  .border-high {
+    border: 2px solid crimson;
+    background-color: rgba(crimson, 0.2);
   }
 }
