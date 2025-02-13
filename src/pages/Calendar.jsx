@@ -144,6 +144,7 @@ const Calendar = () => {
           editable={false}
           selectable
           firstDay={1}
+          nowIndicator={true}
           eventColor="#f48329"
           datesSet={handleDatesSet}
           locale="en-GB"
