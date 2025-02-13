@@ -73,45 +73,6 @@ const Calendar = () => {
       .catch((err) => console.error("Erreur lors du chargement", err));
   }, []);
 
-  // Ajouter un événement
-  const handleDateClick = async (info) => {
-    const title = prompt("Nom de l'événement ?");
-    if (!title) return;
-
-    const newEvent = { title, startTime: info.dateStr, endTime: info.dateStr };
-
-    try {
-      const response = await fetch("http://localhost:5000/api/duties", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newEvent),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setEvents([
-          ...events,
-          { id: data._id, title, start: info.dateStr, end: info.dateStr },
-        ]);
-      } else {
-        console.error("Erreur lors de l'ajout");
-      }
-    } catch (error) {
-      console.error("Erreur réseau", error);
-    }
-  };
-
-  // Supprimer un événement
-  const handleEventClick = async (clickInfo) => {
-    if (window.confirm(`Supprimer "${clickInfo.event.title}" ?`)) {
-      await fetch(`http://localhost:5000/api/duties/${clickInfo.event.id}`, {
-        method: "DELETE",
-      });
-      setEvents(events.filter((event) => event.id !== clickInfo.event.id));
-    }
-  };
-
   // Navigation
   const goToPrev = () => calendarRef.current.getApi().prev();
   const goToNext = () => calendarRef.current.getApi().next();
@@ -148,9 +109,7 @@ const Calendar = () => {
       });
     }
     if (currentView === "timeGridWeek") {
-      return `Week ${getISOWeek(
-        currentDate
-      )} - ${currentDate.getFullYear()}`;
+      return `Week ${getISOWeek(currentDate)} - ${currentDate.getFullYear()}`;
     }
     if (currentView === "timeGridDay") {
       return currentDate.toLocaleDateString("en-GB", {
@@ -182,10 +141,8 @@ const Calendar = () => {
           initialView={currentView}
           headerToolbar={false}
           events={events}
-          dateClick={handleDateClick}
           editable={false}
           selectable
-          eventClick={handleEventClick}
           firstDay={1}
           eventColor="#f48329"
           datesSet={handleDatesSet}
