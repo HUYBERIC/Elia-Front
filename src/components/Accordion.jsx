@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronDown } from "react-icons/fa";
+import Statistics from "./Statistics";
 
 const Accordion = ({ i, expanded, setExpanded }) => {
   const isOpen = i === expanded;
@@ -42,27 +43,8 @@ const Accordion = ({ i, expanded, setExpanded }) => {
             }}
             transition={{ duration: 0.4, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
-            Actual stats coming from stats component
+            {" "}
+            <Statistics />
           </motion.section>
         )}
       </AnimatePresence>
