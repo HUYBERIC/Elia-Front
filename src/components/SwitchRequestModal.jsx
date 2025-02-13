@@ -155,7 +155,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
         isOpen={isConfirmModalOpen}
         onClose={() => setIsConfirmModalOpen(false)}
         onConfirm={handleConfirmSubmit}
-        message="Do you confirm your switch request?"
+        message="Confirm switch request ?"
       />
     </div>
   );
