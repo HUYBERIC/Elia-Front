@@ -103,7 +103,7 @@ const Calendar = () => {
   // Titre dynamique
   const getDisplayTitle = () => {
     if (currentView === "dayGridMonth") {
-      return currentDate.toLocaleString("fr-FR", {
+      return currentDate.toLocaleString("en-GB", {
         month: "long",
         year: "numeric",
       });
