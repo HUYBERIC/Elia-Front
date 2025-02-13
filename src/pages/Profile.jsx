@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../components/ConfirmationModal";
+import Accordion from "../components/Accordion";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const Profile = () => {
 
   const [decodedToken, setDecodedToken] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [expanded, setExpanded] = useState(false); //handles accordion
 
   useEffect(() => {
     // Read the token from cookies
@@ -127,110 +129,111 @@ const Profile = () => {
   return (
     <div className="profile-container">
       <div className="title">
-      <h2>Profile</h2>
+        <h2>Profile</h2>
       </div>
+      <Accordion expanded={expanded} setExpanded={setExpanded} />
       <div className="subtitle">
-      <p>
-        {" "}
-        <span>*</span> All fields are required.
-      </p>
+        <p>
+          {" "}
+          <span>*</span> All fields are required.
+        </p>
       </div>
       <div className="form">
-      <form onSubmit={handleSubmit}>
-        <label className="input-label">
-          <div>
-            Last Name<span>*</span>:
-          </div>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            required
-          />
-        </label>
+        <form onSubmit={handleSubmit}>
+          <label className="input-label">
+            <div>
+              Last Name<span>*</span>:
+            </div>
+            <input
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        <label className="input-label">
-          <div>
-            First Name<span>*</span>:
-          </div>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          <label className="input-label">
+            <div>
+              First Name<span>*</span>:
+            </div>
+            <input
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        <label className="input-label">
-          <div>
-            Service Center<span>*</span>:
-          </div>
-          <select
-            name="serviceCenter"
-            value={formData.serviceCenter}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Select a center</option>
-            <optgroup label="North-West">
-              <option value="Lendelede">Lendelede</option>
-              <option value="Lochristi">Lochristi</option>
-            </optgroup>
-            <optgroup label="North-East">
-              <option value="Merksem">Merksem</option>
-              <option value="Stalen">Stalen</option>
-              <option value="Schaarbeek-Noord">Schaarbeek Noord</option>
-            </optgroup>
-            <optgroup label="South-West">
-              <option value="Gouy">Gouy</option>
-              <option value="Schaerbeek-Sud">Schaerbeek Sud</option>
-            </optgroup>
-            <optgroup label="South-East">
-              <option value="Bressoux">Bressoux</option>
-              <option value="Villeroux">Villeroux</option>
-              <option value="Gembloux">Gembloux</option>
-            </optgroup>
-          </select>
-        </label>
+          <label className="input-label">
+            <div>
+              Service Center<span>*</span>:
+            </div>
+            <select
+              name="serviceCenter"
+              value={formData.serviceCenter}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select a center</option>
+              <optgroup label="North-West">
+                <option value="Lendelede">Lendelede</option>
+                <option value="Lochristi">Lochristi</option>
+              </optgroup>
+              <optgroup label="North-East">
+                <option value="Merksem">Merksem</option>
+                <option value="Stalen">Stalen</option>
+                <option value="Schaarbeek-Noord">Schaarbeek Noord</option>
+              </optgroup>
+              <optgroup label="South-West">
+                <option value="Gouy">Gouy</option>
+                <option value="Schaerbeek-Sud">Schaerbeek Sud</option>
+              </optgroup>
+              <optgroup label="South-East">
+                <option value="Bressoux">Bressoux</option>
+                <option value="Villeroux">Villeroux</option>
+                <option value="Gembloux">Gembloux</option>
+              </optgroup>
+            </select>
+          </label>
 
-        <label className="input-label">
-          <div>
-            Email<span>*</span>:
-          </div>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </label>
+          <label className="input-label">
+            <div>
+              Email<span>*</span>:
+            </div>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </label>
 
-        <label className="input-label">
-          <div>
-            Phone Number<span>*</span>:
+          <label className="input-label">
+            <div>
+              Phone Number<span>*</span>:
+            </div>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            />
+          </label>
+          <div className="buttons">
+            <button type="submit">Submit</button>
+            <button
+              type="button"
+              className="logout"
+              onClick={() => setIsModalOpen(true)}
+            >
+              Log out
+            </button>
           </div>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-          />
-        </label>
-        <div className="buttons">
-          <button type="submit">Submit</button>
-          <button
-            type="button"
-            className="logout"
-            onClick={() => setIsModalOpen(true)}
-          >
-            Log out
-          </button>
-        </div>
-      </form>
+        </form>
       </div>
       <Navbar />
       <ConfirmationModal
