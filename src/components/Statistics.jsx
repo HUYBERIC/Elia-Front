@@ -1,5 +1,6 @@
 import { FaCheck } from "react-icons/fa";
 import { CgUnavailable } from "react-icons/cg";
+import ChartStats from "./ChartStats";
 
 const Statistics = () => {
   return (
@@ -21,7 +22,7 @@ const Statistics = () => {
           <CgUnavailable className="icon" />
           <p>Claude</p>
         </div>
-      </div>
+      </div><ChartStats />
     </div>
   );
 };
