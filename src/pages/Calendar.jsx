@@ -11,67 +11,39 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const calendarRef = useRef(null);
 
-  // Fetch events
-  useEffect(() => {
-    fetch("http://localhost:5000/api/duties")
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+  const [refresh, setRefresh] = useState(false); // 🔄 Force le rechargement après un changement
 
-        setEvents(
-          data.map((event) => ({
-            id: event.id,
-            title: event.title || "Sans titre",
-            start: new Date(event.start).toISOString(),
-            end: new Date(event.end).toISOString(),
-          }))
-        );
+// Fetch events
+useEffect(() => {
+  fetch("http://localhost:5000/api/duties")
+    .then((res) => res.json())
+    .then((data) => {
+      console.log("Données reçues :", data);
 
-        const filteredReplacements = [];
+      const formattedEvents = [];
 
-        data.forEach((subArray) => {
-          const latestReplacements = {}; // Stocke le remplacement le plus récent pour chaque startTime et endTime
-
-          subArray.replacements.forEach((rep) => {
-            if (!rep.createdAt) return;
-
-            const dateTimeKey = `${new Date(
-              rep.startTime
-            ).toISOString()}_${new Date(rep.endTime).toISOString()}`; // Clé combinée pour startTime et endTime
-
-            // Si pas encore ajouté ou si le nouveau remplacement a un createdAt plus récent, on met à jour
-            if (
-              !latestReplacements[dateTimeKey] ||
-              new Date(rep.createdAt) >
-                new Date(latestReplacements[dateTimeKey].createdAt)
-            ) {
-              latestReplacements[dateTimeKey] = rep;
-            }
-          });
-
-          // Ajout des remplacements filtrés au tableau final
-          Object.values(latestReplacements).forEach((latestRep) => {
-            console.log(latestRep);
-
-            filteredReplacements.push({
-              id: latestRep._id,
-              title: latestRep.replacingUserId.firstName || "Sans titre",
-              start: new Date(latestRep.startTime).toISOString(),
-              end: new Date(latestRep.endTime).toISOString(),
-              createdAt: new Date(latestRep.createdAt).toISOString(), // Ajout de createdAt
-              color: "#1f2528",
-            });
+      data.forEach((duty) => {
+        // Ajouter les segments (remplacements)
+        duty.segments.forEach((segment) => {
+          console.log(segment)
+          formattedEvents.push({
+            id: segment.id,
+            title: segment.user?.firstName
+              ? `${segment.user.firstName} ${segment.user.lastName}`
+              : "Utilisateur inconnu",
+            start: new Date(segment.startTime).toISOString(),
+            end: new Date(segment.endTime).toISOString(),
+            color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
           });
         });
+      });
 
-        console.log(filteredReplacements);
-
-        setEvents((prev) => [...prev, ...filteredReplacements]);
-
-        console.log([...events, ...filteredReplacements]);
-      })
-      .catch((err) => console.error("Erreur lors du chargement", err));
-  }, []);
+      console.log("Événements formatés :", formattedEvents);
+      setEvents(formattedEvents);
+    })
+    .catch((err) => console.error("Erreur lors du chargement", err));
+}, [refresh]); // 🔄 Re-fetch les données lorsque refresh change
+  
 
   // Navigation
   const goToPrev = () => calendarRef.current.getApi().prev();
@@ -120,6 +92,23 @@ const Calendar = () => {
       });
     }
   };
+
+  const handleAcceptRequest = async (requestId) => {
+  try {
+    const res = await fetch(`http://localhost:5000/api/requests/${requestId}/accept`, {
+      method: "POST",
+    });
+
+    if (!res.ok) throw new Error("Erreur lors de l'acceptation de la requête");
+
+    const result = await res.json();
+    console.log("Request accepted:", result);
+
+    setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
+  } catch (error) {
+    console.error("Erreur lors de l'acceptation de la requête", error);
+  }
+};
 
   return (
     <div className="calendar-container">

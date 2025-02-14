@@ -6,7 +6,7 @@ const Notification = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests", {
+        const response = await fetch("http://localhost:5000/api/requests/pending", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
@@ -19,6 +19,7 @@ const Notification = () => {
         }
 
         const data = await response.json();
+        console.log(data);
         setRequests(data);
       } catch (error) {
         console.error("Error fetching requests:", error);
