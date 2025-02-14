@@ -6,17 +6,21 @@ const Notification = () => {
   const [requests, setRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSelfAcceptModalOpen, setIsSelfAcceptModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests/pending", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/requests/pending",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch requests");
@@ -41,8 +45,58 @@ const Notification = () => {
 
   const handleAccept = (requestId) => {
     const requestToAccept = requests.find((req) => req._id === requestId);
+    if (!requestToAccept) return;
+
     setSelectedRequest(requestToAccept);
-    setIsModalOpen(true);
+
+    // Extract the user ID from the request itself (requesterId)
+    const requesterId = requestToAccept.requesterId?._id;
+
+    // Extract the user ID from the response when accepting the request
+    const receiverId = requestToAccept.receiverId;
+
+    // Check if the user is trying to accept their own request
+    if (requesterId === receiverId || !receiverId) {
+      setIsSelfAcceptModalOpen(true); // Show self-acceptance warning modal
+    } else {
+      setIsModalOpen(true); // Show normal confirmation modal
+    }
+  };
+
+  const confirmSelfAccept = async () => {
+    if (!selectedRequest) return;
+
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/requests/${selectedRequest._id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        setRequests(
+          requests.filter((request) => request._id !== selectedRequest._id)
+        );
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Success",
+          text: "Request deleted",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } else {
+        alert("Failed to cancel request");
+      }
+    } catch (error) {
+      console.error("Error canceling request:", error);
+    } finally {
+      setIsSelfAcceptModalOpen(false);
+      setSelectedRequest(null);
+    }
   };
 
   const confirmAccept = async () => {
@@ -62,7 +116,9 @@ const Notification = () => {
       );
 
       if (response.ok) {
-        setRequests(requests.filter((request) => request._id !== selectedRequest._id));
+        setRequests(
+          requests.filter((request) => request._id !== selectedRequest._id)
+        );
 
         Swal.fire({
           position: "top-end",
@@ -134,7 +190,9 @@ const Notification = () => {
           .map((request) => (
             <div
               key={request._id}
-              className={`notification-content ${getBorderClass(request.emergencyLevel)}`}
+              className={`notification-content ${getBorderClass(
+                request.emergencyLevel
+              )}`}
             >
               <svg
                 width="40px"
@@ -163,15 +221,18 @@ const Notification = () => {
                     </span>{" "}
                     requests a replacement from{" "}
                     <span className="notification-date">
-                      {new Date(request.askedStartTime).toLocaleString("fr-FR", {
-                        day: "2-digit",
-                        month: "2-digit",
-                        year: "numeric",
-                        hour: "2-digit",
-                        minute: "2-digit",
-                        hour12: false,
-                        timeZone: "Europe/Paris",
-                      })}
+                      {new Date(request.askedStartTime).toLocaleString(
+                        "fr-FR",
+                        {
+                          day: "2-digit",
+                          month: "2-digit",
+                          year: "numeric",
+                          hour: "2-digit",
+                          minute: "2-digit",
+                          hour12: false,
+                          timeZone: "Europe/Paris",
+                        }
+                      )}
                     </span>{" "}
                     to{" "}
                     <span className="notification-date">
@@ -189,14 +250,21 @@ const Notification = () => {
                   </p>
                   <p>
                     Emergency Level:{" "}
-                    <strong className={getEmergencyClass(request.emergencyLevel)}>
+                    <strong
+                      className={getEmergencyClass(request.emergencyLevel)}
+                    >
                       {request.emergencyLevel}
                     </strong>
                   </p>
-                  <p className="time">{timeSince(new Date(request.createdAt))}</p>
+                  <p className="time">
+                    {timeSince(new Date(request.createdAt))}
+                  </p>
                 </div>
                 <div className="notification-actions">
-                  <button className="btn primary" onClick={() => handleAccept(request._id)}>
+                  <button
+                    className="btn primary"
+                    onClick={() => handleAccept(request._id)}
+                  >
                     Accept
                   </button>
                 </div>
@@ -212,6 +280,13 @@ const Notification = () => {
           message={`Are you sure you want to accept ${selectedRequest?.requesterId.firstName}'s request?`}
         />
       )}
+      {/* Self-acceptance warning modal for cancelling the request */}
+      <ConfirmationModal
+        isOpen={isSelfAcceptModalOpen}
+        onClose={() => setIsSelfAcceptModalOpen(false)}
+        onConfirm={confirmSelfAccept}
+        message="You're about to accept your own request. This will cancel the request. Are you sure?"
+      />
     </div>
   );
 };
