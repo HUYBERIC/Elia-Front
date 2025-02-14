@@ -13,43 +13,42 @@ const Calendar = () => {
 
   const [refresh, setRefresh] = useState(false); // 🔄 Force le rechargement après un changement
 
-// Fetch events
-useEffect(() => {
-  fetch("http://localhost:5000/api/duties")
-    .then((res) => res.json())
-    .then((data) => {
-      console.log("Données reçues :", data);
+  // Fetch events
+  useEffect(() => {
+    fetch("http://localhost:5000/api/duties")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Données reçues :", data);
 
-      const formattedEvents = [];
+        const formattedEvents = [];
 
-      data.forEach((duty) => {
-        duty.segments.forEach((segment) => {
-          console.log(segment);
+        data.forEach((duty) => {
+          duty.segments.forEach((segment) => {
+            console.log(segment);
 
-          // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
-          const firstNameShort = segment.user?.firstName
-            ? segment.user.firstName.substring(0, 3)
-            : "???";
-          const lastNameShort = segment.user?.lastName
-            ? segment.user.lastName.substring(0, 1) + "."
-            : "";
+            // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
+            const firstNameShort = segment.user?.firstName
+              ? segment.user.firstName.substring(0, 3)
+              : "???";
+            const lastNameShort = segment.user?.lastName
+              ? segment.user.lastName.substring(0, 1) + "."
+              : "";
 
-          formattedEvents.push({
-            id: segment.id,
-            title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
-            start: new Date(segment.startTime).toISOString(),
-            end: new Date(segment.endTime).toISOString(),
-            color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
+            formattedEvents.push({
+              id: segment.id,
+              title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
+              start: new Date(segment.startTime).toISOString(),
+              end: new Date(segment.endTime).toISOString(),
+              color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
+            });
           });
         });
-      });
 
-      console.log("Événements formatés :", formattedEvents);
-      setEvents(formattedEvents);
-    })
-    .catch((err) => console.error("Erreur lors du chargement", err));
-}, [refresh]);
-  
+        console.log("Événements formatés :", formattedEvents);
+        setEvents(formattedEvents);
+      })
+      .catch((err) => console.error("Erreur lors du chargement", err));
+  }, [refresh]);
 
   // Navigation
   const goToPrev = () => calendarRef.current.getApi().prev();
@@ -87,7 +86,9 @@ useEffect(() => {
       });
     }
     if (currentView === "timeGridWeek") {
-      return `Week ${getISOWeek(currentDate)} - ${currentDate.getFullYear()}`;
+      return `Week ${getISOWeek(currentDate)} - ${currentDate.toLocaleString("en-GB", {
+        month: "long",        
+      })} ${currentDate.getFullYear()}`;
     }
     if (currentView === "timeGridDay") {
       return currentDate.toLocaleDateString("en-GB", {
@@ -100,21 +101,25 @@ useEffect(() => {
   };
 
   const handleAcceptRequest = async (requestId) => {
-  try {
-    const res = await fetch(`http://localhost:5000/api/requests/${requestId}/accept`, {
-      method: "POST",
-    });
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/requests/${requestId}/accept`,
+        {
+          method: "POST",
+        }
+      );
 
-    if (!res.ok) throw new Error("Erreur lors de l'acceptation de la requête");
+      if (!res.ok)
+        throw new Error("Erreur lors de l'acceptation de la requête");
 
-    const result = await res.json();
-    console.log("Request accepted:", result);
+      const result = await res.json();
+      console.log("Request accepted:", result);
 
-    setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
-  } catch (error) {
-    console.error("Erreur lors de l'acceptation de la requête", error);
-  }
-};
+      setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
+    } catch (error) {
+      console.error("Erreur lors de l'acceptation de la requête", error);
+    }
+  };
 
   return (
     <div className="calendar-container">
@@ -162,7 +167,7 @@ useEffect(() => {
               allDaySlot: false,
               dayHeaderFormat: {
                 weekday: "narrow", // Show "M", "T", etc. in Week View
-                day: "2-digit",                 
+                day: "2-digit",
               },
             },
             timeGridDay: {
