@@ -65,7 +65,7 @@ const Dashboard = () => {
           <p>No approved replacements</p>
         ) : (
           replacements.map((replacement) => (
-            <div key={replacement.id} className="notif">
+            <div key={`${replacement.replacingUser}-${replacement.replacedUser}-${replacement.startTime}`} className="notif">
               <p className="notif-content">
                 <span className="user">{replacement.replacingUser}</span> replaces{" "}
                 <span className="user">{replacement.replacedUser}</span>{" "}
