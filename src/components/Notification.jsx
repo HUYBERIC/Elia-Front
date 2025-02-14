@@ -1,18 +1,24 @@
 import React, { useEffect, useState } from "react";
+import ConfirmationModal from "./ConfirmationModal";
 
 const Notification = () => {
   const [requests, setRequests] = useState([]);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests/pending", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Si besoin d'authentification avec cookies
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/requests/pending",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include", // Si besoin d'authentification avec cookies
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch requests");
@@ -29,50 +35,40 @@ const Notification = () => {
     fetchRequests();
   }, []);
 
-  const handleAccept = async (requestId) => {
+  const handleAccept = (requestId) => {
+    const requestToAccept = requests.find((req) => req._id === requestId);
+    setSelectedRequest(requestToAccept);
+    setIsModalOpen(true);
+  };
+
+  const confirmAccept = async () => {
+    if (!selectedRequest) return;
+
     try {
       const response = await fetch(
-        `http://localhost:5000/api/requests/accept/${requestId}`,
+        `http://localhost:5000/api/requests/accept/${selectedRequest._id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
-          body: JSON.stringify({ requestId }),
+          body: JSON.stringify({ requestId: selectedRequest._id }),
         }
       );
 
       if (response.ok) {
-        setRequests(requests.filter((request) => request._id !== requestId));
+        setRequests(
+          requests.filter((request) => request._id !== selectedRequest._id)
+        );
       } else {
         alert("Failed to accept request");
       }
     } catch (error) {
       console.error("Error accepting request:", error);
-    }
-  };
-
-  const handleDecline = async (requestId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/requests/${requestId}/decline`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        }
-      );
-
-      if (response.ok) {
-        setRequests(requests.filter((request) => request._id !== requestId));
-      } else {
-        alert("Failed to decline request");
-      }
-    } catch (error) {
-      console.error("Error declining request:", error);
+    } finally {
+      setIsModalOpen(false);
+      setSelectedRequest(null);
     }
   };
 
@@ -111,7 +107,12 @@ const Notification = () => {
           .slice()
           .reverse()
           .map((request) => (
-            <div key={request._id} className={`notification-content ${getBorderClass(request.emergencyLevel)}`}>
+            <div
+              key={request._id}
+              className={`notification-content ${getBorderClass(
+                request.emergencyLevel
+              )}`}
+            >
               <svg
                 width="40px"
                 height="40px"
@@ -189,6 +190,14 @@ const Notification = () => {
               </div>
             </div>
           ))
+      )}
+      {isModalOpen && (
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={confirmAccept}
+          message={`Are you sure you want to accept ${selectedRequest?.requesterId.firstName}'s request?`}
+        />
       )}
     </div>
   );
