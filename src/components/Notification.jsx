@@ -7,6 +7,31 @@ const Notification = () => {
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSelfAcceptModalOpen, setIsSelfAcceptModalOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const response = await fetch(
+          "http://localhost:5000/api/users/getOwnUserId",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch user ID");
+
+        const data = await response.json();
+        setUserId(data.id); // Store the logged-in user's ID
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
 
   useEffect(() => {
     const fetchRequests = async () => {
@@ -45,18 +70,15 @@ const Notification = () => {
 
   const handleAccept = (requestId) => {
     const requestToAccept = requests.find((req) => req._id === requestId);
-    if (!requestToAccept) return;
+    if (!requestToAccept || !userId) return;
 
     setSelectedRequest(requestToAccept);
 
-    // Extract the user ID from the request itself (requesterId)
+    // Extract the request's requester ID
     const requesterId = requestToAccept.requesterId?._id;
 
-    // Extract the user ID from the response when accepting the request
-    const receiverId = requestToAccept.receiverId;
-
-    // Check if the user is trying to accept their own request
-    if (requesterId === receiverId || !receiverId) {
+    // Compare with the logged-in user's ID
+    if (requesterId === userId) {
       setIsSelfAcceptModalOpen(true); // Show self-acceptance warning modal
     } else {
       setIsModalOpen(true); // Show normal confirmation modal
