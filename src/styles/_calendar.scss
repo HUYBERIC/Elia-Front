@@ -38,7 +38,7 @@
   .fullcalendar-wrapper {
     width: 100%;
     max-width: 1024px;
-    height: 60vh;    
+    height: 65vh;    
     .fc-dayGridMonth-view,
     .fc-view-harness {
       max-height: 80vh;
@@ -46,13 +46,26 @@
   }
 
   .fc-scrollgrid {
-    min-height: 60vh;
-    max-height: 61vh;
+    min-height: 63vh;
+    max-height: 65vh;
   }
 
-  /* .fc-col-header-cell-cushion{
-    display: none;
-  } */
+  .fc .fc-daygrid-day {
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px solid v.$text-gray;
+    padding: 5px;
+  }
+
+  .fc .fc-daygrid-day-events {
+    padding: 2px; /* ✅ Ajoute de l'espace entre les événements */
+  }
+
+  .fc-event {
+    border-radius: 8px; /* ✅ Coins arrondis */
+    padding: 2px; /* ✅ Ajout de marge interne */
+    font-size: 0.8rem; /* ✅ Texte plus lisible */
+  }
+
 
   /* Footer buttons */
   .calendar-footer {

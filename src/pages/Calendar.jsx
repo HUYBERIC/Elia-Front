@@ -23,14 +23,20 @@ useEffect(() => {
       const formattedEvents = [];
 
       data.forEach((duty) => {
-        // Ajouter les segments (remplacements)
         duty.segments.forEach((segment) => {
-          console.log(segment)
+          console.log(segment);
+
+          // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
+          const firstNameShort = segment.user?.firstName
+            ? segment.user.firstName.substring(0, 3)
+            : "???";
+          const lastNameShort = segment.user?.lastName
+            ? segment.user.lastName.substring(0, 1) + "."
+            : "";
+
           formattedEvents.push({
             id: segment.id,
-            title: segment.user?.firstName
-              ? `${segment.user.firstName} ${segment.user.lastName}`
-              : "Utilisateur inconnu",
+            title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
             start: new Date(segment.startTime).toISOString(),
             end: new Date(segment.endTime).toISOString(),
             color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
@@ -42,7 +48,7 @@ useEffect(() => {
       setEvents(formattedEvents);
     })
     .catch((err) => console.error("Erreur lors du chargement", err));
-}, [refresh]); // 🔄 Re-fetch les données lorsque refresh change
+}, [refresh]);
   
 
   // Navigation
@@ -149,9 +155,8 @@ useEffect(() => {
           }}
           views={{
             dayGridMonth: {
-              dayHeaderFormat: {
-                weekday: "short", // Only show "Mon", "Tue", etc. in Month View
-              },
+              dayHeaderFormat: { weekday: "short" },
+              displayEventTime: false, // ✅ Supprime l'affichage de l'heure dans Month
             },
             timeGridWeek: {
               allDaySlot: false,
