@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import ConfirmationModal from "../components/ConfirmationModal";
 
 const SwitchRequestModal = ({ isOpen, onClose }) => {
@@ -8,7 +9,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
   const [isClosing, setIsClosing] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
 
-  // Updating the text color of the selector based on the selected emergency
+  // Update the text color of the selector based on the selected emergency level
   useEffect(() => {
     const selectElement = document.getElementById("emergency-select");
     if (selectElement) {
@@ -28,7 +29,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
     }
   }, [emergencyLevel]);
 
-  // Triggers the closing animation before removing the modal from the DOM
+  // Trigger closing animation before removing the modal from the DOM
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
@@ -37,17 +38,24 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
     }, 300);
   };
 
-  // Closes the modal if the overlay is clicked
+  // Close the modal if the overlay is clicked
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal-overlay")) {
       handleClose();
     }
   };
 
-  // Handles form submission
+  // Handle form submission
   const handleConfirmSubmit = async () => {
     if (!startDate || !endDate) {
-      alert("Please provide a start and end date");
+      Swal.fire({
+        position: "center",
+        icon: "warning",
+        title: "Missing Information",
+        text: "Please provide both a start and end date.",
+        showConfirmButton: false,
+        timer: 3000,
+      });
       return;
     }
 
@@ -56,6 +64,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       2: "medium",
       3: "high",
     };
+
     const requestData = {
       emergencyLevel: emergencyMapping[emergencyLevel],
       startDate,
@@ -71,20 +80,43 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
         credentials: "include",
         body: JSON.stringify(requestData),
       });
+
       if (response.ok) {
-        alert("Submission successful");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Success",
+          text: "Your switch request has been submitted.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+
         handleClose();
         window.location.reload();
       } else {
-        alert("Submission failed");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Submission Failed",
+          text: "An error occurred while submitting your request.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.error("Submission failed :", error);
-      alert("Error. Try again.");
+      console.error("Submission failed:", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        text: "Something went wrong. Please try again.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 
-  // Do not display the modal until it is open or closing
+  // Prevent modal from rendering if not open or closing
   if (!isOpen && !isClosing) return null;
 
   const getCurrentDateTime = () => {
@@ -98,15 +130,11 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       <div className={`modal-content ${isClosing ? "fade-out" : "fade-in"}`}>
         <h2>Switch request</h2>
         <label>
-          Emergency level :
+          Emergency level:
           <select
             id="emergency-select"
             className={`field emergency-select ${
-              emergencyLevel === 3
-                ? "red"
-                : emergencyLevel === 2
-                ? "orange"
-                : "green"
+              emergencyLevel === 3 ? "red" : emergencyLevel === 2 ? "orange" : "green"
             }`}
             value={emergencyLevel}
             onChange={(e) => setEmergencyLevel(Number(e.target.value))}
@@ -124,7 +152,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
           </select>
         </label>
         <label>
-          Start :
+          Start:
           <input
             className="field"
             type="datetime-local"
@@ -134,7 +162,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
           />
         </label>
         <label>
-          End :
+          End:
           <input
             className="field"
             type="datetime-local"
@@ -143,10 +171,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
             min={getCurrentDateTime()}
           />
         </label>
-        <button
-          className="submit-button"
-          onClick={() => setIsConfirmModalOpen(true)}
-        >
+        <button className="submit-button" onClick={() => setIsConfirmModalOpen(true)}>
           Submit
         </button>
         <button onClick={handleClose}>Cancel</button>
@@ -155,7 +180,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
         isOpen={isConfirmModalOpen}
         onClose={() => setIsConfirmModalOpen(false)}
         onConfirm={handleConfirmSubmit}
-        message="Confirm switch request ?"
+        message="Confirm switch request?"
       />
     </div>
   );

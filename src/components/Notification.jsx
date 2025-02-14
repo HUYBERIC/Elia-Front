@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import ConfirmationModal from "./ConfirmationModal";
 
 const Notification = () => {
@@ -9,26 +10,29 @@ const Notification = () => {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch(
-          "http://localhost:5000/api/requests/pending",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            credentials: "include", // Si besoin d'authentification avec cookies
-          }
-        );
+        const response = await fetch("http://localhost:5000/api/requests/pending", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
 
         if (!response.ok) {
           throw new Error("Failed to fetch requests");
         }
 
         const data = await response.json();
-        console.log(data);
         setRequests(data);
       } catch (error) {
-        console.error("Error fetching requests:", error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: "Error fetching requests",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     };
 
@@ -58,14 +62,35 @@ const Notification = () => {
       );
 
       if (response.ok) {
-        setRequests(
-          requests.filter((request) => request._id !== selectedRequest._id)
-        );
+        setRequests(requests.filter((request) => request._id !== selectedRequest._id));
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Success",
+          text: "Request accepted",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       } else {
-        alert("Failed to accept request");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: "Failed to accept request",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.error("Error accepting request:", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        text: "Internal server error",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     } finally {
       setIsModalOpen(false);
       setSelectedRequest(null);
@@ -109,9 +134,7 @@ const Notification = () => {
           .map((request) => (
             <div
               key={request._id}
-              className={`notification-content ${getBorderClass(
-                request.emergencyLevel
-              )}`}
+              className={`notification-content ${getBorderClass(request.emergencyLevel)}`}
             >
               <svg
                 width="40px"
@@ -140,18 +163,15 @@ const Notification = () => {
                     </span>{" "}
                     requests a replacement from{" "}
                     <span className="notification-date">
-                      {new Date(request.askedStartTime).toLocaleString(
-                        "fr-FR",
-                        {
-                          day: "2-digit",
-                          month: "2-digit",
-                          year: "numeric",
-                          hour: "2-digit",
-                          minute: "2-digit",
-                          hour12: false,
-                          timeZone: "Europe/Paris",
-                        }
-                      )}
+                      {new Date(request.askedStartTime).toLocaleString("fr-FR", {
+                        day: "2-digit",
+                        month: "2-digit",
+                        year: "numeric",
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        hour12: false,
+                        timeZone: "Europe/Paris",
+                      })}
                     </span>{" "}
                     to{" "}
                     <span className="notification-date">
@@ -169,21 +189,14 @@ const Notification = () => {
                   </p>
                   <p>
                     Emergency Level:{" "}
-                    <strong
-                      className={getEmergencyClass(request.emergencyLevel)}
-                    >
+                    <strong className={getEmergencyClass(request.emergencyLevel)}>
                       {request.emergencyLevel}
                     </strong>
                   </p>
-                  <p className="time">
-                    {timeSince(new Date(request.createdAt))}
-                  </p>
+                  <p className="time">{timeSince(new Date(request.createdAt))}</p>
                 </div>
                 <div className="notification-actions">
-                  <button
-                    className="btn primary"
-                    onClick={() => handleAccept(request._id)}
-                  >
+                  <button className="btn primary" onClick={() => handleAccept(request._id)}>
                     Accept
                   </button>
                 </div>

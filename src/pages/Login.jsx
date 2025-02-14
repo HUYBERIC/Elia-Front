@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import axios from "axios";
-import { FaUser, FaLock, FaChevronRight, FaGoogle } from "react-icons/fa";
+import { FaUser, FaLock, FaChevronRight } from "react-icons/fa";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -9,26 +10,26 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  // Gestion de la connexion
+  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post(
         "http://localhost:5000/api/users/login",
         { email, password },
-        { withCredentials: true } // Permet d'envoyer et recevoir les cookies HTTP-only
+        { withCredentials: true }
       );
 
-      // Sauvegarde du token en localStorage si nécessaire
+      // Save user data to localStorage if needed
       localStorage.setItem("user", JSON.stringify(response.data));
 
-      navigate("/calendar"); // Redirection après connexion
+      navigate("/calendar"); // Redirect after login
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
     }
   };
 
-  // Gestion de l'inscription
+  // Handle registration
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -38,9 +39,23 @@ const Login = () => {
         { withCredentials: true }
       );
 
-      alert("Inscription réussie ! Connecte-toi maintenant.");
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Registration Successful",
+        text: "You can now log in.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     } catch (error) {
-      setError(error.response?.data?.message || "Registration failed");
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Registration Failed",
+        text: error.response?.data?.message || "An error occurred.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 

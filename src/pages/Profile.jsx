@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import Swal from "sweetalert2";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
@@ -18,7 +19,7 @@ const Profile = () => {
 
   const [decodedToken, setDecodedToken] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [expanded, setExpanded] = useState(false); //handles accordion
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     // Read the token from cookies
@@ -26,7 +27,6 @@ const Profile = () => {
     if (token) {
       try {
         const decoded = jwtDecode(token);
-        console.log("Decoded Token:", decoded);
         setDecodedToken(decoded);
       } catch (error) {
         console.error("Error decoding token:", error);
@@ -34,14 +34,13 @@ const Profile = () => {
     } else {
       console.warn("No token found in cookies.");
     }
-  }, []); // ✅ Execute only once
+  }, []);
 
   useEffect(() => {
     if (!decodedToken) return;
 
     const fetchUserData = async () => {
       try {
-        console.log("Fetching user data for ID:", decodedToken.id);
         const response = await fetch(
           `http://localhost:5000/api/users/${decodedToken.id}`,
           {
@@ -55,8 +54,6 @@ const Profile = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log("User Data:", data);
-
           setFormData((prevState) => ({
             ...prevState,
             lastName: data.lastName || "",
@@ -66,15 +63,29 @@ const Profile = () => {
             phone: data.phone || "",
           }));
         } else {
-          console.error("Error fetching user data");
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Error",
+            text: "Failed to fetch user data.",
+            showConfirmButton: false,
+            timer: 2000,
+          });
         }
       } catch (error) {
-        console.error("Error during API request", error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: "An error occurred while fetching user data.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     };
 
     fetchUserData();
-  }, [decodedToken]); // ✅ Execute when the decoded token is ready
+  }, [decodedToken]);
 
   const handleChange = (e) => {
     setFormData((prevData) => ({
@@ -99,12 +110,33 @@ const Profile = () => {
       );
 
       if (response.ok) {
-        alert("Profile successfully updated!");
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Success",
+          text: "Profile successfully updated!",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       } else {
-        alert("Error updating profile");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: "Failed to update profile.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.error("Error during update", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        text: "An error occurred while updating profile.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 
@@ -112,17 +144,31 @@ const Profile = () => {
     try {
       const response = await fetch("http://localhost:5000/api/users/logout", {
         method: "POST",
-        credentials: "include", // Nécessaire pour inclure les cookies
+        credentials: "include",
       });
 
       if (response.ok) {
-        Cookies.remove("token"); // Supprime le token du navigateur
-        navigate("/"); // Redirige vers la page de connexion
+        Cookies.remove("token");
+        navigate("/");
       } else {
-        console.error("Erreur lors de la déconnexion");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Logout Failed",
+          text: "An error occurred while logging out.",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.error("Erreur lors de la requête de déconnexion", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        text: "An error occurred during logout.",
+        showConfirmButton: false,
+        timer: 2000,
+      });
     }
   };
 
