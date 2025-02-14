@@ -7,5 +7,6 @@ export default defineConfig({
   server: {
     port: 3000, // Définit un port fixe
     strictPort: true, // Empêche Vite de changer de port si 3000 est occupé
+    host: "0.0.0.0",
   }
 })
