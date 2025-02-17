@@ -71,7 +71,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       endDate,
     };
 
-    console.log("Sending request data:", requestData); // Debugging
+        
 
     try {
       const response = await fetch("http://localhost:5000/api/requests", {

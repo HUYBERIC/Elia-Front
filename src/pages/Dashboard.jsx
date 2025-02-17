@@ -17,7 +17,7 @@ const Dashboard = () => {
         if (!response.ok) throw new Error("Failed to fetch approved requests");
 
         const approvedRequests = await response.json();
-        console.log("📌 Approved Requests :", approvedRequests);
+             
 
         let detectedReplacements = [];
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
           }
         });
 
-        console.log("🔍 Approved Replacements Detected :", detectedReplacements);
+             
         setReplacements(detectedReplacements);
       } catch (error) {
         console.error("Error fetching approved requests:", error);
