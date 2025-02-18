@@ -8,7 +8,7 @@ const Dashboard = () => {
     // ✅ Récupérer les requêtes approuvées et les associer aux shifts
     const fetchApprovedRequests = async () => {
       try {
-        const response = await fetch("https://eduty-backend.torvalds.be/api/requests/accepted", {
+        const response = await fetch("https://tema-eduty-backend.torvalds.be/api/requests/accepted", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",

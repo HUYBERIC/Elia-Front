@@ -23,17 +23,28 @@ const Profile = () => {
 
   useEffect(() => {
     // Read the token from cookies
-    const token = Cookies.get("token");
-    if (token) {
-      try {
-        const decoded = jwtDecode(token);
-        setDecodedToken(decoded);
-      } catch (error) {
-        console.error("Error decoding token:", error);
+    const fetchData = async () => {
+      const token = await fetch(
+        "https://tema-eduty-backend.torvalds.be/api/users/getOwnUserId",
+        { credentials: "include" }
+      );
+      const data = await token.json();
+
+      console.log(data.id);
+
+      if (data) {
+        try {
+          //const decoded = jwtDecode(token);
+          setDecodedToken(data.id);
+        } catch (error) {
+          console.error("Error decoding token:", error);
+        }
+      } else {
+        console.warn("No token found in cookies.");
       }
-    } else {
-      console.warn("No token found in cookies.");
-    }
+    };
+
+    fetchData();
   }, []);
 
   useEffect(() => {
@@ -42,7 +53,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://eduty-backend.torvalds.be/api/users/${decodedToken.id}`,
+          `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken}`,
           {
             method: "GET",
             headers: {
@@ -98,7 +109,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://eduty-backend.torvalds.be/api/users/${decodedToken.id}`,
+        `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken.id}`,
         {
           method: "PUT",
           headers: {

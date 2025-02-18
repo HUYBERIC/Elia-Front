@@ -73,7 +73,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
 
     try {
       const response = await fetch(
-        "https://eduty-backend.torvalds.be/api/requests",
+        "https://tema-eduty-backend.torvalds.be/api/requests",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
