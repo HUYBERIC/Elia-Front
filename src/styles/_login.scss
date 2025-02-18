@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 
 .container {
   display: flex;
@@ -6,186 +6,169 @@
   justify-content: center;
   min-height: 100vh;
   max-width: 100vw;
-}
+  overflow: hidden;
 
-.screen {
-  background: linear-gradient(
-    90deg,
-  variables.$white,
-    variables.$text-black
-  );
-  position: relative;
-  height: 100vh;
-  width: 100vw;
-}
-
-.screen-content {
-  z-index: 1;
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.screen-background {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 0;
-  -webkit-clip-path: inset(0 0 0 0);
-  clip-path: inset(0 0 0 0);
-}
-
-.screen-background-shape {
-  transform: rotate(45deg);
-  position: absolute;
-}
-
-.screen-background-shape1 {
-  height: 520px;
-  width: 520px;
-  background: linear-gradient(
-    -45deg,
-  variables.$white,
-    variables.$text-black
-  );
-  top: -50px;
-  right: 120px;
-  border-radius: 0 72px 0 0;
-}
-
-.screen-background-shape2 {
-  height: 220px;
-  width: 220px;
-  background: variables.$text-black;
-  top: -172px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen-background-shape3 {
-  height: 540px;
-  width: 190px;
-  background-color: variables.$text-black;
-  top: -24px;
-  right: 0;
-  border-radius: 32px;
-}
-
-.screen-background-shape4 {
-  height: 400px;
-  width: 200px;
-  background: variables.$text-black;
-  top: 420px;
-  right: 50px;
-  border-radius: 60px;
-}
-
-.login {
-  width: 320px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.login-field {
-  padding: 20px 0px;
-  position: relative;
-  text-align: center;
-  width: 100%;
-}
-
-.login-icon {
-  position: absolute;
-  top: 30px;
-  color: variables.$orange-dark;
-}
-
-.login-input {
-  border: none;
-  border-bottom: 2px solid #d1d1d4;
-  background: none;
-  padding: 10px;
-  padding-left: 24px;
-  font-weight: 700;
-  width: 75%;
-  transition: 0.2s;
-  &::placeholder{
-    color: variables.$text-black;
+  .screen {
+    background: linear-gradient(90deg, v.$white, v.$text-black);
+    position: relative;
+    height: 100vh;
+    width: 100vw;
   }
-}
 
-.login-input:active,
-.login-input:focus,
-.login-input:hover {
-  outline: none;
-  border-bottom-color: variables.$orange-dark;
-}
-
-.error-message{
-  color: variables.$orange-dark;
-  font-weight: 700;
-  background-color: rgba(31, 37, 40,.2);
-  text-align: center;
-  border-radius: 12px;
-  max-width: fit-content;
-  padding:0 1.25rem;
-  justify-self: center;
-}
-
-.login-submit {
-  all: unset;
-  background: #d7dbde;
-  font-size: 14px;
-  margin-top: 30px;
-  padding: 16px 20px;
-  border-radius: 26px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 85%;
-  box-shadow: 0px 2px 2px variables.$text-black;
-  cursor: pointer;
-  transition: 0.2s;
-  .button-text{
-  text-transform: uppercase;
-  font-weight: 700;
-  color: variables.$orange-dark;
+  .screen-content {
+    z-index: 1;
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
-}
 
-.login-submit:active,
-.login-submit:focus,
-.login-submit:hover {
-  border-color: variables.$text-black;
-  outline: none;
-}
-
-.register-submit {
-  margin-top: 10px;
-}
-
-.button-icon {
-  font-size: 24px;
-  color: variables.$orange-dark;
-}
-
-.social-login {
-  text-align: center;
-  color: variables.$white;
-
-  h3{
-    margin-bottom: 10px;
-    text-transform: uppercase;
+  .screen-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 0;
+    -webkit-clip-path: inset(0 0 0 0);
+    clip-path: inset(0 0 0 0);
   }
-}
 
-.logo-elia{
-  width: 200px;
-  margin-top: 30px;
+  .screen-background-shape {
+    transform: rotate(45deg);
+    position: absolute;
+  }
+
+  .screen-background-shape1 {
+    height: 520px;
+    width: 520px;
+    background: linear-gradient(-45deg, v.$white, v.$text-black);
+    top: -50px;
+    right: 120px;
+    border-radius: 0 72px 0 0;
+  }
+
+  .screen-background-shape2 {
+    height: 220px;
+    width: 220px;
+    background: v.$text-black;
+    top: -172px;
+    right: 0;
+    border-radius: 32px;
+  }
+
+  .screen-background-shape3 {
+    height: 540px;
+    width: 190px;
+    background-color: v.$text-black;
+    top: -24px;
+    right: 0;
+    border-radius: 32px;
+  }
+
+  .screen-background-shape4 {
+    height: 400px;
+    width: 200px;
+    background: v.$text-black;
+    top: 420px;
+    right: 50px;
+    border-radius: 60px;
+  }
+
+  .login {
+    width: 320px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .login-field {
+    padding: 20px 0px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+  }
+
+  .login-icon {
+    position: absolute;
+    top: 30px;
+    color: v.$orange-dark;
+  }
+
+  .login-input {
+    border: none;
+    border-bottom: 2px solid #d1d1d4;
+    background: none;
+    padding: 10px;
+    padding-left: 24px;
+    font-weight: 700;
+    width: 75%;
+    transition: 0.2s;
+    &::placeholder {
+      color: v.$text-black;
+    }
+  }
+
+  .login-input:active,
+  .login-input:focus,
+  .login-input:hover {
+    outline: none;
+    border-bottom-color: v.$orange-dark;
+  }
+
+  .error-message {
+    color: v.$orange-dark;
+    font-weight: 700;
+    background-color: rgba(31, 37, 40, 0.2);
+    text-align: center;
+    border-radius: 12px;
+    max-width: fit-content;
+    padding: 0 1.25rem;
+    justify-self: center;
+  }
+
+  .login-submit {
+    all: unset;
+    background: #d7dbde;
+    font-size: 14px;
+    margin-top: 30px;
+    padding: 16px 20px;
+    border-radius: 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    box-shadow: 0px 2px 2px v.$text-black;
+    cursor: pointer;
+    transition: 0.2s;
+    .button-text {
+      text-transform: uppercase;
+      font-weight: 700;
+      color: v.$orange-dark;
+    }
+  }
+
+  .login-submit:active,
+  .login-submit:focus,
+  .login-submit:hover {
+    border-color: v.$text-black;
+    outline: none;
+  }
+
+  .register-submit {
+    margin-top: 10px;
+  }
+
+  .button-icon {
+    font-size: 24px;
+    color: v.$orange-dark;
+  }
+
+  .logo-elia {
+    width: 200px;
+    margin-top: 30px;
+  }
 }

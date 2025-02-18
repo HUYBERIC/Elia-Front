@@ -1,8 +1,8 @@
-@use "variables";
+@use "variables" as v;
 
 .navbar {
   padding: 0.5rem;
-  background-color: variables.$text-black;
+  background-color: v.$text-black;
   opacity: 95%;
   position: fixed;
   bottom: 0;
@@ -14,73 +14,74 @@
   display: flex;
   justify-content: center;
   border-radius: 12px 12px 0px 0px;
-}
-
-.link {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 50px;
-  position: relative;
   z-index: 1;
-  overflow: hidden;
-  transform-origin: center left;
-  transition: width 0.2s ease-in;
-  text-decoration: none;
-  color: inherit;
-  &:before {
-    position: absolute;
-    z-index: -1;
-    content: "";
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-  }
 
-  &.expanded {
-    outline: 0;
-    width: 130px;
-    background-color: #06070739;
-    border-radius: 12px;
-    -webkit-box-shadow: inset 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
-    -moz-box-shadow: inset 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
-    box-shadow: inset 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
-    border: 1px solid variables.$orange-dark;
+  .link {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 50px;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transform-origin: center left;
+    transition: width 0.2s ease-in;
+    text-decoration: none;
+    color: inherit;
+    &:before {
+      position: absolute;
+      z-index: -1;
+      content: "";
+      display: block;
+      width: 100%;
+      height: 100%;
+      top: 0;
+    }
 
-    &:before,
-    .link-title {
-      transform: translateX(0);
-      opacity: 1;
+    &.expanded {
+      outline: 0;
+      width: 130px;
+      background-color: #06070739;
+      border-radius: 12px;
+      -webkit-box-shadow: inset 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+      -moz-box-shadow: inset 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+      box-shadow: inset 5px 5px 5px 0px rgba(0, 0, 0, 0.25);
+      border: 1px solid v.$orange-dark;
+
+      &:before,
+      .link-title {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
   }
-}
 
-.link-icon {
-  width: 28px;
-  height: 28px;
-  display: block;
-  flex-shrink: 0;
-  left: 18px;
-  position: absolute;
-  svg {
-    width: 1.75rem;
-    height: 1.75rem;
+  .link-icon {
+    width: 28px;
+    height: 28px;
+    display: block;
+    flex-shrink: 0;
+    left: 18px;
+    position: absolute;
+    svg {
+      width: 1.75rem;
+      height: 1.75rem;
+    }
   }
-}
 
-.link-title {
-  transform: translateX(100%);
-  transition: transform 0.2s ease-in;
-  transform-origin: center right;
-  display: block;
-  color: variables.$orange-dark;
-  text-align: center;
-  text-indent: 18px;
-  width: 100%;
-}
+  .link-title {
+    transform: translateX(100%);
+    transition: transform 0.2s ease-in;
+    transform-origin: center right;
+    display: block;
+    color: v.$orange-dark;
+    text-align: center;
+    text-indent: 18px;
+    width: 100%;
+  }
 
-.agenda {
-  margin-left: 1.25rem;
+  .agenda {
+    margin-left: 1.25rem;
+  }
 }

@@ -1,25 +1,109 @@
-@use "variables";
+@use "variables" as v;
 
+/* 🏠 Conteneur principal */
 .feed-container {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  h2 {
-    align-self: center;
-    margin: 1.25rem;
+  justify-self: center;
+  margin-top: 3.125rem;
+  width: 100%;
+  max-width: 1024px;
+  padding: 10px;
+  background-color: transparent;
+
+  .title {
+    width: 100%;
+    max-width: 1024px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    position: fixed;
+    top: -3px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(3px);
+    background-color: transparent;
+    h3 {
+      width: 95vw;
+      max-width: 1024px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      font-weight: bold;
+      background: v.$text-black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease-in-out;
+      color: v.$white;
+      text-align: center;
+    }
   }
-  .feed {
-    padding: 1rem 0;
+  .notifs {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    & p {
-      border: 1px solid variables.$orange-dark;
+    align-self: center;
+    width: 100%;
+    max-width: 1024px;
+    background-color: v.$white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    padding: 0.75rem;
+    border-radius: 12px;
+    text-align: center;
+    .notif {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      max-width: 1024px;
+      gap: 8px;
+      padding: 12px;
+      margin-bottom: 0.75rem;
+      border: 1px solid v.$orange-light;
       border-radius: 8px;
-      padding: 0.4rem;
-      margin: 0 10px;
-      max-width: 37.5rem;
-      background-color: variables.$white;
+      background-color: rgba(v.$orange-light, 0.2);
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+      .notif-content {
+        text-align: center;
+        .user {
+          color: v.$orange-dark;
+          font-weight: 700;
+          text-transform: uppercase;
+        }
+        .from-to {
+          font-style: italic;
+        }
+        .bold {
+          font-weight: 700;
+        }
+      }
+    }
+
+    p.no-data {
+      font-size: 0.85rem;
+      color: v.$text-gray;
+      text-align: center;
+      font-style: italic;
+    }
+  }
+  /* 📱 Responsive (Tablettes & Desktop) */
+  @media (min-width: 600px) {
+    .feed-container {
+      padding: 1rem;
+    }
+
+    .feed {
+      gap: 1rem;
+    }
+
+    .feed h3 {
+      font-size: 1.2rem;
+    }
+
+    .feed p {
+      padding: 1rem;
+      font-size: 1rem;
     }
   }
 }

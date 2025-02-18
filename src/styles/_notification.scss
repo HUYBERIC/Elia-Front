@@ -1,117 +1,126 @@
-@use "variables";
+@use "variables" as v;
 
-/* Mobile-first design */
 .notification-container {
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: 1024px;
-  background-color: variables.$white;
+  background-color: v.$white;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
   padding: 0.75rem;
   border-radius: 12px;
-}
 
-/* Notification card */
-.notification-content {
-  display: flex;
-  align-items: center;
-  max-width: 1024px;
-  gap: 8px;
-  padding: 12px;
-  margin-bottom: 0.75rem;
-  border: 1px solid variables.$orange-light;
-  border-radius: 8px;
-  background-color: variables.$white;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease-in-out;
+  .notification-content {
+    display: flex;
+    align-items: center;
+    max-width: 1024px;
+    gap: 8px;
+    padding: 12px;
+    margin-bottom: 0.75rem;
+    border: 1px solid v.$orange-light;
+    border-radius: 8px;
+    background-color: rgba(v.$orange-light, 0.2);
+    box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
 
-  &:hover {
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    &:hover {
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.15);
+    }
   }
-}
 
-/* Text content */
-.notification-text {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-}
-
-/* Message styling */
-.notification-message p {
-  font-size: 14px;
-  color: variables.$text-black;
-  margin: 0;
-}
-
-.notification-user {
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease-in-out;
-
-  &:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+  .notification-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
   }
-}
 
-.notification-date {
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease-in-out;
-
-  &:hover {
-    text-decoration: underline;
-    opacity: 0.8;
+  .notification-message p {
+    font-size: 14px;
+    color: v.$text-black;
+    margin: 0;
   }
-}
 
-/* Timestamp */
-.time {
-  font-size: 12px;
-  color: variables.$text-gray;
-  font-style: italic;
-  text-align: right;
-}
+  .notification-user {
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
 
-/* Buttons container */
-.notification-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 8px;
-  width: 100%;
-}
-
-/* Buttons */
-.btn {
-  padding: 8px 14px;
-  font-size: 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  transition: all 0.3s ease-in-out;
-  text-align: center;
-  width: 40%;
-
-  &.primary {
-    background-color: variables.$orange-light;
-    color: variables.$white;
+    &:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
   }
-}
 
-.emergency-low {
-  color: green;
-  font-weight: bold;
-}
+  .notification-date {
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
 
-.emergency-medium {
-  color: orange;
-  font-weight: bold;
-}
+    &:hover {
+      text-decoration: underline;
+      opacity: 0.8;
+    }
+  }
 
-.emergency-high {
-  color: red;
-  font-weight: bold;
+  .time {
+    font-size: 12px;
+    color: v.$text-gray;
+    font-style: italic;
+    text-align: right;
+  }
+
+  .notification-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    width: 100%;
+  }
+
+  .btn {
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease-in-out;
+    text-align: center;
+    width: 40%;
+
+    &.primary {
+      background-color: v.$orange-light;
+      color: v.$white;
+    }
+  }
+
+  .emergency-low {
+    color: green;
+    font-weight: bold;
+  }
+
+  .emergency-medium {
+    color: orange;
+    font-weight: bold;
+  }
+
+  .emergency-high {
+    color: crimson;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .border-low {
+    border: 2px solid green;
+    background-color: rgba(green, 0.2);
+  }
+
+  .border-medium {
+    border: 2px solid v.$orange-light;
+    background-color: rgba(v.$orange-light, 0.2);
+  }
+
+  .border-high {
+    border: 2px solid crimson;
+    background-color: rgba(crimson, 0.2);
+  }
 }

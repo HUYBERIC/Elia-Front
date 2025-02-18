@@ -1,18 +1,51 @@
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import ConfirmationModal from "./ConfirmationModal";
 
 const Notification = () => {
   const [requests, setRequests] = useState([]);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSelfAcceptModalOpen, setIsSelfAcceptModalOpen] = useState(false);
+  const [userId, setUserId] = useState(null);
+
+  useEffect(() => {
+    const fetchUserId = async () => {
+      try {
+        const response = await fetch(
+          "https://eduty-backend.torvalds.be/api/users/getOwnUserId",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
+
+        if (!response.ok) throw new Error("Failed to fetch user ID");
+
+        const data = await response.json();
+        setUserId(data.id); // Store the logged-in user's ID
+      } catch (error) {
+        console.error("Error fetching user ID:", error);
+      }
+    };
+
+    fetchUserId();
+  }, []);
 
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include", // Si besoin d'authentification avec cookies
-        });
+        const response = await fetch(
+          "https://eduty-backend.torvalds.be/api/requests/pending",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch requests");
@@ -21,57 +54,124 @@ const Notification = () => {
         const data = await response.json();
         setRequests(data);
       } catch (error) {
-        console.error("Error fetching requests:", error);
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: "Error fetching requests",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     };
 
     fetchRequests();
   }, []);
 
-  const handleAccept = async (requestId) => {
-    try {
-      const response = await fetch(
-        `http://localhost:5000/api/requests/accept/${requestId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({ requestId }),
-        }
-      );
+  const handleAccept = (requestId) => {
+    const requestToAccept = requests.find((req) => req._id === requestId);
+    if (!requestToAccept || !userId) return;
 
-      if (response.ok) {
-        setRequests(requests.filter((request) => request._id !== requestId));
-      } else {
-        alert("Failed to accept request");
-      }
-    } catch (error) {
-      console.error("Error accepting request:", error);
+    setSelectedRequest(requestToAccept);
+
+    // Extract the request's requester ID
+    const requesterId = requestToAccept.requesterId?._id;
+
+    // Compare with the logged-in user's ID
+    if (requesterId === userId) {
+      setIsSelfAcceptModalOpen(true); // Show self-acceptance warning modal
+    } else {
+      setIsModalOpen(true); // Show normal confirmation modal
     }
   };
 
-  const handleDecline = async (requestId) => {
+  const confirmSelfAccept = async () => {
+    if (!selectedRequest) return;
+
     try {
       const response = await fetch(
-        `http://localhost:5000/api/requests/${requestId}/decline`,
+        `https://eduty-backend.torvalds.be/api/requests/${selectedRequest._id}`,
+        {
+          method: "DELETE",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        }
+      );
+
+      if (response.ok) {
+        setRequests(
+          requests.filter((request) => request._id !== selectedRequest._id)
+        );
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Success",
+          text: "Request deleted",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      } else {
+        alert("Failed to cancel request");
+      }
+    } catch (error) {
+      console.error("Error canceling request:", error);
+    } finally {
+      setIsSelfAcceptModalOpen(false);
+      setSelectedRequest(null);
+    }
+  };
+
+  const confirmAccept = async () => {
+    if (!selectedRequest) return;
+
+    try {
+      const response = await fetch(
+        `https://eduty-backend.torvalds.be/api/requests/accept/${selectedRequest._id}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           credentials: "include",
+          body: JSON.stringify({ requestId: selectedRequest._id }),
         }
       );
 
       if (response.ok) {
-        setRequests(requests.filter((request) => request._id !== requestId));
+        setRequests(
+          requests.filter((request) => request._id !== selectedRequest._id)
+        );
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Success",
+          text: "Request accepted",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       } else {
-        alert("Failed to decline request");
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Error",
+          text: "Failed to accept request",
+          showConfirmButton: false,
+          timer: 2000,
+        });
       }
     } catch (error) {
-      console.error("Error declining request:", error);
+      Swal.fire({
+        position: "center",
+        icon: "error",
+        title: "Error",
+        text: "Internal server error",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+    } finally {
+      setIsModalOpen(false);
+      setSelectedRequest(null);
     }
   };
 
@@ -88,6 +188,19 @@ const Notification = () => {
     }
   };
 
+  const getBorderClass = (border) => {
+    switch (border) {
+      case "low":
+        return "border-low";
+      case "medium":
+        return "border-medium";
+      case "high":
+        return "border-high";
+      default:
+        return "";
+    }
+  };
+
   return (
     <div className="notification-container">
       {requests.length === 0 ? (
@@ -97,7 +210,12 @@ const Notification = () => {
           .slice()
           .reverse()
           .map((request) => (
-            <div key={request._id} className="notification-content">
+            <div
+              key={request._id}
+              className={`notification-content ${getBorderClass(
+                request.emergencyLevel
+              )}`}
+            >
               <svg
                 width="40px"
                 height="40px"
@@ -176,6 +294,21 @@ const Notification = () => {
             </div>
           ))
       )}
+      {isModalOpen && (
+        <ConfirmationModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onConfirm={confirmAccept}
+          message={`Are you sure you want to accept ${selectedRequest?.requesterId.firstName}'s request?`}
+        />
+      )}
+      {/* Self-acceptance warning modal for cancelling the request */}
+      <ConfirmationModal
+        isOpen={isSelfAcceptModalOpen}
+        onClose={() => setIsSelfAcceptModalOpen(false)}
+        onConfirm={confirmSelfAccept}
+        message="You're about to accept your own request. This will cancel the request. Are you sure?"
+      />
     </div>
   );
 };

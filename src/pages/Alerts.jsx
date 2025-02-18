@@ -21,11 +21,11 @@ const Alerts = () => {
       <div className="alerts-container">
         <Notification />
         {/* Modal */}
+      </div>
         <SwitchRequestModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
         />
-      </div>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-@use "variables";
+@use "variables" as v;
 @use "navbar";
 @use "login";
 @use "calendar";
@@ -9,6 +9,9 @@
 @use "notification";
 @use "confirmationModal";
 @use "notFound";
+@use "accordion";
+@use "statistics";
+@use "chartStats";
 
 * {
   margin: 0;
@@ -17,7 +20,7 @@
 }
 
 body {
-  background-color: variables.$white;
+  background-color: v.$white;
   font-family: Montserrat, sans-serif;
   display: flex;
   flex-direction: column;

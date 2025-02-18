@@ -1,6 +1,5 @@
-@use "variables";
+@use "variables" as v;
 
-/* Conteneur principal */
 .calendar-container {
   display: flex;
   flex-direction: column;
@@ -9,90 +8,108 @@
   width: 100%;
   margin: 0 auto;
   padding: 1rem;
-}
 
-/* Bouton Today */
-.today-button {
-  width: 100%;
-  max-width: 1024px;
-  margin-bottom: 20px;
-  padding: 0.8rem;
-  font-size: 1rem;
-  font-weight: bold;
-  background: variables.$orange-dark;
-  color: variables.$white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-
-  &:active {
-    transform: scale(0.98);
-  }
-}
-
-/* En-tête dynamique */
-.calendar-header {
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 0.5rem; /* ✅ Réduit l'espace */
-}
-
-/* Conteneur du calendrier */
-.fullcalendar-wrapper {
-  width: 100%;
-  max-width: 1024px;
-  height: 60vh;
-  z-index: -1;
-  .fc-dayGridMonth-view,
-  .fc-view-harness {
-    max-height: 80vh;
-  }
-}
-
-.fc-scrollgrid {
-  min-height: 60vh;
-  max-height: 61vh;
-}
-
-/* Pied de page avec boutons */
-.calendar-footer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 90vw;
-  max-width: 1024px;
-  position: absolute;
-  bottom: 80px;
-  margin-top: 0.5rem;
-  gap: 4px; /* ✅ Augmente légèrement l'espacement */
-  z-index: 100;
-  button {
-    background-color: variables.$text-black;
-    color: variables.$white;
+  .today-button {
+    width: 100%;
+    max-width: 1024px;
+    margin-bottom: 20px;
+    padding: 0.8rem;
     font-size: 1rem;
-    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    background: v.$orange-dark;
+    color: v.$white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background 0.3s ease-in-out;
-    flex-grow: 1; /* ✅ Assure que tous les boutons prennent une largeur équivalente */
+    transition: all 0.3s ease-in-out;
 
-    &:hover {
-      background-color: variables.$orange-dark;
-    }
-
-    &.active {
-      background-color: variables.$orange-light;
+    &:active {
+      transform: scale(0.98);
     }
   }
 
-/* Responsive Fix */
-@media (max-width: 1024px) {
-  .calendar-footer {
-    flex-wrap: nowrap; /* ✅ Empêche le retour à la ligne */
+  .calendar-header {
+    font-size: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .fc-col-header-cell-cushion {    
+    font-weight: 400;
+    font-size: .75rem;
+  }
+
+  .fullcalendar-wrapper {
     width: 100%;
+    max-width: 1024px;
+    height: 65vh;    
+    .fc-dayGridMonth-view,
+    .fc-view-harness {
+      max-height: 80vh;
+    }
   }
-}
+
+  .fc-scrollgrid {
+    min-height: 63vh;
+    max-height: 65vh;
+  }
+
+  .fc .fc-daygrid-day {
+    background-color: rgba(0, 0, 0, .1);
+    border: 1px solid v.$text-gray;
+    padding: 5px;
+  }
+
+  .fc .fc-daygrid-day-events {
+    padding: 2px; /* ✅ Ajoute de l'espace entre les événements */
+  }
+
+  .fc-event {
+    border-radius: 8px; /* ✅ Coins arrondis */
+    padding: 2px; /* ✅ Ajout de marge interne */
+    font-size: 0.8rem; /* ✅ Texte plus lisible */
+  }
+
+
+  /* Footer buttons */
+  .calendar-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90vw;
+    max-width: 1024px;
+    position: absolute;
+    bottom: 80px;
+    margin-top: 0.5rem;
+    gap: 4px;
+    z-index: 100;
+    button {
+      background-color: v.$text-black;
+      color: v.$white;
+      font-size: 1rem;
+      padding: 0.6rem 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease-in-out;
+      flex-grow: 1;
+
+      &:hover {
+        background-color: v.$orange-dark;
+      }
+
+      &.active {
+        background-color: v.$orange-light;
+      }
+    }
+
+    /* Responsive Fix */
+    @media (max-width: 1024px) {
+      .calendar-footer {
+        flex-wrap: nowrap;
+        width: 100%;
+      }
+    }
+  }
 }

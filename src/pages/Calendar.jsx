@@ -11,56 +11,44 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const calendarRef = useRef(null);
 
+  const [refresh, setRefresh] = useState(false); // 🔄 Force le rechargement après un changement
+
   // Fetch events
   useEffect(() => {
-    fetch("http://localhost:5000/api/duties")
+    fetch("https://eduty-backend.torvalds.be/api/duties")
       .then((res) => res.json())
       .then((data) => {
-        setEvents(
-          data.map((event) => ({
-            id: event.id,
-            title: event.title || "Sans titre",
-            start: new Date(event.start).toISOString(),
-            end: new Date(event.end).toISOString(),
-          }))
-        );
+             
+
+        const formattedEvents = [];
+
+        data.forEach((duty) => {
+          duty.segments.forEach((segment) => {
+                 
+
+            // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
+            const firstNameShort = segment.user?.firstName
+              ? segment.user.firstName.substring(0, 3)
+              : "???";
+            const lastNameShort = segment.user?.lastName
+              ? segment.user.lastName.substring(0, 1) + "."
+              : "";
+
+            formattedEvents.push({
+              id: segment.id,
+              title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
+              start: new Date(segment.startTime).toISOString(),
+              end: new Date(segment.endTime).toISOString(),
+              color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
+            });
+          });
+        });
+
+             
+        setEvents(formattedEvents);
       })
       .catch((err) => console.error("Erreur lors du chargement", err));
-  }, []);
-
-  // Ajouter un événement
-  const handleDateClick = async (info) => {
-    const title = prompt("Nom de l'événement ?");
-    if (!title) return;
-
-    const newEvent = { title, startTime: info.dateStr, endTime: info.dateStr };
-
-    try {
-      const response = await fetch("http://localhost:5000/api/duties", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newEvent),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setEvents([...events, { id: data._id, title, start: info.dateStr, end: info.dateStr }]);
-      } else {
-        console.error("Erreur lors de l'ajout");
-      }
-    } catch (error) {
-      console.error("Erreur réseau", error);
-    }
-  };
-
-  // Supprimer un événement
-  const handleEventClick = async (clickInfo) => {
-    if (window.confirm(`Supprimer "${clickInfo.event.title}" ?`)) {
-      await fetch(`http://localhost:5000/api/duties/${clickInfo.event.id}`, { method: "DELETE" });
-      setEvents(events.filter((event) => event.id !== clickInfo.event.id));
-    }
-  };
+  }, [refresh]);
 
   // Navigation
   const goToPrev = () => calendarRef.current.getApi().prev();
@@ -80,7 +68,9 @@ const Calendar = () => {
 
   // Calcul de la semaine selon ISO 8601
   const getISOWeek = (date) => {
-    const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+    const d = new Date(
+      Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
+    );
     d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
     const startOfYear = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
     const weekNumber = Math.ceil(((d - startOfYear) / 86400000 + 1) / 7);
@@ -90,22 +80,55 @@ const Calendar = () => {
   // Titre dynamique
   const getDisplayTitle = () => {
     if (currentView === "dayGridMonth") {
-      return currentDate.toLocaleString("fr-FR", { month: "long", year: "numeric" });
+      return currentDate.toLocaleString("en-GB", {
+        month: "long",
+        year: "numeric",
+      });
     }
     if (currentView === "timeGridWeek") {
-      return `Semaine ${getISOWeek(currentDate)} - ${currentDate.getFullYear()}`;
+      return `Week ${getISOWeek(currentDate)} - ${currentDate.toLocaleString("en-GB", {
+        month: "long",        
+      })} ${currentDate.getFullYear()}`;
     }
     if (currentView === "timeGridDay") {
-      return currentDate.toLocaleDateString("fr-FR", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+      return currentDate.toLocaleDateString("en-GB", {
+        weekday: "short",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric",
+      });
+    }
+  };
+
+  const handleAcceptRequest = async (requestId) => {
+    try {
+      const res = await fetch(
+        `https://eduty-backend.torvalds.be/api/requests/${requestId}/accept`,
+        {
+          method: "POST",
+        }
+      );
+
+      if (!res.ok)
+        throw new Error("Erreur lors de l'acceptation de la requête");
+
+      const result = await res.json();
+           
+
+      setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
+    } catch (error) {
+      console.error("Erreur lors de l'acceptation de la requête", error);
     }
   };
 
   return (
     <div className="calendar-container">
       <Navbar />
-      
+
       {/* Bouton Today */}
-      <button className="today-button" onClick={goToToday}>Today</button>
+      <button className="today-button" onClick={goToToday}>
+        Today
+      </button>
 
       {/* Titre dynamique */}
       <div className="calendar-header">{getDisplayTitle()}</div>
@@ -118,22 +141,64 @@ const Calendar = () => {
           initialView={currentView}
           headerToolbar={false}
           events={events}
-          dateClick={handleDateClick}
-          editable
+          editable={false}
           selectable
-          eventClick={handleEventClick}
           firstDay={1}
-          eventColor="#e75420"
+          nowIndicator={true}
+          eventColor="#f48329"
           datesSet={handleDatesSet}
+          locale="en-GB"
+          slotLabelFormat={{
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          }}
+          eventTimeFormat={{
+            hour: "2-digit",
+            minute: "2-digit",
+            hour12: false,
+          }}
+          views={{
+            dayGridMonth: {
+              dayHeaderFormat: { weekday: "short" },
+              displayEventTime: false, // ✅ Supprime l'affichage de l'heure dans Month
+            },
+            timeGridWeek: {
+              allDaySlot: false,
+              dayHeaderFormat: {
+                weekday: "narrow", // Show "M", "T", etc. in Week View
+                day: "2-digit",
+              },
+            },
+            timeGridDay: {
+              allDaySlot: false,
+              dayHeaders: false, // ✅ Hides header in day view
+            },
+          }}
         />
       </div>
 
       {/* Navigation */}
       <div className="calendar-footer">
         <button onClick={goToPrev}>{"<"}</button>
-        <button className={currentView === "dayGridMonth" ? "active" : ""} onClick={() => changeView("dayGridMonth")}>Month</button>
-        <button className={currentView === "timeGridWeek" ? "active" : ""} onClick={() => changeView("timeGridWeek")}>Week</button>
-        <button className={currentView === "timeGridDay" ? "active" : ""} onClick={() => changeView("timeGridDay")}>Day</button>
+        <button
+          className={currentView === "dayGridMonth" ? "active" : ""}
+          onClick={() => changeView("dayGridMonth")}
+        >
+          Month
+        </button>
+        <button
+          className={currentView === "timeGridWeek" ? "active" : ""}
+          onClick={() => changeView("timeGridWeek")}
+        >
+          Week
+        </button>
+        <button
+          className={currentView === "timeGridDay" ? "active" : ""}
+          onClick={() => changeView("timeGridDay")}
+        >
+          Day
+        </button>
         <button onClick={goToNext}>{">"}</button>
       </div>
     </div>

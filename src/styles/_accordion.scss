@@ -1,0 +1,27 @@
+@use "variables" as v;
+
+.accordion-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+
+  .accordion-btn {
+    padding: 0.325rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 0.5rem;
+    width: 100%;
+    max-width: 300px;
+    font-weight: 500;
+
+    .chevron-icon {
+      display: flex;
+      transition: transform 0.3s ease;
+    }
+  }
+}
