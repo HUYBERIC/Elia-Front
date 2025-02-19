@@ -34,13 +34,15 @@ const Calendar = () => {
               ? segment.user.lastName.substring(0, 1) + "."
               : "";
 
-            formattedEvents.push({
-              id: segment.id,
-              title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
-              start: new Date(segment.startTime).toISOString(),
-              end: new Date(segment.endTime).toISOString(),
-              color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
-            });
+              
+
+              formattedEvents.push({
+                id: segment.id,
+                title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
+                start: new Date(new Date(segment.startTime).setHours(new Date(segment.startTime).getHours() - 1)).toISOString(),
+                end: new Date(new Date(segment.endTime).setHours(new Date(segment.endTime).getHours() - 1)).toISOString(),
+                color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
+              });              
           });
         });
 
