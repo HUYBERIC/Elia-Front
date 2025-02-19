@@ -25,7 +25,7 @@ const Profile = () => {
     // Read the token from cookies
     const fetchData = async () => {
       const token = await fetch(
-        "https://tema-eduty-backend.torvalds.be/api/users/getOwnUserId",
+        "http://localhost:5000/api/users/getOwnUserId",
         { credentials: "include" }
       );
       const data = await token.json();
@@ -53,7 +53,7 @@ const Profile = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken}`,
+          `http://localhost:5000/api/users/${decodedToken}`,
           {
             method: "GET",
             headers: {
@@ -109,7 +109,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken.id}`,
+        `http://localhost:5000/api/users/${decodedToken.id}`,
         {
           method: "PUT",
           headers: {
