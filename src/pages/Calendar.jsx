@@ -18,14 +18,10 @@ const Calendar = () => {
     fetch("https://tema-eduty-backend.torvalds.be/api/duties")
       .then((res) => res.json())
       .then((data) => {
-             
-
         const formattedEvents = [];
 
         data.forEach((duty) => {
           duty.segments.forEach((segment) => {
-                 
-
             // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
             const firstNameShort = segment.user?.firstName
               ? segment.user.firstName.substring(0, 3)
@@ -44,7 +40,6 @@ const Calendar = () => {
           });
         });
 
-             
         setEvents(formattedEvents);
       })
       .catch((err) => console.error("Erreur lors du chargement", err));
@@ -86,9 +81,12 @@ const Calendar = () => {
       });
     }
     if (currentView === "timeGridWeek") {
-      return `Week ${getISOWeek(currentDate)} - ${currentDate.toLocaleString("en-GB", {
-        month: "long",        
-      })} ${currentDate.getFullYear()}`;
+      return `Week ${getISOWeek(currentDate)} - ${currentDate.toLocaleString(
+        "en-GB",
+        {
+          month: "long",
+        }
+      )} ${currentDate.getFullYear()}`;
     }
     if (currentView === "timeGridDay") {
       return currentDate.toLocaleDateString("en-GB", {
@@ -113,7 +111,6 @@ const Calendar = () => {
         throw new Error("Erreur lors de l'acceptation de la requête");
 
       const result = await res.json();
-           
 
       setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
     } catch (error) {
@@ -157,6 +154,10 @@ const Calendar = () => {
             hour: "2-digit",
             minute: "2-digit",
             hour12: false,
+          }}
+          eventClassNames={(arg) => {
+            // Add a custom class to events when in week view
+            return arg.view.type === "timeGridWeek" ? ["week-view-event"] : [];
           }}
           views={{
             dayGridMonth: {

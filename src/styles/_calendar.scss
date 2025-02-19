@@ -35,15 +35,15 @@
     margin-bottom: 0.5rem;
   }
 
-  .fc-col-header-cell-cushion {    
+  .fc-col-header-cell-cushion {
     font-weight: 400;
-    font-size: .75rem;
+    font-size: 0.75rem;
   }
 
   .fullcalendar-wrapper {
     width: 100%;
     max-width: 1024px;
-    height: 65vh;    
+    height: 65vh;
     .fc-dayGridMonth-view,
     .fc-view-harness {
       max-height: 80vh;
@@ -56,21 +56,26 @@
   }
 
   .fc .fc-daygrid-day {
-    background-color: rgba(0, 0, 0, .1);
+    background-color: rgba(0, 0, 0, 0.1);
     border: 1px solid v.$text-gray;
     padding: 5px;
   }
 
   .fc .fc-daygrid-day-events {
-    padding: 2px; /* ✅ Ajoute de l'espace entre les événements */
+    padding: 2px;
   }
 
   .fc-event {
-    border-radius: 8px; /* ✅ Coins arrondis */
-    padding: 2px; /* ✅ Ajout de marge interne */
-    font-size: 0.8rem; /* ✅ Texte plus lisible */
+    border-radius: 8px;
+    padding: 2px;
+    font-size: 0.8rem;
   }
 
+  .week-view-event .fc-event-title {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    text-transform: uppercase;
+  }
 
   /* Footer buttons */
   .calendar-footer {
