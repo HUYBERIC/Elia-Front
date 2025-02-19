@@ -1,6 +1,7 @@
 import { FaCheck } from "react-icons/fa";
 import { CgUnavailable } from "react-icons/cg";
 import ChartStats from "./ChartStats";
+import BarChart from "./BarChart";
 
 const Statistics = () => {
   return (
@@ -23,6 +24,7 @@ const Statistics = () => {
           <p>Jeff</p>
         </div>
       </div><ChartStats />
+      <BarChart />
     </div>
   );
 };
