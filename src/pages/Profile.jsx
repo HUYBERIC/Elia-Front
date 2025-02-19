@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import Navbar from "../components/Navbar";
 import Cookies from "js-cookie";
-import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import ConfirmationModal from "../components/ConfirmationModal";
 import Accordion from "../components/Accordion";
+import Statistics from "../components/Statistics";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -22,7 +22,6 @@ const Profile = () => {
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
-    // Read the token from cookies
     const fetchData = async () => {
       const token = await fetch(
         "https://tema-eduty-backend.torvalds.be/api/users/getOwnUserId",
@@ -30,17 +29,12 @@ const Profile = () => {
       );
       const data = await token.json();
 
-      console.log(data.id);
-
       if (data) {
         try {
-          //const decoded = jwtDecode(token);
           setDecodedToken(data.id);
         } catch (error) {
           console.error("Error decoding token:", error);
         }
-      } else {
-        console.warn("No token found in cookies.");
       }
     };
 
@@ -49,33 +43,29 @@ const Profile = () => {
 
   useEffect(() => {
     if (!decodedToken) return;
-    //fourchette pour antoine
+
     const fetchUserData = async () => {
       try {
         const response = await fetch(
           `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken}`,
           {
             method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
+            headers: { "Content-Type": "application/json" },
             credentials: "include",
           }
         );
 
         if (response.ok) {
           const data = await response.json();
-          setFormData((prevState) => ({
-            ...prevState,
+          setFormData({
             lastName: data.lastName || "",
             firstName: data.firstName || "",
             serviceCenter: data.serviceCenter || "",
             email: data.email || "",
             phone: data.phone || "",
-          }));
+          });
         } else {
           Swal.fire({
-            position: "center",
             icon: "error",
             title: "Error",
             text: "Failed to fetch user data.",
@@ -85,7 +75,6 @@ const Profile = () => {
         }
       } catch (error) {
         Swal.fire({
-          position: "center",
           icon: "error",
           title: "Error",
           text: "An error occurred while fetching user data.",
@@ -99,22 +88,17 @@ const Profile = () => {
   }, [decodedToken]);
 
   const handleChange = (e) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [e.target.name]: e.target.value,
-    }));
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken.id}`,
+        `https://tema-eduty-backend.torvalds.be/api/users/${decodedToken}`,
         {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           credentials: "include",
           body: JSON.stringify(formData),
         }
@@ -191,110 +175,128 @@ const Profile = () => {
       <div className="title">
         <h2>Profile</h2>
       </div>
-      <Accordion expanded={expanded} setExpanded={setExpanded} />
-      <div className="subtitle">
-        <p>
-          {" "}
-          <span>*</span> All fields are required.
-        </p>
-      </div>
-      <div className="form">
-        <form onSubmit={handleSubmit}>
-          <label className="input-label">
-            <div>
-              Last Name<span>*</span>:
-            </div>
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-            />
-          </label>
 
-          <label className="input-label">
-            <div>
-              First Name<span>*</span>:
-            </div>
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-            />
-          </label>
+      {/* Statistics Accordion */}
+      <Accordion
+        i={0}
+        expanded={expanded}
+        setExpanded={setExpanded}
+        title="Show Statistics"
+      >
+        <Statistics />
+      </Accordion>
 
-          <label className="input-label">
-            <div>
-              Service Center<span>*</span>:
-            </div>
-            <select
-              name="serviceCenter"
-              value={formData.serviceCenter}
-              onChange={handleChange}
-              required
-            >
-              <option value="">Select a center</option>
-              <optgroup label="North-West">
-                <option value="Lendelede">Lendelede</option>
-                <option value="Lochristi">Lochristi</option>
-              </optgroup>
-              <optgroup label="North-East">
-                <option value="Merksem">Merksem</option>
-                <option value="Stalen">Stalen</option>
-                <option value="Schaarbeek-Noord">Schaarbeek Noord</option>
-              </optgroup>
-              <optgroup label="South-West">
-                <option value="Gouy">Gouy</option>
-                <option value="Schaerbeek-Sud">Schaerbeek Sud</option>
-              </optgroup>
-              <optgroup label="South-East">
-                <option value="Bressoux">Bressoux</option>
-                <option value="Villeroux">Villeroux</option>
-                <option value="Gembloux">Gembloux</option>
-              </optgroup>
-            </select>
-          </label>
+      {/* Profile Form Accordion */}
+      <Accordion
+        i={1}
+        expanded={expanded}
+        setExpanded={setExpanded}
+        title="Edit Profile"
+      >
+        <div className="subtitle">
+          <p>
+            <span>*</span> All fields are required.
+          </p>
+        </div>
+        <div className="form">
+          <form onSubmit={handleSubmit}>
+            <label className="input-label">
+              <div>
+                Last Name<span>*</span>:
+              </div>
+              <input
+                type="text"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </label>
 
-          <label className="input-label">
-            <div>
-              Email<span>*</span>:
-            </div>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
+            <label className="input-label">
+              <div>
+                First Name<span>*</span>:
+              </div>
+              <input
+                type="text"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </label>
 
-          <label className="input-label">
-            <div>
-              Phone Number<span>*</span>:
+            <label className="input-label">
+              <div>
+                Service Center<span>*</span>:
+              </div>
+              <select
+                name="serviceCenter"
+                value={formData.serviceCenter}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Select a center</option>
+                <optgroup label="North-West">
+                  <option value="Lendelede">Lendelede</option>
+                  <option value="Lochristi">Lochristi</option>
+                </optgroup>
+                <optgroup label="North-East">
+                  <option value="Merksem">Merksem</option>
+                  <option value="Stalen">Stalen</option>
+                  <option value="Schaarbeek-Noord">Schaarbeek Noord</option>
+                </optgroup>
+                <optgroup label="South-West">
+                  <option value="Gouy">Gouy</option>
+                  <option value="Schaerbeek-Sud">Schaerbeek Sud</option>
+                </optgroup>
+                <optgroup label="South-East">
+                  <option value="Bressoux">Bressoux</option>
+                  <option value="Villeroux">Villeroux</option>
+                  <option value="Gembloux">Gembloux</option>
+                </optgroup>
+              </select>
+            </label>
+
+            <label className="input-label">
+              <div>
+                Email<span>*</span>:
+              </div>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <label className="input-label">
+              <div>
+                Phone Number<span>*</span>:
+              </div>
+              <input
+                type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                required
+              />
+            </label>
+
+            <div className="buttons">
+              <button type="submit">Submit</button>
             </div>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-            />
-          </label>
-          <div className="buttons">
-            <button type="submit">Submit</button>
-            <button
-              type="button"
-              className="logout"
-              onClick={() => setIsModalOpen(true)}
-            >
-              Log out
-            </button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </div>
+      </Accordion>
+      <button
+        type="button"
+        className="logout"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Log out
+      </button>
       <Navbar />
       <ConfirmationModal
         isOpen={isModalOpen}

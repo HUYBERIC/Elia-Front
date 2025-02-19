@@ -52,87 +52,99 @@
     }
   }
 
-  .form{
+  .form {
     display: flex;
     flex-direction: column;
     align-items: center;
     form {
-    background-color: rgba(v.$orange-light, 0.2);
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 90vw;
-    max-width: 400px;
-    padding: 1rem;
-    border-radius: 16px;
-    border: 1px solid v.$orange-light;
-
-    .input-label {
+      background-color: rgba(v.$orange-light, 0.2);
       display: flex;
       flex-direction: column;
-      font-weight: bold;
-      color: v.$text-black;
+      gap: 1rem;
+      width: 90vw;
+      max-width: 400px;
+      padding: 1rem;
+      border-radius: 16px;
+      border: 1px solid v.$orange-light;
 
-      div {
-        margin-bottom: 0.3rem;
+      .input-label {
+        display: flex;
+        flex-direction: column;
+        font-weight: bold;
+        color: v.$text-black;
+
+        div {
+          margin-bottom: 0.3rem;
+        }
+
+        span {
+          color: v.$orange-dark;
+        }
       }
 
-      span {
-        color: v.$orange-dark;
+      input,
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 2px solid v.$text-black;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.2s ease-in-out;
+        background: v.$white;
+
+        &:focus {
+          border-color: v.$orange-dark;
+          outline: none;
+          box-shadow: 0 0 8px rgba(v.$orange-dark, 0.6);
+        }
       }
-    }
 
-    input,
-    select {
-      width: 100%;
-      padding: 0.75rem;
-      border: 2px solid v.$text-black;
-      border-radius: 8px;
-      font-size: 1rem;
-      transition: all 0.2s ease-in-out;
-      background: v.$white;
-
-      &:focus {
-        border-color: v.$orange-dark;
-        outline: none;
-        box-shadow: 0 0 8px rgba(v.$orange-dark, 0.6);
+      select {
+        cursor: pointer;
       }
-    }
 
-    select {
-      cursor: pointer;
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 0px;
-    }
-    button {
-      width: 100%;
-      padding: 0.8rem;
-      margin-top: 10px;
-      font-size: 1rem;
-      font-weight: bold;
-      background: v.$orange-light;
-      color: v.$white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.3s ease-in-out;
-
-      &:active {
-        transform: scale(0.98);
+      .buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 0px;
       }
-    }
+      button {
+        width: 100%;
+        padding: 0.8rem;
+        margin-top: 10px;
+        font-size: 1rem;
+        font-weight: bold;
+        background: v.$orange-light;
+        color: v.$white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
 
-    .logout {
-      background-color: v.$text-black;
+        &:active {
+          transform: scale(0.98);
+        }
+      }
     }
   }
 }
-}
+.logout {  
+  background-color: v.$text-black;
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 10px;
+  font-size: 1rem;
+  font-weight: bold;  
+  color: v.$white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 
+  &:active {
+    transform: scale(0.98);
+  }
+}
 /* Tablet */
 @media (min-width: 768px) {
   .profile-container {
