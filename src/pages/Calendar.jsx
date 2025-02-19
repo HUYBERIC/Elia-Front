@@ -15,7 +15,7 @@ const Calendar = () => {
 
   // Fetch events
   useEffect(() => {
-    fetch("https://tema-eduty-backend.torvalds.be/api/duties")
+    fetch("http://localhost:5000/api/duties")
       .then((res) => res.json())
       .then((data) => {
              
@@ -103,7 +103,7 @@ const Calendar = () => {
   const handleAcceptRequest = async (requestId) => {
     try {
       const res = await fetch(
-        `https://tema-eduty-backend.torvalds.be/api/requests/${requestId}/accept`,
+        `http://localhost:5000/api/requests/${requestId}/accept`,
         {
           method: "POST",
         }

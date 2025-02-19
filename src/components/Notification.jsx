@@ -13,7 +13,7 @@ const Notification = () => {
     const fetchUserId = async () => {
       try {
         const response = await fetch(
-          "https://tema-eduty-backend.torvalds.be/api/users/getOwnUserId",
+          "http://localhost:5000/api/users/getOwnUserId",
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -37,7 +37,7 @@ const Notification = () => {
     const fetchRequests = async () => {
       try {
         const response = await fetch(
-          "https://tema-eduty-backend.torvalds.be/api/requests/pending",
+          "http://localhost:5000/api/requests/pending",
           {
             method: "GET",
             headers: {
@@ -90,7 +90,7 @@ const Notification = () => {
 
     try {
       const response = await fetch(
-        `https://tema-eduty-backend.torvalds.be/api/requests/${selectedRequest._id}`,
+        `http://localhost:5000/api/requests/${selectedRequest._id}`,
         {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
@@ -126,7 +126,7 @@ const Notification = () => {
 
     try {
       const response = await fetch(
-        `https://tema-eduty-backend.torvalds.be/api/requests/accept/${selectedRequest._id}`,
+        `http://localhost:5000/api/requests/accept/${selectedRequest._id}`,
         {
           method: "PUT",
           headers: {

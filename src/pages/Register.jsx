@@ -19,7 +19,7 @@ const RegisterForm = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://tema-eduty-backend.torvalds.be/api/users/register",
+        "http://localhost:5000/api/users/register",
         {
           method: "POST",
           headers: {
