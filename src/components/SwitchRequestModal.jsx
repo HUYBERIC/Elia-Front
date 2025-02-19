@@ -71,15 +71,16 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       endDate,
     };
 
-    console.log("Sending request data:", requestData); // Debugging
-
     try {
-      const response = await fetch("http://localhost:5000/api/requests", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        credentials: "include",
-        body: JSON.stringify(requestData),
-      });
+      const response = await fetch(
+        "https://tema-eduty-backend.torvalds.be/api/requests",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(requestData),
+        }
+      );
 
       if (response.ok) {
         Swal.fire({
@@ -134,7 +135,11 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
           <select
             id="emergency-select"
             className={`field emergency-select ${
-              emergencyLevel === 3 ? "red" : emergencyLevel === 2 ? "orange" : "green"
+              emergencyLevel === 3
+                ? "red"
+                : emergencyLevel === 2
+                ? "orange"
+                : "green"
             }`}
             value={emergencyLevel}
             onChange={(e) => setEmergencyLevel(Number(e.target.value))}
@@ -171,7 +176,10 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
             min={getCurrentDateTime()}
           />
         </label>
-        <button className="submit-button" onClick={() => setIsConfirmModalOpen(true)}>
+        <button
+          className="submit-button"
+          onClick={() => setIsConfirmModalOpen(true)}
+        >
           Submit
         </button>
         <button onClick={handleClose}>Cancel</button>

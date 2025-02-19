@@ -15,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/login",
+        "https://tema-eduty-backend.torvalds.be/api/users/login",
         { email, password },
         { withCredentials: true }
       );
@@ -34,7 +34,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/users/register",
+        "https://tema-eduty-backend.torvalds.be/api/users/register",
         { email, password },
         { withCredentials: true }
       );

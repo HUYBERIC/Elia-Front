@@ -8,7 +8,7 @@ const Dashboard = () => {
     // ✅ Récupérer les requêtes approuvées et les associer aux shifts
     const fetchApprovedRequests = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/requests/accepted", {
+        const response = await fetch("https://tema-eduty-backend.torvalds.be/api/requests/accepted", {
           method: "GET",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -17,7 +17,7 @@ const Dashboard = () => {
         if (!response.ok) throw new Error("Failed to fetch approved requests");
 
         const approvedRequests = await response.json();
-        console.log("📌 Approved Requests :", approvedRequests);
+             
 
         let detectedReplacements = [];
 
@@ -45,7 +45,7 @@ const Dashboard = () => {
           }
         });
 
-        console.log("🔍 Approved Replacements Detected :", detectedReplacements);
+             
         setReplacements(detectedReplacements);
       } catch (error) {
         console.error("Error fetching approved requests:", error);

@@ -15,16 +15,16 @@ const Calendar = () => {
 
   // Fetch events
   useEffect(() => {
-    fetch("http://localhost:5000/api/duties")
+    fetch("https://tema-eduty-backend.torvalds.be/api/duties")
       .then((res) => res.json())
       .then((data) => {
-        console.log("Données reçues :", data);
+             
 
         const formattedEvents = [];
 
         data.forEach((duty) => {
           duty.segments.forEach((segment) => {
-            console.log(segment);
+                 
 
             // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
             const firstNameShort = segment.user?.firstName
@@ -44,7 +44,7 @@ const Calendar = () => {
           });
         });
 
-        console.log("Événements formatés :", formattedEvents);
+             
         setEvents(formattedEvents);
       })
       .catch((err) => console.error("Erreur lors du chargement", err));
@@ -103,7 +103,7 @@ const Calendar = () => {
   const handleAcceptRequest = async (requestId) => {
     try {
       const res = await fetch(
-        `http://localhost:5000/api/requests/${requestId}/accept`,
+        `https://tema-eduty-backend.torvalds.be/api/requests/${requestId}/accept`,
         {
           method: "POST",
         }
@@ -113,7 +113,7 @@ const Calendar = () => {
         throw new Error("Erreur lors de l'acceptation de la requête");
 
       const result = await res.json();
-      console.log("Request accepted:", result);
+           
 
       setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
     } catch (error) {
