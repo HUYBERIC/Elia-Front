@@ -4,7 +4,7 @@ import "chart.js/auto";
 
 const ChartStats = () => {
   const doughnutData = {
-    labels: ["Bart", "Rico", "Jousè", "Clothaire", "Selçuk", "Claude"],
+    labels: ["Tib", "Rico", "Tony", "Maxou", "Bart", "Jeff"],
     datasets: [
       {
         data: [8, 10, 12, 6, 14, 4], // Mock duty hours

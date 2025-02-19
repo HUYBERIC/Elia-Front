@@ -10,17 +10,17 @@ const Statistics = () => {
         {/* Available Users */}
         <div className="column-available">
           <FaCheck className="icon" />
-          <p>Bart</p>
+          <p>Tib</p>
           <p>Rico</p>
-          <p>Jousè</p>
-          <p>Clothaire</p>
-          <p>Selçuk</p>
+          <p>Tony</p>
+          <p>Maxou</p>
+          <p>Bart</p>
         </div>
 
         {/* Unavailable Users */}
         <div className="column-unavailable">
           <CgUnavailable className="icon" />
-          <p>Claude</p>
+          <p>Jeff</p>
         </div>
       </div><ChartStats />
     </div>
