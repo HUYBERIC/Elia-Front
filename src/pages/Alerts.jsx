@@ -8,8 +8,7 @@ const Alerts = () => {
 
   return (
     <div className="alertsContainer">
-      <Navbar />
-        {/* Opening modal button */}
+      <Navbar />        
         <div className="headAlert">
           <button
             onClick={() => setIsModalOpen(true)}
@@ -19,8 +18,7 @@ const Alerts = () => {
           </button>
         </div>
       <div className="alerts-container">
-        <Notification />
-        {/* Modal */}
+        <Notification />        
       </div>
         <SwitchRequestModal
           isOpen={isModalOpen}

@@ -11,9 +11,8 @@ const Calendar = () => {
   const [currentDate, setCurrentDate] = useState(new Date());
   const calendarRef = useRef(null);
 
-  const [refresh, setRefresh] = useState(false); // 🔄 Force le rechargement après un changement
-
-  // Fetch events
+  const [refresh, setRefresh] = useState(false);
+  
   useEffect(() => {
     fetch("https://tema-eduty-backend.torvalds.be/api/duties")
       .then((res) => res.json())
@@ -21,8 +20,7 @@ const Calendar = () => {
         const formattedEvents = [];
 
         data.forEach((duty) => {
-          duty.segments.forEach((segment) => {
-            // Formatage du prénom et du nom (3 premières lettres + 1 lettre)
+          duty.segments.forEach((segment) => {            
             const firstNameShort = segment.user?.firstName
               ? segment.user.firstName.substring(0, 3)
               : "???";
@@ -32,7 +30,7 @@ const Calendar = () => {
 
               formattedEvents.push({
                 id: segment.id,
-                title: `${firstNameShort} ${lastNameShort}`, // ✅ Format du nom ajusté
+                title: `${firstNameShort} ${lastNameShort}`,
                 start: new Date(new Date(segment.startTime).setHours(new Date(segment.startTime).getHours() - 1)).toISOString(),
                 end: new Date(new Date(segment.endTime).setHours(new Date(segment.endTime).getHours() - 1)).toISOString(),
                 color: segment.user.id == duty.mainUserId ? "#F48329" : "#1F2528",
@@ -44,24 +42,20 @@ const Calendar = () => {
       })
       .catch((err) => console.error("Erreur lors du chargement", err));
   }, [refresh]);
-
-  // Navigation
+ 
   const goToPrev = () => calendarRef.current.getApi().prev();
   const goToNext = () => calendarRef.current.getApi().next();
   const goToToday = () => calendarRef.current.getApi().today();
-
-  // Changer de vue
+  
   const changeView = (view) => {
     setCurrentView(view);
     calendarRef.current.getApi().changeView(view);
   };
-
-  // Mise à jour de la date affichée
+  
   const handleDatesSet = (info) => {
     setCurrentDate(info.view.currentStart);
   };
-
-  // Calcul de la semaine selon ISO 8601
+  
   const getISOWeek = (date) => {
     const d = new Date(
       Date.UTC(date.getFullYear(), date.getMonth(), date.getDate())
@@ -71,8 +65,7 @@ const Calendar = () => {
     const weekNumber = Math.ceil(((d - startOfYear) / 86400000 + 1) / 7);
     return weekNumber;
   };
-
-  // Titre dynamique
+  
   const getDisplayTitle = () => {
     if (currentView === "dayGridMonth") {
       return currentDate.toLocaleString("en-GB", {
@@ -112,7 +105,7 @@ const Calendar = () => {
 
       const result = await res.json();
 
-      setRefresh((prev) => !prev); // 🔄 Déclenche un re-render en inversant refresh
+      setRefresh((prev) => !prev);
     } catch (error) {
       console.error("Erreur lors de l'acceptation de la requête", error);
     }
@@ -120,17 +113,11 @@ const Calendar = () => {
 
   return (
     <div className="calendar-container">
-      <Navbar />
-
-      {/* Bouton Today */}
+      <Navbar />      
       <button className="today-button" onClick={goToToday}>
         Today
-      </button>
-
-      {/* Titre dynamique */}
-      <div className="calendar-header">{getDisplayTitle()}</div>
-
-      {/* FullCalendar Wrapper */}
+      </button>      
+      <div className="calendar-header">{getDisplayTitle()}</div>      
       <div className="fullcalendar-wrapper">
         <FullCalendar
           ref={calendarRef}
@@ -155,31 +142,29 @@ const Calendar = () => {
             minute: "2-digit",
             hour12: false,
           }}
-          eventClassNames={(arg) => {
-            // Add a custom class to events when in week view
+          eventClassNames={(arg) => {            
             return arg.view.type === "timeGridWeek" ? ["week-view-event"] : [];
           }}
           views={{
             dayGridMonth: {
               dayHeaderFormat: { weekday: "short" },
-              displayEventTime: false, // ✅ Supprime l'affichage de l'heure dans Month
+              displayEventTime: false,
             },
             timeGridWeek: {
               allDaySlot: false,
               dayHeaderFormat: {
-                weekday: "narrow", // Show "M", "T", etc. in Week View
+                weekday: "narrow",
                 day: "2-digit",
               },
             },
             timeGridDay: {
               allDaySlot: false,
-              dayHeaders: false, // ✅ Hides header in day view
+              dayHeaders: false,
             },
           }}
         />
       </div>
-
-      {/* Navigation */}
+      
       <div className="calendar-footer">
         <button onClick={goToPrev}>{"<"}</button>
         <button

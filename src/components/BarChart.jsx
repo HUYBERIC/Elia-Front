@@ -27,20 +27,20 @@ const BarChart = () => {
         label: "Duty Hours",
         data: [-4, 8, -4, 24, -36, 12],
         backgroundColor: [
-          "#4CAF50", // Tib
-          "#FF9800", // Rico
-          "#2196F3", // Tony
-          "#F44336", // Max
-          "#9C27B0", // Bart
-          "#FFC107", // Jeff
+          "#4CAF50",
+          "#FF9800",
+          "#2196F3",
+          "#F44336",
+          "#9C27B0",
+          "#FFC107",
         ],
         borderColor: [
-          "#4CAF50", // Tib
-          "#FF9800", // Rico
-          "#2196F3", // Tony
-          "#F44336", // Max
-          "#9C27B0", // Bart
-          "#FFC107", // Jeff
+          "#4CAF50",
+          "#FF9800",
+          "#2196F3",
+          "#F44336",
+          "#9C27B0",
+          "#FFC107",
         ],
         borderWidth: 3,
       },
@@ -61,7 +61,7 @@ const BarChart = () => {
       },
       title: {
         display: true,
-        text: "2025 Worker's Balance",
+        text: "2025 User's Balance",
         font: {
           size: 18,
           family: "MontSerrat",
@@ -82,8 +82,8 @@ const BarChart = () => {
         },
         grid: {
           color: (context) =>
-            context.tick.value === 0 ? "#000" : "rgba(0, 0, 0, 0.1)", // Darker zero line
-          lineWidth: (context) => (context.tick.value === 0 ? 2 : 1), // Thicker zero line
+            context.tick.value === 0 ? "#000" : "rgba(0, 0, 0, 0.1)",
+          lineWidth: (context) => (context.tick.value === 0 ? 2 : 1),
         },
       },
       x: {

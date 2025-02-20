@@ -8,8 +8,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
   const [endDate, setEndDate] = useState("");
   const [isClosing, setIsClosing] = useState(false);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
-
-  // Update the text color of the selector based on the selected emergency level
+  
   useEffect(() => {
     const selectElement = document.getElementById("emergency-select");
     if (selectElement) {
@@ -28,8 +27,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       }
     }
   }, [emergencyLevel]);
-
-  // Trigger closing animation before removing the modal from the DOM
+  
   const handleClose = () => {
     setIsClosing(true);
     setTimeout(() => {
@@ -37,15 +35,13 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       onClose();
     }, 300);
   };
-
-  // Close the modal if the overlay is clicked
+  
   const handleOverlayClick = (event) => {
     if (event.target.classList.contains("modal-overlay")) {
       handleClose();
     }
   };
-
-  // Handle form submission
+  
   const handleConfirmSubmit = async () => {
     if (!startDate || !endDate) {
       Swal.fire({
@@ -116,8 +112,7 @@ const SwitchRequestModal = ({ isOpen, onClose }) => {
       });
     }
   };
-
-  // Prevent modal from rendering if not open or closing
+  
   if (!isOpen && !isClosing) return null;
 
   const getCurrentDateTime = () => {

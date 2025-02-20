@@ -4,8 +4,7 @@ import Navbar from "../components/Navbar";
 const Dashboard = () => {
   const [replacements, setReplacements] = useState([]);
 
-  useEffect(() => {
-    // ✅ Récupérer les requêtes approuvées et les associer aux shifts
+  useEffect(() => {    
     const fetchApprovedRequests = async () => {
       try {
         const response = await fetch(
@@ -25,8 +24,7 @@ const Dashboard = () => {
 
         approvedRequests.forEach((request) => {
           if (request.shift && request.shift.segments) {
-            request.shift.segments.forEach((segment) => {
-              // Vérifier si le segment correspond bien à la période demandée
+            request.shift.segments.forEach((segment) => {              
               if (
                 new Date(segment.startTime).getTime() ===
                   new Date(request.askedStartTime).getTime() &&

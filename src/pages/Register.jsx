@@ -28,8 +28,7 @@ const RegisterForm = () => {
           credentials: "include",
           body: JSON.stringify(formData),
         }
-      );
-      // Handle response here
+      );      
     } catch (error) {
       console.error("Erreur lors de la requête d'inscription", error);
     }

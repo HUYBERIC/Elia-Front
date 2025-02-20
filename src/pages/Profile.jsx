@@ -142,7 +142,7 @@ const Profile = () => {
         "https://elia-back.onrender.com/api/users/logout",
         {
           method: "POST",
-          credentials: "include", // Nécessaire pour inclure les cookies
+          credentials: "include",
         }
       );
 
@@ -171,10 +171,7 @@ const Profile = () => {
     }
   };
 
-  const handleCreatePlanning = () => {
-    {
-      /* Fake hardcoded button for presentation */
-    }
+  const handleCreatePlanning = () => {    
     Swal.fire({
       position: "top-end",
       icon: "success",
@@ -189,9 +186,7 @@ const Profile = () => {
     <div className="profile-container">
       <div className="title">
         <h2>Profile & Statistics</h2>
-      </div>
-
-      {/* Statistics Accordion */}
+      </div>      
       <Accordion
         i={0}
         expanded={expanded}
@@ -200,8 +195,7 @@ const Profile = () => {
       >
         <Statistics />
       </Accordion>
-
-      {/* Profile Form Accordion */}
+     
       <Accordion
         i={1}
         expanded={expanded}

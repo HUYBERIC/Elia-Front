@@ -7,8 +7,7 @@ const Statistics = () => {
   return (
     <div className="statistics-container">
       <h3>Real-time availability</h3>
-      <div className="stats-grid">
-        {/* Available Users */}
+      <div className="stats-grid">        
         <div className="column-available">
           <FaCheck className="icon" />
           <p>Tib</p>
@@ -17,8 +16,7 @@ const Statistics = () => {
           <p>Maxou</p>
           <p>Bart</p>
         </div>
-
-        {/* Unavailable Users */}
+        
         <div className="column-unavailable">
           <CgUnavailable className="icon" />
           <p>Jeff</p>

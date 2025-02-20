@@ -10,11 +10,9 @@ const Navbar = () => {
   const { y: currentScrollY } = useWindowScroll();
 
   useEffect(() => {
-    if (currentScrollY > lastScrollY) {
-      // Scrolling down → Hide navbar
+    if (currentScrollY > lastScrollY) {      
       setIsNavVisible(false);
-    } else if (currentScrollY < lastScrollY) {
-      // Scrolling up → Show navbar
+    } else if (currentScrollY < lastScrollY) {      
       setIsNavVisible(true);
     }
 
@@ -29,7 +27,7 @@ const Navbar = () => {
     });
   }, [isNavVisible]);
   const [activeLink, setActiveLink] = useState(null);
-  const location = useLocation(); // Tracks the current page
+  const location = useLocation();
 
   const handleClick = (link) => {
     setActiveLink(link);

@@ -9,8 +9,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
-  // Handle login
+  
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -19,17 +18,15 @@ const Login = () => {
         { email, password },
         { withCredentials: true }
       );
-
-      // Save user data to localStorage if needed
+      
       localStorage.setItem("user", JSON.stringify(response.data));
 
-      navigate("/calendar"); // Redirect after login
+      navigate("/calendar");
     } catch (error) {
       setError(error.response?.data?.message || "Login failed");
     }
   };
-
-  // Handle registration
+  
   const handleRegister = async (e) => {
     e.preventDefault();
     try {

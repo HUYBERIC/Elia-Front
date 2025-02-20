@@ -24,7 +24,7 @@ const Notification = () => {
         if (!response.ok) throw new Error("Failed to fetch user ID");
 
         const data = await response.json();
-        setUserId(data.id); // Store the logged-in user's ID
+        setUserId(data.id);
       } catch (error) {
         console.error("Error fetching user ID:", error);
       }
@@ -73,15 +73,13 @@ const Notification = () => {
     if (!requestToAccept || !userId) return;
 
     setSelectedRequest(requestToAccept);
-
-    // Extract the request's requester ID
+    
     const requesterId = requestToAccept.requesterId?._id;
-
-    // Compare with the logged-in user's ID
+    
     if (requesterId === userId) {
-      setIsSelfAcceptModalOpen(true); // Show self-acceptance warning modal
+      setIsSelfAcceptModalOpen(true);
     } else {
-      setIsModalOpen(true); // Show normal confirmation modal
+      setIsModalOpen(true);
     }
   };
 
@@ -301,8 +299,7 @@ const Notification = () => {
           onConfirm={confirmAccept}
           message={`Are you sure you want to accept ${selectedRequest?.requesterId.firstName}'s request?`}
         />
-      )}
-      {/* Self-acceptance warning modal for cancelling the request */}
+      )}      
       <ConfirmationModal
         isOpen={isSelfAcceptModalOpen}
         onClose={() => setIsSelfAcceptModalOpen(false)}
@@ -313,21 +310,18 @@ const Notification = () => {
   );
 };
 
-// Fonction pour calculer le temps écoulé depuis la création
 const timeSince = (date) => {
   const now = new Date();
   const targetDate = new Date(date);
-
-  // Conversion en timestamps pour éviter les erreurs de fuseau horaire
+  
   const nowUTC = now.getTime();
   const targetDateUTC = targetDate.getTime();
-
-  // Calcul de la différence en secondes
+  
   const seconds = Math.floor((nowUTC - targetDateUTC + 3600000) / 1000);
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
 
-  if (minutes < 1) return "Just now"; // Empêche l'affichage de valeurs négatives
+  if (minutes < 1) return "Just now";
 
   if (hours >= 1) return `${hours} ${hours === 1 ? "hour ago" : "hours ago"}`;
   return `${minutes} ${minutes === 1 ? "minute ago" : "minutes ago"}`;
