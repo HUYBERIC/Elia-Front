@@ -19,6 +19,7 @@ const Profile = () => {
 
   const [decodedToken, setDecodedToken] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isGenerateModalOpen, setIsGenerateModalOpen] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -170,10 +171,24 @@ const Profile = () => {
     }
   };
 
+  const handleCreatePlanning = () => {
+    {
+      /* Fake hardcoded button for presentation */
+    }
+    Swal.fire({
+      position: "top-end",
+      icon: "success",
+      title: "Success",
+      text: "Planning successfully generated!",
+      showConfirmButton: false,
+      timer: 2000,
+    });
+  };
+
   return (
     <div className="profile-container">
       <div className="title">
-        <h2>Profile</h2>
+        <h2>Profile & Statistics</h2>
       </div>
 
       {/* Statistics Accordion */}
@@ -297,12 +312,25 @@ const Profile = () => {
       >
         Log out
       </button>
+      <button
+        type="button"
+        className="createPlanningBtn"
+        onClick={() => setIsGenerateModalOpen(true)}
+      >
+        Generate Planning
+      </button>
       <Navbar />
       <ConfirmationModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleLogout}
         message="Are you sure you want to log out?"
+      />
+      <ConfirmationModal
+        isOpen={isGenerateModalOpen}
+        onClose={() => setIsGenerateModalOpen(false)}
+        onConfirm={handleCreatePlanning}
+        message="Confirm new planning generation?"
       />
     </div>
   );
