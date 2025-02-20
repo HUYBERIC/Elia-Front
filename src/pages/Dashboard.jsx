@@ -8,16 +8,18 @@ const Dashboard = () => {
     // ✅ Récupérer les requêtes approuvées et les associer aux shifts
     const fetchApprovedRequests = async () => {
       try {
-        const response = await fetch("https://tema-eduty-backend.torvalds.be/api/requests/accepted", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-          credentials: "include",
-        });
+        const response = await fetch(
+          "https://tema-eduty-backend.torvalds.be/api/requests/accepted",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) throw new Error("Failed to fetch approved requests");
 
         const approvedRequests = await response.json();
-             
 
         let detectedReplacements = [];
 
@@ -26,8 +28,10 @@ const Dashboard = () => {
             request.shift.segments.forEach((segment) => {
               // Vérifier si le segment correspond bien à la période demandée
               if (
-                new Date(segment.startTime).getTime() === new Date(request.askedStartTime).getTime() &&
-                new Date(segment.endTime).getTime() === new Date(request.askedEndTime).getTime()
+                new Date(segment.startTime).getTime() ===
+                  new Date(request.askedStartTime).getTime() &&
+                new Date(segment.endTime).getTime() ===
+                  new Date(request.askedEndTime).getTime()
               ) {
                 detectedReplacements.push({
                   id: segment.id,
@@ -45,7 +49,6 @@ const Dashboard = () => {
           }
         });
 
-             
         setReplacements(detectedReplacements);
       } catch (error) {
         console.error("Error fetching approved requests:", error);
@@ -65,11 +68,14 @@ const Dashboard = () => {
           <p>No approved replacements</p>
         ) : (
           replacements.map((replacement) => (
-            <div key={`${replacement.replacingUser}-${replacement.replacedUser}-${replacement.startTime}`} className="notif">
+            <div
+              key={`${replacement.replacingUser}-${replacement.replacedUser}-${replacement.startTime}`}
+              className="notif"
+            >
               <p className="notif-content">
-                <span className="user">{replacement.replacingUser}</span> replaces{" "}
-                <span className="user">{replacement.replacedUser}</span>{" "}
-                <br />
+                <span className="user">{replacement.replacingUser}</span>{" "}
+                replaces{" "}
+                <span className="user">{replacement.replacedUser}</span> <br />
                 <span className="from-to">from</span> :{" "}
                 <span className="bold">
                   {new Date(replacement.startTime).toLocaleDateString("fr-FR")}
@@ -80,6 +86,7 @@ const Dashboard = () => {
                     hour: "2-digit",
                     minute: "2-digit",
                     hour12: false,
+                    timeZone: "UTC",
                   })}
                 </span>{" "}
                 <br />
@@ -93,6 +100,7 @@ const Dashboard = () => {
                     hour: "2-digit",
                     minute: "2-digit",
                     hour12: false,
+                    timeZone: "UTC",
                   })}
                 </span>
                 .
