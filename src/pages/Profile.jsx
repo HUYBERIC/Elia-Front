@@ -139,7 +139,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       const response = await fetch(
-        "https://elia-back.onrender.com/api/users/logout",
+        "https://tema-eduty-backend.torvalds.be/api/users/logout",
         {
           method: "POST",
           credentials: "include", // Nécessaire pour inclure les cookies
